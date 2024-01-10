@@ -1,0 +1,5 @@
+__pycache__/app.cpython-311.pyc
+__pycache__/passenger_wsgi.cpython-311.pyc
+passenger.log
+passenger_wsgi.py
+tmp/
