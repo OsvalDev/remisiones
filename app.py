@@ -16,7 +16,7 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 mysql = MySQL(app)
 
-@app.route('/login')
+@app.route('/')
 def login():
     return render_template('login.html')
 
