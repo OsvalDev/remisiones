@@ -27,9 +27,7 @@ utils.removeElement = (id) => {
 
 const btnToken = document.getElementById('btnLogin');
 
-const login = async () => {
-    console.log('le pucho')
-
+const login = async () => {    
     const id = document.getElementById('idWorker').value;
     const psw = document.getElementById('password').value;
 
@@ -41,7 +39,7 @@ const login = async () => {
 
     const data = { id, psw };
 
-    const url = '/login';
+    const url = 'login';
     const body = data;
 
     try {

@@ -14,7 +14,7 @@ app.config['MYSQL_PASSWORD'] = 'C4rn1v4L2311*'
 app.config['MYSQL_DB'] = 'remisiones'
 
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
-#app.secret_key = 'carnival*c1rn2v3l-1a23i4a5/c4rn1v4l.'
+app.secret_key = 'carnival*c1rn2v3l-1a23i4a5/c4rn1v4l.'
 
 mysql = MySQL(app)
 
@@ -29,18 +29,15 @@ def dashboard():
 
 #post routes
 @app.route('/login', methods= ['POST'])
-def postLogin():
-    try:
-        data = request.get_json()    
-        result = funLogin(mysql, data)
-        
-        if result['result'] == 'failed':
-            return jsonify( result )
-        else:
-            # session['user_id'] = data['id']
-            return jsonify( result )
-    except Exception as e:
-        return e
+def postLogin():    
+    data = request.get_json()    
+    result = funLogin(mysql, data)
+    
+    if result['result'] == 'failed':
+        return jsonify( result )
+    else:
+        session['user_id'] = data['id']
+        return jsonify( result )
 
 if __name__ == '__main__':    
     app.run()
