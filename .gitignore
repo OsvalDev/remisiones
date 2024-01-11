@@ -3,3 +3,4 @@ __pycache__/passenger_wsgi.cpython-311.pyc
 passenger.log
 passenger_wsgi.py
 tmp/
+__pycache__/
