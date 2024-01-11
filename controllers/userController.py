@@ -1,18 +1,48 @@
-def getUsers(mysql, id):
+def verifyAdmin(mysql, id):
     cur = mysql.connection.cursor()
     try:                
-        cur.execute('''
-        SELECT *
-        FROM USUARIO AS u 
-        JOIN USUARIO_AREA AS ua ON u.id = ua.idUsuario
-        JOIN AREA AS a ON ua.idArea = a.id
-        WHERE a.nombre IN (
-            SELECT a.nombre
+        cur.execute('''        
+            SELECT a.nombre, a.id
             FROM USUARIO AS u 
             JOIN USUARIO_AREA AS ua ON u.id = ua.idUsuario
             JOIN AREA AS a ON ua.idArea = a.id
-            WHERE u.id = %s)
+            WHERE u.id = %s and a.nombre = 'admin'
         ''', (id, ) )
+        admin = cur.fetchone()        
+        if admin != None:
+            return True
+        else:
+            return False
+    except Exception as e:
+        print(e)
+        return 'Error en la base de datos'
+
+    finally:
+        cur.close()
+
+def getUsers(mysql, id):
+    cur = mysql.connection.cursor()
+    try:
+        if verifyAdmin(mysql, id):
+            cur.execute('''
+            SELECT *
+            FROM USUARIO AS u 
+            JOIN USUARIO_AREA AS ua ON u.id = ua.idUsuario
+            JOIN AREA AS a ON ua.idArea = a.id
+            ''', )
+        else:
+            cur.execute('''
+            SELECT *
+            FROM USUARIO AS u 
+            JOIN USUARIO_AREA AS ua ON u.id = ua.idUsuario
+            JOIN AREA AS a ON ua.idArea = a.id
+            WHERE a.nombre IN (
+                SELECT a.nombre
+                FROM USUARIO AS u 
+                JOIN USUARIO_AREA AS ua ON u.id = ua.idUsuario
+                JOIN AREA AS a ON ua.idArea = a.id
+                WHERE u.id = %s)
+            ''', (id, ) )
         userList = cur.fetchall()        
         if userList != None:
             return userList
@@ -28,13 +58,20 @@ def getUsers(mysql, id):
 def getAreas(mysql, id):
     cur = mysql.connection.cursor()
     try:                
-        cur.execute('''        
-            SELECT a.nombre, a.id
-            FROM USUARIO AS u 
-            JOIN USUARIO_AREA AS ua ON u.id = ua.idUsuario
-            JOIN AREA AS a ON ua.idArea = a.id
-            WHERE u.id = %s
-        ''', (id, ) )
+        if verifyAdmin(mysql, id):
+            cur.execute('''        
+                SELECT a.nombre, a.id
+                FROM AREA AS a
+                WHERE a.nombre <> 'gerente'
+            ''')
+        else:
+            cur.execute('''        
+                SELECT a.nombre, a.id
+                FROM USUARIO AS u 
+                JOIN USUARIO_AREA AS ua ON u.id = ua.idUsuario
+                JOIN AREA AS a ON ua.idArea = a.id
+                WHERE u.id = %s and a.nombre <> 'gerente'
+            ''', (id, ) )
         areaList = cur.fetchall()        
         if areaList != None:
             return areaList

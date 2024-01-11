@@ -90,6 +90,10 @@
                                         <option value="{{area[1]}}">{{area[0]}}</option>
                                     {% endfor %}
                                 {% endif %}
+
+                                {% if 'asignarChofer' in canDo %}
+                                    <option value="4">chofer</option>
+                                {% endif %}
                             </select>
                         </div>
                     

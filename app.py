@@ -39,11 +39,9 @@ def users():
     user = verifyUser()
 
     if user[0]:
-        data = getUsers(mysql, user[0])        
+        data = getUsers(mysql, user[0])
         areas = getAreas(mysql, user[0])
-        print(data)
-        print('permisos')
-        print(user[2])
+
         return render_template('users.html', user = user[1], userList = data, areas = areas, canDo = user[2])
     else:
         return redirect(url_for('login'))
