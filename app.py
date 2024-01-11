@@ -56,6 +56,11 @@ def costumers():
         return render_template('costumers.html', user = user[1], canDo = user[2])
     else:
         return redirect(url_for('login'))
+    
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
 
 #post routes
 @app.route('/login', methods= ['POST'])
