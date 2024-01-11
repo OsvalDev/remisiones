@@ -10,13 +10,113 @@
             
             <div class="w-[5vw] h-full flex justify-center">
                 {% set current = 'user' %}
+                {% set canDoBar = canDo %}
                 {% include 'partials/floatingBar.html' %}
             </div>
 
-            <div class="bg-red-200 w-[95vw] h-full flex justify-center items-center">
-                User list
+            <div class="w-[60vw] h-full flex flex-col items-center pt-12">  
+                
+                <p class="font-bold text-xl mb-8">Lista de empleados</p>
+
+                <div class="h-fit relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Numero de empleado
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Nombre
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Area
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Fecha de registro
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>                            
+                            {% for user in userList %}
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                        {{ user[0] }}  <!-- Número de empleado -->
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ user[1] }}  <!-- Nombre -->
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ user[7] }}  <!-- Área -->
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ user[5] }}  <!-- Fecha de registro -->
+                                    </td>
+                                </tr>
+                            {% endfor %}                            
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            
+            <div class="w-[35vw] h-full flex flex-col items-center pt-12">
+                <p class="font-bold text-xl mb-8">Nuevo usuario</p>
+
+                <form class="flex justify-center items-center flex-col w-96" action="newUser" method="post" id="signupForm">
+                    <div class="mb-5">
+                        <label for="idWorker" class="block mb-2 text-sm font-medium text-gray-900">Numero de empleado</label>
+                        <input type="text" id="idWorker" name="idWorker" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block w-96 p-2.5 " required>
+                    </div>
+                    <div class="mb-5">
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
+                        <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block w-96 p-2.5 " required>
+                    </div>
+                    <div class="mb-5">
+                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Contraseña</label>
+                        <input type="password" id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block  w-96 p-2.5 " required>
+                    </div>
+    
+                    <div class="mb-5">
+                        <label for="passwordVerify" class="block mb-2 text-sm font-medium text-gray-900">Verifica contraseña</label>
+                        <input type="password" id="passwordVerify" name="passwordVerify" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block  w-96 p-2.5 " required>
+                    </div>
+                    
+                    
+                        <div class="mb-5">
+                            <label for="area" class="block mb-2 text-sm font-medium text-gray-900">Area</label>
+                            <select id="area" name="area" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block w-96 p-2.5 " required>
+                                {% if areas %}
+                                    {% for area in areas %}
+                                        <option value="{{area[1]}}">{{area[0]}}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                    
+                    <button type="button" onclick="validatePasswords()" class="text-white bg-[#C44890] hover:bg-fuchsia-800 focus:ring-4 focus:outline-none focus:ring-fuchsia-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-40">Aceptar</button>
+                </form>            
             </div>
             
         </div>
+
+        <script>
+            function validatePasswords() {
+                var name = document.getElementById("name").value;
+                var idWorker = document.getElementById("idWorker").value;
+                var password = document.getElementById("password").value;
+                var passwordVerify = document.getElementById("passwordVerify").value;
+
+                if (name === "" || idWorker === "" || password === "" || passwordVerify === "") {
+                    alert("Todos los campos deben ser completados.");
+                    return false;
+                }
+    
+                if (password === passwordVerify) {
+                    document.getElementById("signupForm").submit();
+                } else {
+                    alert("Las contraseñas no coinciden, por favor verifícalas.");
+                }
+            }
+        </script>
 
 {% endblock %}

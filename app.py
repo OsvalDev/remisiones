@@ -4,6 +4,7 @@ import os
 from datetime import datetime
 
 from controllers.loginController import login as funLogin
+from controllers.userController import *
 from utils.userSession import verifyUser
 
 app = Flask(__name__)
@@ -29,7 +30,7 @@ def dashboard():
     user = verifyUser()
 
     if user[0]:
-        return render_template('dashboard.html', user = user[1])
+        return render_template('dashboard.html', user = user[1], canDo = user[2])
     else:
         return redirect(url_for('login'))
     
@@ -38,7 +39,12 @@ def users():
     user = verifyUser()
 
     if user[0]:
-        return render_template('users.html', user = user[1])
+        data = getUsers(mysql, user[0])        
+        areas = getAreas(mysql, user[0])
+        print(data)
+        print('permisos')
+        print(user[2])
+        return render_template('users.html', user = user[1], userList = data, areas = areas, canDo = user[2])
     else:
         return redirect(url_for('login'))
 
@@ -47,7 +53,7 @@ def costumers():
     user = verifyUser()
 
     if user[0]:
-        return render_template('costumers.html', user = user[1])
+        return render_template('costumers.html', user = user[1], canDo = user[2])
     else:
         return redirect(url_for('login'))
 
@@ -62,7 +68,27 @@ def postLogin():
     else:
         session['user_id'] = data['id']
         session['user_name'] = result[0]
+        session['privilegiesList'] = result[2]
         return jsonify( result[1] )
 
+@app.route('/newUser', methods= ['POST'])
+def newUser():    
+
+    user = verifyUser()
+
+    if user[0]:
+    
+        idWorker = request.form['idWorker']
+        name = request.form['name']
+        password = request.form['password']
+        area = request.form['area']
+
+        data = [idWorker, name, password, area]
+        addUser(mysql, data)
+
+        return  redirect(url_for('users'))
+    else:
+        return redirect(url_for('login'))
+    
 if __name__ == '__main__':
     app.run()
