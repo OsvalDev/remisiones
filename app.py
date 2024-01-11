@@ -24,21 +24,23 @@ def login():
     return render_template('login.html')
 
 @app.route('/dashboard')
-def dashboard():
-    print('dash')
+def dashboard():    
     return render_template('dashboard.html')
 
 #post routes
 @app.route('/login', methods= ['POST'])
 def postLogin():
-    data = request.get_json()    
-    result = funLogin(mysql, data)
-    
-    if result['result'] == 'failed':
-        return jsonify( result )
-    else:
-        session['user_id'] = data['id']
-        return jsonify( result )
+    try:
+        data = request.get_json()    
+        result = funLogin(mysql, data)
+        
+        if result['result'] == 'failed':
+            return jsonify( result )
+        else:
+            session['user_id'] = data['id']
+            return jsonify( result )
+    except Exception as e:
+        return e
 
 if __name__ == '__main__':    
     app.run()
