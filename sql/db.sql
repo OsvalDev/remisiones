@@ -122,7 +122,8 @@ INSERT INTO AREA(nombre) VALUES
 ('surtimiento'),
 ('chofer'),
 ('admin'),
-('cuentasCobrar');
+('cuentasCobrar'),
+('gerente');
 
 INSERT INTO PERMISO(accion) VALUES
 ('agregarUsuario'),
@@ -136,3 +137,28 @@ INSERT INTO PERMISO(accion) VALUES
 ('registrarPago'),
 ('confirmarPago'),
 ('registrarDevolucion');
+
+INSERT INTO AREA_PERMISO(idArea, idPermiso) VALUES
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 11),
+(2, 6),
+(2, 7),
+(2, 8),
+(3, 5),
+(4, 8),
+(4, 9),
+(5, 1),
+(5, 2),
+(5, 3),
+(5, 4),
+(5, 5),
+(5, 6),
+(5, 7),
+(5, 8),
+(5, 9),
+(5, 10),
+(5, 11),
+(6, 10),
+(7, 1);
