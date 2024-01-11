@@ -12,12 +12,22 @@ const login = async () => {
     }
 
     const data = { id, psw };
+    const urls = {
+        login: '',
+        dashboard: ''
+    }
 
-    const url = '/registro/login';
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {        
+        urls.login = '/login';
+        urls.dashboard = '/dashboard';
+    } else {        
+        urls.login = '/registro/login';
+        urls.dashboard = '/registro/dashboard';
+    }
     const body = data;
 
     try {
-        const response = await fetch(url, {
+        const response = await fetch(urls.login, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,12 +40,12 @@ const login = async () => {
         }
 
         const responseData = await response.json();        
-
+        
         if (responseData.result === 'failed') {
             utils.removeElement('noti');
             utils.makeAlert(responseData.msg, 'loginContainer');
         }else{
-            window.location.href = "/registro/dashboard";
+            window.location.href = urls.dashboard;
         }
 
     } catch (err) {

@@ -4,6 +4,7 @@ import os
 from datetime import datetime
 
 from controllers.loginController import login as funLogin
+from utils.userSession import verifyUser
 
 app = Flask(__name__)
 
@@ -24,8 +25,13 @@ def login():
     return render_template('login.html')
 
 @app.route('/dashboard')
-def dashboard():    
-    return render_template('dashboard.html')
+def dashboard():
+    user = verifyUser()
+
+    if user:
+        return render_template('dashboard.html', user = user[1])
+    else:
+        return redirect(url_for('login'))
 
 #post routes
 @app.route('/login', methods= ['POST'])
@@ -33,11 +39,12 @@ def postLogin():
     data = request.get_json()    
     result = funLogin(mysql, data)
     
-    if result['result'] == 'failed':
-        return jsonify( result )
+    if result[1]['result'] == 'failed':
+        return jsonify( result[1] )
     else:
         session['user_id'] = data['id']
-        return jsonify( result )
+        session['user_name'] = result[0]
+        return jsonify( result[1] )
 
 if __name__ == '__main__':
     app.run()

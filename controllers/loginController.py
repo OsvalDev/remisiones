@@ -4,12 +4,12 @@ def login(mysql, data):
         cur.execute('SELECT * FROM USUARIO WHERE id = %s and psw = %s', (data['id'], data['psw']) )
         userData = cur.fetchone()        
         if userData != None:
-            return {'result' : 'success', 'msg' : 'Ha iniciado sesion correctamente'}
+            return [userData[1], {'result' : 'success', 'msg' : 'Ha iniciado sesion correctamente'}]
         else:
-            return {'result' : 'failed', 'msg' : 'Numero de trabajador o contraseña incorrecto'}
+            return [None, {'result' : 'failed', 'msg' : 'Numero de trabajador o contraseña incorrecto'}]
     except Exception as e:
         print(e)
-        return {'result' : 'failed', 'msg' : 'Error en la conexion con la base de datos'}
+        return [None, {'result' : 'failed', 'msg' : 'Error en la conexion con la base de datos'}]
 
     finally:
         cur.close()

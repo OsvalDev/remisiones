@@ -3,6 +3,20 @@
 {% block body %}
     
     <body class="w-screen h-screen flex justify-center items-center flex-col">
-        dashboard
+        <div class="w-full flex justify-between items-center h-[15vh]">
+            <img src="{{ url_for('static', filename='img/carnivalLogo.png') }}" alt="logo carnival" class="w-40 ml-8 mt-6 ">
+            
+            <div class="flex justify-between items-center">
+                <h2 class="font-semibold">{{ user }}</h2>
+                <a href="/logout" class="bg-[#C44890] hover:bg-pink-600 h-fit py-2 px-4 rounded-xl text-white mx-8">
+                    Cerrar sesion
+                </a>
+            </div>
+        </div>
+        
+        <div class="flex justify-center h-[85vh] py-20">
+        
+        
+        </div>
 
 {% endblock %}
