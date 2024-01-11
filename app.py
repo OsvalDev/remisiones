@@ -28,8 +28,26 @@ def login():
 def dashboard():
     user = verifyUser()
 
-    if user:
+    if user[0]:
         return render_template('dashboard.html', user = user[1])
+    else:
+        return redirect(url_for('login'))
+    
+@app.route('/users')
+def users():
+    user = verifyUser()
+
+    if user[0]:
+        return render_template('users.html', user = user[1])
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/costumers')
+def costumers():
+    user = verifyUser()
+
+    if user[0]:
+        return render_template('costumers.html', user = user[1])
     else:
         return redirect(url_for('login'))
 
