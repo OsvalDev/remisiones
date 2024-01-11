@@ -23,12 +23,12 @@ mysql = MySQL(app)
 def login():
     return render_template('login.html')
 
-@app.route('/dashboard')
+@app.route('/registro/dashboard')
 def dashboard():    
     return render_template('dashboard.html')
 
 #post routes
-@app.route('/login', methods= ['POST'])
+@app.route('/registro/login', methods= ['POST'])
 def postLogin():    
     data = request.get_json()    
     result = funLogin(mysql, data)
@@ -39,5 +39,5 @@ def postLogin():
         session['user_id'] = data['id']
         return jsonify( result )
 
-if __name__ == '__main__':    
+if __name__ == '__main__':
     app.run()

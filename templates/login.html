@@ -9,7 +9,7 @@
         </div>
 
         <div class="h-fit w-fit flex justify-center flex-col px-8 py-4 rounded-xl shadow-lg" id="loginContainer">
-            <h3 class="font-bold text-3xl text-center mb-8">Inicio de sesion</h3>            
+            <h3 class="font-bold text-3xl text-center mb-8">Inicio de sesion</h3>
     
             <form class="flex justify-center items-center flex-col w-96">
                 <div class="mb-5">
@@ -25,6 +25,7 @@
             
         </div>
 
-        <script src="{{ url_for('static', filename='js/login.js') }}"></script>    
+        <script src="{{ url_for('static', filename='js/login.js') }}" type="module"></script>    
+        <script src="{{ url_for('static', filename='js/utils.js') }}" type="module"></script>    
 
 {% endblock %}
