@@ -23,12 +23,12 @@ mysql = MySQL(app)
 def login():
     return render_template('login.html')
 
-@app.route('/registro/dashboard')
+@app.route('/dashboard')
 def dashboard():    
     return render_template('dashboard.html')
 
 #post routes
-@app.route('/registro/login', methods= ['POST'])
+@app.route('/login', methods= ['POST'])
 def postLogin():    
     data = request.get_json()    
     result = funLogin(mysql, data)
