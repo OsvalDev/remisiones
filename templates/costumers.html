@@ -14,10 +14,63 @@
                 {% include 'partials/floatingBar.html' %}
             </div>
 
-            <div class="bg-red-200 w-[95vw] h-full flex justify-center items-center">
-                Costumer list
+            <div class="w-[95vw] h-full flex justify-center items-center">
+                <div class="w-full h-full flex flex-col items-center pt-12">  
+                    <div class="w-full flex justify-center">
+                        <p class="inline font-bold text-xl mb-8">Lista de clientes</p>
+                        {% if admin == True %}
+                            <div id="syncContainer" class="ml-20">
+                                <button class="py-2 px-4 rounded-lg bg-pink-600 text-white hover:bg-pink-800" id="btnsync">
+                                    <p id="syncText"> Sincronizar</p>
+                                </button>
+                            </div>
+                        {% endif %}
+                    </div>                    
+
+                    <div class="h-fit relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 w-full ">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 ">
+                                        Clave
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 ">
+                                        Nombre
+                                    </th>
+                                    {% if 'registrarDevolucion' in canDo %}
+                                        <th scope="col" class="px-6 py-3 ">
+                                            Saldo bonificado
+                                        </th>                                                                            
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>                            
+                                {% for costumer in costumerList %}
+                                    <tr class="bg-white border-b hover:bg-gray-50">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                            {{ costumer[2] }}  <!-- Número de empleado -->
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{ costumer[1] }}  <!-- Nombre -->
+                                        </td>
+                                        {% if 'registrarDevolucion' in canDo %}
+                                            <td class="px-6 py-4">
+                                                {{ costumer[3] }}  <!-- Área -->
+                                            </td>                                        
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                                           
             </div>
             
         </div>
+
+    <script src="{{ url_for('static', filename='js/syncBD.js') }}" type="module"></script>    
+    <script src="{{ url_for('static', filename='js/utils.js') }}" type="module"></script>  
 
 {% endblock %}
