@@ -1,7 +1,7 @@
 def login(mysql, data):
     cur = mysql.connection.cursor()
     try:                
-        cur.execute('SELECT * FROM USUARIO WHERE id = %s and psw = %s', (data['id'], data['psw']) )
+        cur.execute('SELECT * FROM USUARIO WHERE id = %s and psw = %s and activo = 1', (data['id'], data['psw']) )
         userData = cur.fetchone()
 
         cur.execute('''

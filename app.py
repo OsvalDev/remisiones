@@ -41,8 +41,9 @@ def users():
     if user[0]:
         data = getUsers(mysql, user[0])
         areas = getAreas(mysql, user[0])
+        admin = verifyAdmin(mysql, user[0])
 
-        return render_template('users.html', user = user[1], userList = data, areas = areas, canDo = user[2])
+        return render_template('users.html', user = user[1], userList = data, areas = areas, admin = admin , canDo = user[2])
     else:
         return redirect(url_for('login'))
 
@@ -92,6 +93,18 @@ def newUser():
         return  redirect(url_for('users'))
     else:
         return redirect(url_for('login'))
+    
+@app.route('/turnOffUser', methods= ['POST'])
+def turnOffUser():    
+    id = request.form['idUser']
+    editStatusUser(mysql, id, 0)
+    return redirect(url_for('users'))
+
+@app.route('/turnOnUser', methods= ['POST'])
+def turnOnUser():    
+    id = request.form['idUser']
+    editStatusUser(mysql, id, 1)
+    return redirect(url_for('users'))
     
 if __name__ == '__main__':
     app.run()

@@ -70,7 +70,7 @@ def getAreas(mysql, id):
                 FROM USUARIO AS u 
                 JOIN USUARIO_AREA AS ua ON u.id = ua.idUsuario
                 JOIN AREA AS a ON ua.idArea = a.id
-                WHERE u.id = %s and a.nombre <> 'gerente'
+                WHERE u.id = %s and a.nombre <> 'gerente' and a.nombre <> 'chofer'
             ''', (id, ) )
         areaList = cur.fetchall()        
         if areaList != None:
@@ -96,6 +96,24 @@ def addUser(mysql, data):
             INSERT INTO USUARIO_AREA(idUsuario, idArea) VALUES (%s, %s)
         ''', (data[0], data[3] ) )
         mysql.connection.commit()
+
+    except Exception as e:
+        print(e)
+        return 'Error en la base de datos'
+
+    finally:
+        cur.close()
+
+def editStatusUser(mysql, id, status):
+    cur = mysql.connection.cursor()
+    try:                
+        cur.execute('''        
+            UPDATE USUARIO
+            SET activo = %s
+            WHERE id = %s
+        ''', (status, id ) )
+        mysql.connection.commit()
+        return True
 
     except Exception as e:
         print(e)
