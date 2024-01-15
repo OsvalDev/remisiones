@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from controllers.loginController import login as funLogin
 from controllers.userController import *
 from controllers.costumersController import *
+from controllers.remissionController import *
 from utils.userSession import verifyUser
 
 app = Flask(__name__)
@@ -34,7 +35,8 @@ def dashboard():
     user = verifyUser()
 
     if user[0]:
-        return render_template('dashboard.html', user = user[1], canDo = user[2])
+        remissionList = getRemissions(mysql)
+        return render_template('dashboard.html', user = user[1], canDo = user[2], remissionList = remissionList)
     else:
         return redirect(url_for('login'))
     
@@ -102,20 +104,60 @@ def newUser():
     
 @app.route('/turnOffUser', methods= ['POST'])
 def turnOffUser():    
-    id = request.form['idUser']
-    editStatusUser(mysql, id, 0)
-    return redirect(url_for('users'))
+    user = verifyUser()
 
+    if user[0]:
+        id = request.form['idUser']
+        editStatusUser(mysql, id, 0)
+        return redirect(url_for('users'))
+    else:
+        return redirect(url_for('login'))
 @app.route('/turnOnUser', methods= ['POST'])
 def turnOnUser():    
-    id = request.form['idUser']
-    editStatusUser(mysql, id, 1)
-    return redirect(url_for('users'))
+    user = verifyUser()
+
+    if user[0]:
+        id = request.form['idUser']
+        editStatusUser(mysql, id, 1)
+        return redirect(url_for('users'))
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/sync', methods= ['POST'])
 def sync():    
     result = syncClientDb(db_sql_server, mysql)
     return jsonify( result )
+
+@app.route('/nameCostumer', methods= ['POST'])
+def nameCostumer():    
+    data = request.get_json()
+    result = getCostumerName(mysql, data)
+    return jsonify( result )
+
+@app.route('/newRemission', methods= ['POST'])
+def newRemission():
+        
+    user = verifyUser()
+
+    if user[0]:
+        data = {
+            'numCompra' : request.form['numCompra'],
+            'numRemission' : request.form['numRemission'],
+            'numCliente' : request.form['numCliente'],
+            'piezas' : request.form['piezas'],
+            'remisionado' : request.form['remisionado'],
+            'facturado' : request.form['facturado']
+        }
+        
+        addRemission(mysql, data)
+        
+        return redirect(url_for('dashboard'))
+
+    else:
+        return redirect(url_for('login'))
+
+    
+    
     
 if __name__ == '__main__':
     app.run()
