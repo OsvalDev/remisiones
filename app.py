@@ -64,6 +64,11 @@ def costumers():
     else:
         return redirect(url_for('login'))
     
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
 @app.route('/remission/<idRemission>')
 def remissionList(idRemission):
     user = verifyUser()
