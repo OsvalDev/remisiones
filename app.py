@@ -64,10 +64,13 @@ def costumers():
     else:
         return redirect(url_for('login'))
     
-@app.route('/logout')
-def logout():
-    session.clear()
-    return redirect(url_for('login'))
+@app.route('/remission/<idRemission>')
+def remissionList(idRemission):
+    user = verifyUser()
+
+    if user[0]:
+        admin = verifyAdmin(mysql, user[0])
+        return render_template('remissionDetail.html', user = user[1], admin = admin , canDo = user[2])
 
 #post routes
 @app.route('/login', methods= ['POST'])
