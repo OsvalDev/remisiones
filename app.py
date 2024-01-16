@@ -77,7 +77,8 @@ def remissionList(idRemission, idCompra):
         admin = verifyAdmin(mysql, user[0])
         
         return render_template('remissionDetail.html', user = user[1], admin = admin , canDo = user[2], data = result)
-
+    else:
+        return redirect(url_for('login'))
 #post routes
 @app.route('/login', methods= ['POST'])
 def postLogin():    
