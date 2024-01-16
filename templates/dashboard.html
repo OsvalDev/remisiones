@@ -6,7 +6,7 @@
         {% set userHeader = user %}
         {% include 'partials/header.html' %}
         
-        <div class="flex flex-wrap justify-center h-[90vh] pt-8 pb-4">
+        <div class="flex flex-wrap justify-center h-[90vh] sm:pt-8 pt-2 pb-4">
             
             <div class="sm:w-[5vw] sm:h-full flex justify-center">
                 {% set current = 'remission' %}
@@ -14,7 +14,7 @@
                 {% include 'partials/floatingBar.html' %}
             </div>
 
-            <div class="sm:w-[70vw] sm:h-full w-full flex flex-col items-center sm:pt-8 pt-2">
+            <div class="sm:w-[70vw] sm:h-full w-full flex flex-col items-center sm:pt-8 pt-4">
                 <div class="flex items-center mb-4">
                     <p class="font-bold text-xl mx-8">Lista de remisiones</p>
                                         
@@ -26,11 +26,11 @@
                     
                     
                     <div id="authentication-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                        <div class="relative p-4 max-h-full">
+                        <div class="relative p-4 max-h-full w-full sm:w-fit">
                             
-                            <div class="relative bg-white rounded-lg shadow ">
+                            <div class="relative bg-white rounded-lg shadow w-full sm:w-fit">
                                                                 
-                                <div class="p-4 md:p-5">
+                                <div class="p-4 md:p-5 w-full sm:w-fit">
                                     <div class="flex justify-end">
                                         <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="authentication-modal">
                                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -40,9 +40,9 @@
                                         </button>
                                     </div>
                                     
-                                    <form class="space-y-4 flex flex-col items-center" action="newRemission" method="post">
-                                        <div class="flex">
-                                            <div class="mx-4 w-96">
+                                    <form class="space-y-4 flex flex-col items-center w-full" action="newRemission" method="post">
+                                        <div class="flex flex-col sm:flex-row w-full">
+                                            <div class="px-4 sm:w-96 w-full">
                                                 <div>
                                                     <label for="numCompra" class="block mb-2 text-sm font-medium text-gray-900 ">Numero de compra</label>
                                                     <input type="text" name="numCompra" id="numCompra" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 " required>
@@ -57,7 +57,7 @@
                                                 </div>
                                                 <p id="nameCostumerView">Cliente no encontrado</p>
                                             </div>
-                                            <div class="mx-4 w-96">
+                                            <div class="px-4 sm:w-96 w-full">
                                                 <div>
                                                     <label for="piezas" class="block mb-2 text-sm font-medium text-gray-900 ">Piezas</label>
                                                     <input type="number" name="piezas" id="piezas" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 " required>
