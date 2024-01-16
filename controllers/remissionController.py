@@ -63,3 +63,41 @@ def addRemission(mysql, data):
 
     finally:
         cur.close()
+
+def getRemissionDetail(mysql, numRemision, numCompra):
+    data = {
+        'baseData' : None,
+        'surtimiento' : None,
+        'logistica' : None,
+        'confirmacionEntrega' : None,
+        'pagos' : None,
+        'confirmacionPagos' : None,
+        'devoluciones' : None
+    }
+    
+    cur = mysql.connection.cursor()
+
+    try:
+        cur.execute('''        
+            SELECT r.numRemision, r.numCompra, c.nombre, r.piezas, r.importeFacturado, r.importeRemisionado, r.saldoAFavor
+            FROM REMISION AS r
+            JOIN CLIENTE AS c ON r.cliente = c.id
+            WHERE r.numRemision = %s and r.numCompra = %s
+        ''', (numRemision, numCompra))
+        data['baseData'] = cur.fetchone()        
+
+        if data['baseData']:
+
+
+
+            return data
+        
+        else:
+            return {'result': 'failed'}
+            
+    except Exception as e:
+        print(e)
+        return {'result': 'failed'}
+    
+    finally:
+        cur.close()

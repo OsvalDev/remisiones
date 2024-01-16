@@ -114,29 +114,29 @@
                             {% for remission in remissionList %}                                
                                 <tr class="bg-white border-b hover:bg-gray-50" >
                                     <td scope="row" class=" w-20 px-6 py-4">
-                                        <a href="remission/{{ remission[1] }}">
-                                            {{ remission[0] }}  <!-- Número de compra -->
+                                        <a href="remission/{{ remission[0] }}/{{ remission[1] }}">
+                                            {{ remission[1] }}  <!-- Número de compra -->
                                         </a>                                        
                                     </td>
                                     <td class="w-20 px-6 py-4">
-                                        <a href="remission/{{ remission[1] }}">
-                                            {{ remission[1] }}<!-- Número de remision -->
+                                        <a href="remission/{{ remission[0] }}/{{ remission[1] }}">
+                                            {{ remission[0] }}<!-- Número de remision -->
                                         </a>                                        
                                     </td>
                                     <td class="w-40 px-6 py-4">
-                                        <a href="remission/{{ remission[1] }}">
+                                        <a href="remission/{{ remission[0] }}/{{ remission[1] }}">
                                             {{ remission[2] }}<!-- fecha de registro -->
                                         </a>                                        
                                     </td>
                                     <td class="w-80 px-6 py-4">
-                                        <a href="remission/{{ remission[1] }}">
+                                        <a href="remission/{{ remission[0] }}/{{ remission[1] }}">
                                             {{ remission[3] }}  <!-- cliente -->
                                         </a>                                        
                                     </td>                                
                                     <td class="w-40 px-6 py-4">
-                                        <a href="remission/{{ remission[1] }}">
+                                        <a href="remission/{{ remission[0] }}/{{ remission[1] }}">
                                             {{ remission[4] }}  <!-- estatus -->
-                                        </a>                                        
+                                        </a>
                                     </td>                                
                                 </tr>                                
                             {% endfor %}

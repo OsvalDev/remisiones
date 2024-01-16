@@ -17,11 +17,11 @@
                 <!-- Detail base -->
                 <div class="w-3/4 flex justify-between mb-8">
                     <div>
-                        <p class="text-2xl font-bold py-2"># remision</p>
-                        <p class="text-xl font-semibold"># compra</p>
+                        <p class="text-2xl font-bold py-2"># remision : {{ data['baseData'][0] }} </p>
+                        <p class="text-xl font-semibold"># compra : {{ data['baseData'][1] }}</p>
                     </div>
                     <div>
-                        <p class="text-2xl font-bold py-2 px-4">Cliente</p>
+                        <p class="text-2xl font-bold py-2 px-4">Cliente : {{ data['baseData'][2] }}</p>
                     </div>                        
                                         
                 </div>
@@ -36,10 +36,10 @@
                         <p class="font-bold text-xl px-4 py-2">Detalle de entrega</p>
                     </div>
                     <div class="border-l-pink-600 border-l-4 ml-6 px-8 mb-4">
-                        <p>Piezas:</p>
-                        <p>Importe facturado:</p>
-                        <p>Importe remisionado:</p>
-                        <p>Saldo bonificado:</p>
+                        <p>Piezas : {{ data['baseData'][3] }}</p>
+                        <p>Importe facturado : ${{ data['baseData'][4] }}</p>
+                        <p>Importe remisionado : ${{ data['baseData'][5] }}</p>
+                        <p>Saldo bonificado : ${{ data['baseData'][6] }}</p>
                     </div>
                 </div>
                 <!-- Detail  -->
@@ -52,10 +52,9 @@
                         <p class="font-bold text-xl px-4 py-2">Detalle de surtimiento / empaque</p>
                     </div>
                     <div class="border-l-gray-600 border-l-4 ml-6 px-8 mb-4">
-                        <p>Piezas:</p>
-                        <p>Importe facturado:</p>
-                        <p>Importe remisionado:</p>
-                        <p>Saldo bonificado:</p>
+                        <p>Fecha estimada</p>
+                        <p>Fecha de finalizacion</p>
+                        <p>Notas</p>                        
                     </div>
                 </div>
                 <!-- Detail  -->
@@ -68,10 +67,9 @@
                         <p class="font-bold text-xl px-4 py-2">Detalle de logistica</p>
                     </div>
                     <div class="border-l-gray-600 border-l-4 ml-6 px-8 mb-4">
-                        <p>Piezas:</p>
-                        <p>Importe facturado:</p>
-                        <p>Importe remisionado:</p>
-                        <p>Saldo bonificado:</p>
+                        <p>Fecha estimada</p>
+                        <p>Fecha de finalizacion</p>
+                        <p>Notas</p>               
                     </div>
                 </div>
                 <!-- Detail  -->
@@ -84,10 +82,8 @@
                         <p class="font-bold text-xl px-4 py-2">Confirmacion de entrega</p>
                     </div>
                     <div class="border-l-gray-600 border-l-4 ml-6 px-8 mb-4">
-                        <p>Piezas:</p>
-                        <p>Importe facturado:</p>
-                        <p>Importe remisionado:</p>
-                        <p>Saldo bonificado:</p>
+                        <p>Fecha de entrega:</p>
+                        <p>Notas:</p>                        
                     </div>
                 </div>
                 <!-- Detail  -->
@@ -97,13 +93,12 @@
                             <p>5</p>
                         </div>
                         
-                        <p class="font-bold text-xl px-4 py-2">registro de pagos</p>
+                        <p class="font-bold text-xl px-4 py-2">Registro de pagos</p>
                     </div>
                     <div class="border-l-gray-600 border-l-4 ml-6 px-8 mb-4">
-                        <p>Piezas:</p>
-                        <p>Importe facturado:</p>
-                        <p>Importe remisionado:</p>
-                        <p>Saldo bonificado:</p>
+                        <p>Cantidad:</p>
+                        <p>Cobrador:</p>                        
+                        <p>Fecha:</p>                        
                     </div>
                 </div>
                 <!-- Detail  -->
@@ -116,12 +111,24 @@
                         <p class="font-bold text-xl px-4 py-2">Confirmacion de pagos</p>
                     </div>
                     <div class="border-l-gray-600 border-l-4 ml-6 px-8 mb-4">
-                        <p>Piezas:</p>
-                        <p>Importe facturado:</p>
-                        <p>Importe remisionado:</p>
-                        <p>Saldo bonificado:</p>
+                        <p>Cantidad:</p>
+                        <p>Responsable:</p>                        
                     </div>
                 </div>
+                <div class="w-3/4">
+                    <div class="flex items-center mb-4">                                            
+                        <p class="font-bold text-xl px-4 py-2">Adicionales</p>
+                        <br>
+                        
+                    </div>
+                    <div class="ml-12 px-8 mb-4">
+                        <p class="font-bold text-xl px-4 py-2">Devoluciones</p>
+                        <p>Cantidad:</p>
+                        <p>Detalle:</p>                        
+                    </div>
+                </div>
+
+
             </div>
         </div>
         

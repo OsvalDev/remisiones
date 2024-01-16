@@ -69,13 +69,14 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
-@app.route('/remission/<idRemission>')
-def remissionList(idRemission):
+@app.route('/remission/<idRemission>/<idCompra>')
+def remissionList(idRemission, idCompra):
     user = verifyUser()
-
+    result = getRemissionDetail(mysql, idRemission, idCompra)
     if user[0]:
         admin = verifyAdmin(mysql, user[0])
-        return render_template('remissionDetail.html', user = user[1], admin = admin , canDo = user[2])
+        
+        return render_template('remissionDetail.html', user = user[1], admin = admin , canDo = user[2], data = result)
 
 #post routes
 @app.route('/login', methods= ['POST'])
