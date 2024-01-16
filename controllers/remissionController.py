@@ -138,8 +138,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                 FROM DEVOLUCION AS D
                 WHERE D.numRemision = %s and D.numCompra = %s
             ''', (numRemision, numCompra))
-            data['devoluciones'] = cur.fetchall()
-            print(data['devoluciones'])      
+            data['devoluciones'] = cur.fetchall()            
 
             return data
         
