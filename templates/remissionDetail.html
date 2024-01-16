@@ -118,11 +118,15 @@
                         
                         <p class="font-bold text-xl px-4 py-2">Registro de pagos</p>
                     </div>
-                    <div class="border-l-gray-600 {% if data['pagos'] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
-                        {% if data['pagos'] %}     
-                            <p>Cantidad:</p>
-                            <p>Cobrador:</p>                        
-                            <p>Fecha:</p>                        
+                    <div class="border-l-gray-600 {% if data['pagos'] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">                        
+                        {% if data['pagos'] %}
+                            {% for pago in data['pagos'] %}
+                                <p class="font-bold text-xl px-4 py-2">Id de pago: {{ pago[0] }} </p>
+                                <p>Quien paga: {{ pago[2] }} </p>                                
+                                <p>Fecha: {{ pago[3] }} </p>
+                                <p>Responsable: {{ pago[4] }} </p>
+                                <p>Monto: <strong>${{ pago[1] }}</strong> </p>
+                            {% endfor %}
                         {% else %}
                             <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
                         {% endif %}   
@@ -139,8 +143,11 @@
                     </div>
                     <div class="border-l-gray-600 {% if data['confirmacionPagos'] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
                         {% if data['confirmacionPagos'] %}     
-                            <p>Cantidad:</p>
-                            <p>Responsable:</p>   
+                            {% for pago in data['confirmacionPagos'] %}
+                                <p class="font-bold text-xl px-4 py-2">Id de pago: {{ pago[0] }} </p>                                
+                                <p>Fecha: {{ pago[1] }} </p>
+                                <p>Responsable: {{ pago[2] }} </p>                                
+                            {% endfor %} 
                         {% else %}
                             <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
                         {% endif %}                        
@@ -158,7 +165,7 @@
                             <p>Cantidad:</p>
                             <p>Detalle:</p>  
                         {% else %}
-                            <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
+                            <p class="font-bold text-xl px-4 py-2">No hay devoluciones para esta remision</p>
                         {% endif %}                                   
                     </div>
                 </div>
