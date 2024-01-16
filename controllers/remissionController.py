@@ -130,16 +130,16 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                 JOIN USUARIO AS U ON U.id = PR.usuario
                 WHERE P.confirmado = 1 and P.numRemision = %s and P.numCompra = %s
             ''', (numRemision, numCompra))
-            data['confirmacionPagos'] = cur.fetchall()      
-            print(data['confirmacionPagos'])      
+            data['confirmacionPagos'] = cur.fetchall()                  
 
             #surtimiento
             cur.execute('''                        
-                SELECT D.descripcion, D.cantidadBonificada, D.descripcion, D.fecha
+                SELECT D.descripcion, D.cantidadBonificada, D.fecha
                 FROM DEVOLUCION AS D
                 WHERE D.numRemision = %s and D.numCompra = %s
             ''', (numRemision, numCompra))
             data['devoluciones'] = cur.fetchall()
+            print(data['devoluciones'])      
 
             return data
         
