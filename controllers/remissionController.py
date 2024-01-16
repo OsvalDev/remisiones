@@ -92,9 +92,26 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                 SELECT p.fechaCompromiso, p.concluido, u.nombre, p.fecha
                 FROM PROCESO AS p
                 JOIN USUARIO AS u ON p.usuario = u.id
-                WHERE p.numRemision = %s and p.numCompra = %s
+                WHERE p.numRemision = %s and p.numCompra = %s and p.accion = 'Surtimiento'
             ''', (numRemision, numCompra))
             data['surtimiento'] = cur.fetchone()
+            
+            #logistica
+            cur.execute('''                        
+                SELECT p.fechaCompromiso, p.concluido, u.nombre, p.fecha
+                FROM PROCESO AS p
+                JOIN USUARIO AS u ON p.usuario = u.id
+                WHERE p.numRemision = %s and p.numCompra = %s and p.accion = 'Logistica'
+            ''', (numRemision, numCompra))
+            data['logistica'] = cur.fetchone()
+
+            #confirmacionEntrega
+            cur.execute('''        
+                SELECT r.fechaCompromisocliente
+                FROM REMISION AS r                
+                WHERE r.numRemision = %s and r.numCompra = %s
+            ''', (numRemision, numCompra))
+            data['confirmacionEntrega'] = cur.fetchone()
 
             return data
         

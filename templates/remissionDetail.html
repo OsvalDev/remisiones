@@ -78,10 +78,15 @@
                     </div>
                     <div class="border-l-gray-600 {% if data['logistica'][1] == 1 %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
                         {% if data['logistica'] %}     
-                            <p>Fecha estimada</p>
-                            <p>Fecha de finalizacion</p>
-                            <p>Notas</p>               
-
+                            <p>Fecha de compromiso: {{ data['logistica'][0] }}</p>                        
+                            <p>Fecha de finalizacion: 
+                                {% if data['logistica'][1] == 1 %}
+                                    {{ data['logistica'][3] }}
+                                {% else %}
+                                    Sin finalizar
+                                {% endif %}
+                            </p>
+                            <p>Responsable: {{ data['logistica'][2] }}</p>           
                         {% else %}
                             <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
                         {% endif %}
@@ -96,10 +101,9 @@
                         
                         <p class="font-bold text-xl px-4 py-2">Confirmacion de entrega</p>
                     </div>
-                    <div class="border-l-gray-600 {% if data['confirmacionEntrega'] %} border-l-pink-600 {% endif %}  border-l-4 ml-6 px-8 mb-4">
-                        {% if data['confirmacionEntrega'] %}     
-                            <p>Fecha de entrega:</p>
-                            <p>Notas:</p>    
+                    <div class="border-l-gray-600 {% if data['confirmacionEntrega'][0] %} border-l-pink-600 {% endif %}  border-l-4 ml-6 px-8 mb-4">
+                        {% if data['confirmacionEntrega'][0] %}     
+                            <p>Fecha de entrega: {{ data['confirmacionEntrega'][0] }} </p>                            
                         {% else %}
                             <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
                         {% endif %}                    
