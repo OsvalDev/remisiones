@@ -51,10 +51,16 @@
                         
                         <p class="font-bold text-xl px-4 py-2">Detalle de surtimiento / empaque</p>
                     </div>
-                    <div class="border-l-gray-600 border-l-4 ml-6 px-8 mb-4">
-                        <p>Fecha estimada</p>
-                        <p>Fecha de finalizacion</p>
-                        <p>Notas</p>                        
+                    <div class="border-l-gray-600 {% if data['surtimiento'][1] == 1 %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
+                        <p>Fecha de compromiso: {{ data['surtimiento'][0] }}</p>                        
+                        <p>Fecha de finalizacion: 
+                            {% if data['surtimiento'][1] == 1 %}
+                                {{ data['surtimiento'][3] }}
+                            {% else %}
+                                Sin finalizar
+                            {% endif %}
+                        </p>
+                        <p>Responsable: {{ data['surtimiento'][2] }}</p>
                     </div>
                 </div>
                 <!-- Detail  -->
