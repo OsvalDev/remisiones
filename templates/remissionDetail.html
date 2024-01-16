@@ -6,22 +6,22 @@
         {% set userHeader = user %}
         {% include 'partials/header.html' %}
         
-        <div class="flex justify-center h-[90vh] pt-8 pb-4">
+        <div class="flex flex-wrap justify-center h-[90vh] pt-8 pb-4">
             
-            <div class="w-[5vw] h-full flex justify-center">
+            <div class="sm:w-[10vw] sm:h-full flex justify-center">
                 {% set current = 'remission' %}
                 {% set canDoBar = canDo %}
                 {% include 'partials/floatingBar.html' %}
             </div>
-            <div class="w-[90vw]  flex flex-col items-center">
+            <div class="sm:w-[90vw] sm:h-full w-full  flex flex-col items-center">
                 <!-- Detail base -->
-                <div class="w-3/4 flex justify-between mb-8">
+                <div class="w-3/4 flex flex-wrap justify-between mb-8">
                     <div>
                         <p class="text-2xl font-bold py-2"># remision : {{ data['baseData'][0] }} </p>
                         <p class="text-xl font-semibold"># compra : {{ data['baseData'][1] }}</p>
                     </div>
                     <div>
-                        <p class="text-2xl font-bold py-2 px-4">Cliente : {{ data['baseData'][2] }}</p>
+                        <p class="text-2xl font-bold py-2 sm:px-4">Cliente : <br class="block sm:hidden"> {{ data['baseData'][2] }}</p>
                     </div>                        
                                         
                 </div>
@@ -159,16 +159,16 @@
                         <br>
                         
                     </div>
-                    <div class="ml-12 px-8 mb-4">
+                    <div class="sm:ml-12 sm:px-8 mb-4">
                         <p class="font-bold text-xl px-4 py-2">Devoluciones</p>
                         {% if data['devoluciones'] %}     
                             {% for devolucion in data['devoluciones'] %}
-                                <p class="font-bold text-xl px-4 py-2">Fecha: {{ devolucion[2] }} </p>                                                                
+                                <p class="font-bold text-xl sm:px-4 py-2">Fecha: {{ devolucion[2] }} </p>                                                                
                                 <p>Motivo: {{ devolucion[0] }} </p>                                
                                 <p>Monto bonificado: {{ devolucion[1] }} </p>
                             {% endfor %} 
                         {% else %}
-                            <p class="font-bold text-xl px-4 py-2">No hay devoluciones para esta remision</p>
+                            <p class="font-bold text-xl sm:px-4 py-2">No hay devoluciones para esta remision</p>
                         {% endif %}                                   
                     </div>
                 </div>
