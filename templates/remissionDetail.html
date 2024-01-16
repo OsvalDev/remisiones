@@ -52,15 +52,19 @@
                         <p class="font-bold text-xl px-4 py-2">Detalle de surtimiento / empaque</p>
                     </div>
                     <div class="border-l-gray-600 {% if data['surtimiento'][1] == 1 %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
-                        <p>Fecha de compromiso: {{ data['surtimiento'][0] }}</p>                        
-                        <p>Fecha de finalizacion: 
-                            {% if data['surtimiento'][1] == 1 %}
-                                {{ data['surtimiento'][3] }}
-                            {% else %}
-                                Sin finalizar
-                            {% endif %}
-                        </p>
-                        <p>Responsable: {{ data['surtimiento'][2] }}</p>
+                        {% if data['surtimiento'] %} 
+                            <p>Fecha de compromiso: {{ data['surtimiento'][0] }}</p>                        
+                            <p>Fecha de finalizacion: 
+                                {% if data['surtimiento'][1] == 1 %}
+                                    {{ data['surtimiento'][3] }}
+                                {% else %}
+                                    Sin finalizar
+                                {% endif %}
+                            </p>
+                            <p>Responsable: {{ data['surtimiento'][2] }}</p>
+                        {% else %}
+                            <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
+                        {% endif %}
                     </div>
                 </div>
                 <!-- Detail  -->
@@ -72,10 +76,15 @@
                         
                         <p class="font-bold text-xl px-4 py-2">Detalle de logistica</p>
                     </div>
-                    <div class="border-l-gray-600 border-l-4 ml-6 px-8 mb-4">
-                        <p>Fecha estimada</p>
-                        <p>Fecha de finalizacion</p>
-                        <p>Notas</p>               
+                    <div class="border-l-gray-600 {% if data['logistica'][1] == 1 %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
+                        {% if data['logistica'] %}     
+                            <p>Fecha estimada</p>
+                            <p>Fecha de finalizacion</p>
+                            <p>Notas</p>               
+
+                        {% else %}
+                            <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
+                        {% endif %}
                     </div>
                 </div>
                 <!-- Detail  -->
@@ -87,9 +96,13 @@
                         
                         <p class="font-bold text-xl px-4 py-2">Confirmacion de entrega</p>
                     </div>
-                    <div class="border-l-gray-600 border-l-4 ml-6 px-8 mb-4">
-                        <p>Fecha de entrega:</p>
-                        <p>Notas:</p>                        
+                    <div class="border-l-gray-600 {% if data['confirmacionEntrega'] %} border-l-pink-600 {% endif %}  border-l-4 ml-6 px-8 mb-4">
+                        {% if data['confirmacionEntrega'] %}     
+                            <p>Fecha de entrega:</p>
+                            <p>Notas:</p>    
+                        {% else %}
+                            <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
+                        {% endif %}                    
                     </div>
                 </div>
                 <!-- Detail  -->
@@ -101,10 +114,14 @@
                         
                         <p class="font-bold text-xl px-4 py-2">Registro de pagos</p>
                     </div>
-                    <div class="border-l-gray-600 border-l-4 ml-6 px-8 mb-4">
-                        <p>Cantidad:</p>
-                        <p>Cobrador:</p>                        
-                        <p>Fecha:</p>                        
+                    <div class="border-l-gray-600 {% if data['pagos'] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
+                        {% if data['pagos'] %}     
+                            <p>Cantidad:</p>
+                            <p>Cobrador:</p>                        
+                            <p>Fecha:</p>                        
+                        {% else %}
+                            <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
+                        {% endif %}   
                     </div>
                 </div>
                 <!-- Detail  -->
@@ -116,9 +133,13 @@
                         
                         <p class="font-bold text-xl px-4 py-2">Confirmacion de pagos</p>
                     </div>
-                    <div class="border-l-gray-600 border-l-4 ml-6 px-8 mb-4">
-                        <p>Cantidad:</p>
-                        <p>Responsable:</p>                        
+                    <div class="border-l-gray-600 {% if data['confirmacionPagos'] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
+                        {% if data['confirmacionPagos'] %}     
+                            <p>Cantidad:</p>
+                            <p>Responsable:</p>   
+                        {% else %}
+                            <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
+                        {% endif %}                        
                     </div>
                 </div>
                 <div class="w-3/4">
@@ -129,8 +150,12 @@
                     </div>
                     <div class="ml-12 px-8 mb-4">
                         <p class="font-bold text-xl px-4 py-2">Devoluciones</p>
-                        <p>Cantidad:</p>
-                        <p>Detalle:</p>                        
+                        {% if data['devoluciones'] %}     
+                            <p>Cantidad:</p>
+                            <p>Detalle:</p>  
+                        {% else %}
+                            <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
+                        {% endif %}                                   
                     </div>
                 </div>
 
