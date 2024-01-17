@@ -6,16 +6,16 @@
         {% set userHeader = user %}
         {% include 'partials/header.html' %}
         
-        <div class="flex justify-center h-[90vh] pt-8 pb-4">
+        <div class="flex flex-wrap justify-center h-[90vh] pt-8 pb-4">
             
-            <div class="w-[5vw] h-full flex justify-center">
+            <div class="sm:w-[5vw] sm:h-full w-full flex justify-center">
                 {% set current = 'costumer' %}
                 {% set canDoBar = canDo %}
                 {% include 'partials/floatingBar.html' %}
             </div>
 
-            <div class="w-[95vw] h-full flex justify-center items-center">
-                <div class="w-full h-full flex flex-col items-center pt-12">  
+            <div class="sm:w-[95vw] sm:h-full w-full flex justify-center items-center">
+                <div class="w-full h-full flex flex-col items-center sm:pt-12 pt-4 px-4">  
                     <div class="w-full flex justify-center">
                         <p class="inline font-bold text-xl mb-8">Lista de clientes</p>
                         {% if admin == True %}
@@ -31,14 +31,14 @@
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 w-full ">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 ">
+                                    <th scope="col" class="sm:px-6 px-2 py-3 text-2xs sm:text-lg">
                                         Clave
                                     </th>
-                                    <th scope="col" class="px-6 py-3 ">
+                                    <th scope="col" class="sm:px-6 px-2 py-3 text-2xs sm:text-lg">
                                         Nombre
                                     </th>
                                     {% if 'registrarDevolucion' in canDo %}
-                                        <th scope="col" class="px-6 py-3 ">
+                                        <th scope="col" class="sm:px-6 px-2 py-3 text-2xs sm:text-lg">
                                             Saldo bonificado
                                         </th>                                                                            
                                     {% endif %}
@@ -47,14 +47,14 @@
                             <tbody>                            
                                 {% for costumer in costumerList %}
                                     <tr class="bg-white border-b hover:bg-gray-50">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                        <th scope="row" class="sm:px-6 px-2 py-4 font-medium text-gray-900 whitespace-nowrap text-xs sm:text-lg">
                                             {{ costumer[2] }}  <!-- Número de empleado -->
                                         </th>
-                                        <td class="px-6 py-4">
+                                        <td class="sm:px-6 px-2 py-4 text-xs sm:text-lg">
                                             {{ costumer[1] }}  <!-- Nombre -->
                                         </td>
                                         {% if 'registrarDevolucion' in canDo %}
-                                            <td class="px-6 py-4">
+                                            <td class="sm:px-6 px-2 py-4 text-center text-xs sm:text-lg">
                                                 {{ costumer[3] }}  <!-- Área -->
                                             </td>                                        
                                         {% endif %}

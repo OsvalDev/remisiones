@@ -6,19 +6,19 @@
         {% set userHeader = user %}
         {% include 'partials/header.html' %}
         
-        <div class="flex justify-center h-[90vh] pt-8 pb-4">
+        <div class="flex flex-wrap justify-center w-full sm:w-fit sm:h-[90vh] pt-8 pb-4">
             
-            <div class="w-[5vw] h-full flex justify-center">
+            <div class="sm:w-[5vw] sm:h-full w-full flex justify-center">
                 {% set current = 'user' %}
                 {% set canDoBar = canDo %}
                 {% include 'partials/floatingBar.html' %}
             </div>
 
-            <div class="w-[60vw] h-full flex flex-col items-center pt-12">  
+            <div class="sm:w-[60vw] sm:h-full w-full flex flex-col items-center sm:pt-12 pt-4 px-4">  
                 
-                <p class="font-bold text-xl mb-8">Lista de empleados</p>
+                <p class="font-bold text-xl sm:mb-8 mb-2">Lista de empleados</p>
 
-                <div class="h-fit relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div class="h-fit relative overflow-x-auto shadow-md sm:rounded-lg hidden sm:block">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                             <tr>
@@ -85,34 +85,75 @@
                     </table>
                 </div>
 
+                <div class="sm:hidden w-full px-4">
+                    {% for user in userList %}                        
+                        <div class="shadow-lg w-full h-fit rounded-lg my-4 p-4 hover:bg-gray-200 flex justify-between">
+                            <div>
+                                <p class="font-bold">
+                                    {{ user[0] }} / {{ user[1] }}
+                                </p>
+                                <p class="font-bold">
+                                    {{ user[8] }}
+                                </p>
+                                <p class="text-xs">
+                                    {{ user[6] }}<!-- fecha de registro -->
+                                </p>                        
+                            </div>                                  
+                            {% if admin == True %}
+                                <td class="px-6 py-4 flex justify-center">                                        
+                                    {% if user[3] == 1 %}
+                                        <form action="turnOffUser" method="post">
+                                            <input type="hidden" name="idUser"  value="{{ user[0] }}">                                            
+                                            <button type="submit" class="w-8 h-8 bg-green-200 hover:bg-green-300 rounded-full flex justify-center items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4" viewBox="0 0 448 512">
+                                                    <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    {% else %}
+                                        <form action="turnOnUser" method="post">
+                                            <input type="hidden" name="idUser"  value="{{ user[0] }}">                                            
+                                            <button type="submit" class="w-8 h-8 bg-red-200 hover:bg-red-300 rounded-full flex justify-center items-center">                                                                                     
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4" viewBox="0 0 384 512">
+                                                    <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                </td>
+                            {% endif %}
+                        </div>                        
+                    {% endfor %}                    
+                </div>
+
             </div>
             
-            <div class="w-[35vw] h-full flex flex-col items-center pt-12">
+            <div class="sm:w-[35vw] sm:h-full w-full flex flex-col items-center pt-12 px-4">
                 <p class="font-bold text-xl mb-8">Nuevo usuario</p>
 
-                <form class="flex justify-center items-center flex-col w-96" action="newUser" method="post" id="signupForm">
-                    <div class="mb-5">
+                <form class="flex justify-center items-center flex-col sm:w-96 w-full" action="newUser" method="post" id="signupForm">
+                    <div class="mb-5 w-full">
                         <label for="idWorker" class="block mb-2 text-sm font-medium text-gray-900">Numero de empleado</label>
-                        <input type="text" id="idWorker" name="idWorker" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block w-96 p-2.5 " required>
+                        <input type="text" id="idWorker" name="idWorker" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block sm:w-96 w-full p-2.5 " required>
                     </div>
-                    <div class="mb-5">
+                    <div class="mb-5 w-full">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
-                        <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block w-96 p-2.5 " required>
+                        <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block sm:w-96 w-full p-2.5 " required>
                     </div>
-                    <div class="mb-5">
+                    <div class="mb-5 w-full">
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Contraseña</label>
-                        <input type="password" id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block  w-96 p-2.5 " required>
+                        <input type="password" id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block  sm:w-96 w-full p-2.5 " required>
                     </div>
     
-                    <div class="mb-5">
+                    <div class="mb-5 w-full">
                         <label for="passwordVerify" class="block mb-2 text-sm font-medium text-gray-900">Verifica contraseña</label>
-                        <input type="password" id="passwordVerify" name="passwordVerify" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block  w-96 p-2.5 " required>
+                        <input type="password" id="passwordVerify" name="passwordVerify" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block sm:w-96 w-full p-2.5 " required>
                     </div>
                     
                     
-                        <div class="mb-5">
+                        <div class="mb-5 w-full">
                             <label for="area" class="block mb-2 text-sm font-medium text-gray-900">Area</label>
-                            <select id="area" name="area" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block w-96 p-2.5 " required>
+                            <select id="area" name="area" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block sm:w-96 w-full p-2.5 " required>
                                 {% if areas %}
                                     {% for area in areas %}
                                         <option value="{{area[1]}}">{{area[0]}}</option>
