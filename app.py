@@ -176,7 +176,7 @@ def confirmDeliver(idRemission, idCompra):
         date = request.form['dateConfirm']
 
         registerDateConfirmation(mysql, date, idRemission, idCompra)
-        urlDetail = '/remission/' + str(idRemission) + '/' + str(idCompra)
+        urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
         return redirect(urlDetail)
     else:
         return redirect(url_for('login'))
