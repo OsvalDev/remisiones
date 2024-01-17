@@ -7,6 +7,7 @@ from controllers.loginController import login as funLogin
 from controllers.userController import *
 from controllers.costumersController import *
 from controllers.remissionController import *
+from controllers.followController import *
 from utils.userSession import verifyUser
 
 app = Flask(__name__)
@@ -166,7 +167,19 @@ def newRemission():
     else:
         return redirect(url_for('login'))
 
-    
+@app.route('/confirmDeliver/<idRemission>/<idCompra>', methods = ['POST'] )
+def confirmDeliver(idRemission, idCompra):
+
+    user = verifyUser()
+
+    if user[0]:
+        date = request.form['dateConfirm']
+
+        registerDateConfirmation(mysql, date, idRemission, idCompra)
+        urlDetail = '/remission/' + str(idRemission) + '/' + str(idCompra)
+        return redirect(urlDetail)
+    else:
+        return redirect(url_for('login'))
     
     
 if __name__ == '__main__':
