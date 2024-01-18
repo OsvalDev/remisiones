@@ -136,8 +136,12 @@ def turnOnUser():
 
 @app.route('/sync', methods= ['POST'])
 def sync():    
-    result = syncClientDb(db_sql_server, mysql)
-    return jsonify( result )
+    result = syncClientDb(db_sql_server, mysql) 
+
+    if result['result'] == 'failed':
+        return result['msg']
+    else:
+        return jsonify( result )
 
 @app.route('/nameCostumer', methods= ['POST'])
 def nameCostumer():    
