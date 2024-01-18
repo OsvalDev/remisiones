@@ -19,6 +19,7 @@ const sync = async () => {
         urls.costumers = '/registro/costumers';
     }    
 
+    console.log(urls)
     try {
         const response = await fetch(urls.sync, {
             method: 'POST',
@@ -27,11 +28,14 @@ const sync = async () => {
             },
         });
 
+        console.log('1')
         if (!response.ok) {
             throw new Error(`Error en la solicitud: ${response.status}`);
         }
-
-        const responseData = await response.json();        
+        console.log('2')
+        const responseData = await response.json();       
+        
+        console.log('3')
         
         if (responseData.result === 'failed') {
             utils.removeElement('noti');
