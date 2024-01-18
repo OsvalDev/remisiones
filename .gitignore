@@ -4,3 +4,4 @@ passenger.log
 passenger_wsgi.py
 tmp/
 __pycache__/
+error_log.txt
