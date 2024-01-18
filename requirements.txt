@@ -15,6 +15,7 @@ mysql-connector-python==8.2.0
 mysqlclient==2.2.1
 Pillow==10.1.0
 protobuf==4.21.12
+pymssql==2.2.11
 PyMySQL==1.1.0
 pyodbc==5.0.1
 pypng==0.20220715.0
