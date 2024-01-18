@@ -145,22 +145,16 @@ def newRemission():
         
     user = verifyUser()
 
-    if user[0]:
-        data = {
-            'numCompra' : request.form['numCompra'],
-            'numRemission' : request.form['numRemission'],
-            'numCliente' : request.form['numCliente'],
-            'piezas' : request.form['piezas'],
-            'remisionado' : request.form['remisionado'],
-            'facturado' : request.form['facturado']
-        }
+    if user[0]:        
+
+        data = request.get_json()
         
-        addRemission(mysql, data)
+        result = addRemission(mysql, data)
         
-        return redirect(url_for('dashboard'))
+        return jsonify(result)
 
     else:
-        return redirect(url_for('login'))
+        return jsonify({'result':'failed'})
 
 @app.route('/confirmDeliver/<idRemission>/<idCompra>', methods = ['POST'] )
 def confirmDeliver(idRemission, idCompra):

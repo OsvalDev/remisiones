@@ -44,4 +44,4 @@ const nameCostumer = async () => {
     }
 };
 
-document.getElementById('numCliente').onchange = nameCostumer
+document.getElementById('numCliente').oninput = nameCostumer

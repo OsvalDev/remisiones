@@ -58,6 +58,8 @@ def addRemission(mysql, data):
         ''', (data['numRemission'], data['numCompra'], data['piezas'], data['remisionado'], data['facturado'], costumerid ))
         mysql.connection.commit()
 
+        return {'result' : 'success'}
+
     except Exception as e:
         print(e)
         return {'result':'failed'}
