@@ -3,16 +3,15 @@ from sqlalchemy import text
 def syncClientDb(dbSqlServer, mysql):
     try:        
         # raw_sql = text('SELECT * FROM CatClientes')
-        # result = dbSqlServer.session.execute(raw_sql)
-        print('hoal')
+        # result = dbSqlServer.session.execute(raw_sql)        
         #costumerListSqlServer = [row for row in result]
 
-        # cur = mysql.connection.cursor()        
-        # cur.execute('''        
-        #     SELECT id
-        #     FROM CLIENTE
-        # ''' )
-        # costumerListMysql = cur.fetchall()        
+        cur = mysql.connection.cursor()
+        cur.execute('''        
+            SELECT id
+            FROM CLIENTE
+        ''' )
+        costumerListMysql = cur.fetchall()        
 
         # keyCostumers = [key[0] for key in costumerListMysql]
         # inMysql = [row for row in costumerListSqlServer if row[0] in keyCostumers]
