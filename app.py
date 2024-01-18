@@ -180,7 +180,63 @@ def confirmDeliver(idRemission, idCompra):
         return redirect(urlDetail)
     else:
         return redirect(url_for('login'))
+
+@app.route('/dateCommit/<idRemission>/<idCompra>', methods = ['POST'] )
+def dateCommit(idRemission, idCompra):
+
+    user = verifyUser()
+
+    if user[0]:
+        data = {
+            'accion' : request.form['action'],
+            'fechaCompromiso' : request.form['dateConfirm'],
+            'numRemision' : idRemission,
+            'numCompra' : idCompra,
+            'usuario' : user[0]
+        }        
+
+        registerDateCommit(mysql, data)
+        urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
+        return redirect(urlDetail)
+    else:
+        return redirect(url_for('login'))
     
+@app.route('/endCommit/<idRemission>/<idCompra>', methods = ['POST'] )
+def endommit(idRemission, idCompra):
+
+    user = verifyUser()
+
+    if user[0]:
+        data = {
+            'accion' : request.form['action'],
+            'numRemision' : idRemission,
+            'numCompra' : idCompra
+        }        
+
+        registerEnd(mysql, data)
+        urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
+        return redirect(urlDetail)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/addDevolution/<idRemission>/<idCompra>', methods = ['POST'] )
+def addDevolution(idRemission, idCompra):
+
+    user = verifyUser()
+
+    if user[0]:
+        data = {            
+            'numRemision' : idRemission,
+            'numCompra' : idCompra,
+            'descripcion' : request.form['detail'],
+            'cantidadBonificada' : request.form['mount']
+        }        
+
+        registerDevolution(mysql, data)
+        urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
+        return redirect(urlDetail)
+    else:
+        return redirect(url_for('login'))
     
 if __name__ == '__main__':
     app.run()
