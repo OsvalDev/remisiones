@@ -32,7 +32,7 @@ def syncClientDb(dbSqlServer, mysql):
 
     except Exception as e:
         print(e)
-        return {'result' : 'failed', 'msg' : 'Error de la base de datos'}
+        return {'result' : 'failed', 'msg' : e}
     
 def getCostumers(mysql):
     cur = mysql.connection.cursor()
@@ -40,6 +40,7 @@ def getCostumers(mysql):
         cur.execute('''        
             SELECT *
             FROM CLIENTE
+            ORDER BY saldoBonificado DESC, id
         ''')
         data = cur.fetchall()
         if data != None:

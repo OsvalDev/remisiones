@@ -5,6 +5,7 @@ def getRemissions(mysql):
             SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, r.estatus
             FROM REMISION AS r
             JOIN CLIENTE AS c ON r.cliente = c.id
+            ORDER BY r.numCompra, r.numRemision
         ''')
         data = cur.fetchall()
         if data != None:
@@ -54,7 +55,7 @@ def addRemission(mysql, data):
         cur.execute('''        
             INSERT INTO REMISION (numRemision, numCompra, piezas, importeRemisionado, importeFacturado, cliente)
             VALUES (%s, %s, %s, %s, %s, %s)
-        ''', (data['numCompra'], data['numRemission'], data['piezas'], data['remisionado'], data['facturado'], costumerid ))
+        ''', (data['numRemission'], data['numCompra'], data['piezas'], data['remisionado'], data['facturado'], costumerid ))
         mysql.connection.commit()
 
     except Exception as e:
@@ -79,7 +80,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
 
     try:
         cur.execute('''        
-            SELECT r.numRemision, r.numCompra, c.nombre, r.piezas, r.importeFacturado, r.importeRemisionado, r.saldoAFavor
+            SELECT r.numRemision, r.numCompra, c.nombre, r.piezas, r.importeFacturado, r.importeRemisionado, r.saldoAFavor, r.fecha
             FROM REMISION AS r
             JOIN CLIENTE AS c ON r.cliente = c.id
             WHERE r.numRemision = %s and r.numCompra = %s

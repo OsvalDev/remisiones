@@ -29,6 +29,7 @@ def getUsers(mysql, id):
             FROM USUARIO AS u 
             JOIN USUARIO_AREA AS ua ON u.id = ua.idUsuario
             JOIN AREA AS a ON ua.idArea = a.id
+            ORDER BY u.id
             ''', )
         else:
             cur.execute('''
@@ -42,6 +43,7 @@ def getUsers(mysql, id):
                 JOIN USUARIO_AREA AS ua ON u.id = ua.idUsuario
                 JOIN AREA AS a ON ua.idArea = a.id
                 WHERE u.id = %s)
+            ORDER BY u.id
             ''', (id, ) )
         userList = cur.fetchall()        
         if userList != None:
@@ -88,7 +90,7 @@ def addUser(mysql, data):
     cur = mysql.connection.cursor()
     try:                
         cur.execute('''        
-            INSERT INTO USUARIO VALUES (%s, %s, %s)
+            INSERT INTO USUARIO(id, nombre, psw) VALUES (%s, %s, %s)
         ''', (data[0], data[1], data[2] ) )
         mysql.connection.commit()
 

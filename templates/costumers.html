@@ -48,14 +48,14 @@
                                 {% for costumer in costumerList %}
                                     <tr class="bg-white border-b hover:bg-gray-50">
                                         <th scope="row" class="sm:px-6 px-2 py-4 font-medium text-gray-900 whitespace-nowrap text-xs sm:text-lg">
-                                            {{ costumer[2] }}  <!-- Número de empleado -->
+                                            {{ costumer[2] }}
                                         </th>
                                         <td class="sm:px-6 px-2 py-4 text-xs sm:text-lg">
-                                            {{ costumer[1] }}  <!-- Nombre -->
+                                            {{ costumer[1] }} 
                                         </td>
                                         {% if 'registrarDevolucion' in canDo %}
                                             <td class="sm:px-6 px-2 py-4 text-center text-xs sm:text-lg">
-                                                {{ costumer[3] }}  <!-- Área -->
+                                                $ {{ costumer[3] }} 
                                             </td>                                        
                                         {% endif %}
                                     </tr>
