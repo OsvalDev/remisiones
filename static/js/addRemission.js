@@ -55,7 +55,7 @@ const newRemission = async () => {
 };
 
 
-const refreshPage = () => window.location.href = '/dashboard';
+const refreshPage = () => window.location.href = '/registro/dashboard';
 
 const getTotalMount = () => {
     const facturado = document.getElementById('facturado').value;
