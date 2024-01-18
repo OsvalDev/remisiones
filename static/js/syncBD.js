@@ -18,8 +18,7 @@ const sync = async () => {
         urls.sync = '/registro/sync';
         urls.costumers = '/registro/costumers';
     }    
-
-    console.log(urls)
+    
     try {
         const response = await fetch(urls.sync, {
             method: 'POST',
@@ -29,10 +28,14 @@ const sync = async () => {
         });
 
         console.log('1')
+        console.log(response)
+
         if (!response.ok) {
             throw new Error(`Error en la solicitud: ${response.status}`);
         }
+        
         console.log('2')
+        
         const responseData = await response.json();       
         
         console.log('3')
