@@ -4,7 +4,7 @@ def syncClientDb(dbSqlServer, mysql):
     try:        
         raw_sql = text('SELECT * FROM CatClientes')
         result = dbSqlServer.session.execute(raw_sql)
-        costumerListSqlServer = [row for row in result]        
+        #costumerListSqlServer = [row for row in result]
 
         # cur = mysql.connection.cursor()        
         # cur.execute('''        
