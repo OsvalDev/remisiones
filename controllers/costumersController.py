@@ -1,11 +1,20 @@
-from sqlalchemy import text
 import traceback
+import pymssql
 
-def syncClientDb(dbSqlServer, mysql):
-    try:        
-        raw_sql = text('SELECT * FROM CatClientes')
-        result = dbSqlServer.session.execute(raw_sql)
-        costumerListSqlServer = [row for row in result]
+def syncClientDb(mysql):
+    try:                
+        conn = pymssql.connect(
+                server='p3nwplsk12sql-v17.shr.prod.phx3.secureserver.net:1433',
+                user='userp',
+                password='oY9u463?e',
+                database='dbclientesm',
+                as_dict=True
+            )        
+        
+        sqlQuery = 'SELECT * FROM CatClientes'
+        cursor = conn.cursor()
+        cursor.execute(sqlQuery)        
+        costumerListSqlServer = cursor.fetchall()        
 
         cur = mysql.connection.cursor()
         cur.execute('''        
@@ -15,9 +24,9 @@ def syncClientDb(dbSqlServer, mysql):
         costumerListMysql = cur.fetchall()        
 
         keyCostumers = [key[0] for key in costumerListMysql]
-        inMysql = [row for row in costumerListSqlServer if row[0] in keyCostumers]
-        notInMysql = [row for row in costumerListSqlServer if not row[0] in keyCostumers]
-        modifiedList = [(row[1], row[2], row[0]) for row in inMysql]
+        inMysql = [row for row in costumerListSqlServer if row['Id'] in keyCostumers]
+        notInMysql = [row for row in costumerListSqlServer if not row['Id'] in keyCostumers]
+        modifiedList = [(row['Clave'], row['Nombre'], row['Id']) for row in inMysql]
 
         sqlQuery = "INSERT INTO CLIENTE (id, clave, nombre ) VALUES (%s, %s, %s)"
         cur.executemany(sqlQuery, notInMysql)
@@ -32,8 +41,7 @@ def syncClientDb(dbSqlServer, mysql):
 
     except Exception as e:
         print(f"Error details: {e}")
-        
-        # Log the full traceback to a file for more information
+                
         with open("error_log.txt", "a") as log_file:
             log_file.write(traceback.format_exc())
         return {'result' : 'failed', 'msg' : 'Error en la base de datos'}

@@ -1,0 +1,35 @@
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 14, in syncClientDb
+    sql_server_conn = pyodbc.connect(sql_server_connection_string)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pyodbc.InterfaceError: ('IM002', '[IM002] [Microsoft][Administrador de controladores ODBC] No se encuentra el nombre del origen de datos y no se especificó ningún controlador predeterminado (0) (SQLDriverConnect)')
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 14, in syncClientDb
+    sql_server_conn = pyodbc.connect(sql_server_connection_string)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pyodbc.InterfaceError: ('IM002', '[IM002] [Microsoft][Administrador de controladores ODBC] No se encuentra el nombre del origen de datos y no se especificó ningún controlador predeterminado (0) (SQLDriverConnect)')
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 13, in syncClientDb
+    conn = pyodbc.connect(f'DRIVER={driver};SERVER={server};DATABASE={database};UID={username};PWD={password}')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pyodbc.OperationalError: ('08001', '[08001] [Microsoft][ODBC SQL Server Driver][DBNETLIB]Conexión no válida. (14) (SQLDriverConnect); [08001] [Microsoft][ODBC SQL Server Driver][DBNETLIB]ConnectionOpen (ParseConnectParams()). (14)')
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 13, in syncClientDb
+    conn = pyodbc.connect(f'DRIVER={driver};SERVER={server};DATABASE={database};UID={username};PWD={password}')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pyodbc.OperationalError: ('08001', '[08001] [Microsoft][ODBC SQL Server Driver][DBNETLIB]Conexión no válida. (14) (SQLDriverConnect); [08001] [Microsoft][ODBC SQL Server Driver][DBNETLIB]ConnectionOpen (ParseConnectParams()). (14)')
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 13, in syncClientDb
+    conn = pyodbc.connect(f'DRIVER={driver};SERVER={server};DATABASE={database};UID={username};PWD={password}')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pyodbc.OperationalError: ('08001', '[08001] [Microsoft][ODBC SQL Server Driver][DBNETLIB]Conexión no válida. (14) (SQLDriverConnect); [08001] [Microsoft][ODBC SQL Server Driver][DBNETLIB]ConnectionOpen (ParseConnectParams()). (14)')
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 38, in syncClientDb
+    inMysql = [row for row in costumerListSqlServer if row[0] in keyCostumers]
+                                                       ~~~^^^
+KeyError: 0
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 29, in syncClientDb
+    modifiedList = [(row[1], row[2], row[0]) for row in inMysql]
+                     ~~~^^^
+KeyError: 1

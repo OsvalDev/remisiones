@@ -1,7 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request, jsonify, session
 from flask_mysqldb import MySQL
-import os
-from flask_sqlalchemy import SQLAlchemy 
 
 from controllers.loginController import login as funLogin
 from controllers.userController import *
@@ -22,9 +20,6 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.secret_key = 'carnival*c1rn2v3l-1a23i4a5/c4rn1v4l.'
 
 mysql = MySQL(app)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://userp:oY9u463?e@p3nwplsk12sql-v17.shr.prod.phx3.secureserver.net:1433/dbclientesm?driver=ODBC+Driver+17+for+SQL+Server'
-db_sql_server = SQLAlchemy(app)
 
 #get routes
 @app.route('/')
@@ -136,7 +131,7 @@ def turnOnUser():
 
 @app.route('/sync', methods= ['POST'])
 def sync():    
-    result = syncClientDb(db_sql_server, mysql)
+    result = syncClientDb(mysql)
     return jsonify( result )
 
 @app.route('/nameCostumer', methods= ['POST'])
