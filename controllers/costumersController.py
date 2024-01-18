@@ -2,8 +2,9 @@ from sqlalchemy import text
 
 def syncClientDb(dbSqlServer, mysql):
     try:        
-        raw_sql = text('SELECT * FROM CatClientes')
-        result = dbSqlServer.session.execute(raw_sql)
+        # raw_sql = text('SELECT * FROM CatClientes')
+        # result = dbSqlServer.session.execute(raw_sql)
+        print('hoal')
         #costumerListSqlServer = [row for row in result]
 
         # cur = mysql.connection.cursor()        
