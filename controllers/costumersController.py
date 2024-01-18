@@ -1,4 +1,5 @@
 from sqlalchemy import text
+import traceback
 
 def syncClientDb(dbSqlServer, mysql):
     try:        
@@ -30,7 +31,11 @@ def syncClientDb(dbSqlServer, mysql):
         return {'result' : 'success', 'msg' : 'Base de datos sincronizada correctamente'}
 
     except Exception as e:
-        print(e)
+        print(f"Error details: {e}")
+        
+        # Log the full traceback to a file for more information
+        with open("error_log.txt", "a") as log_file:
+            log_file.write(traceback.format_exc())
         return {'result' : 'failed', 'msg' : 'Error en la base de datos'}
     
 def getCostumers(mysql):
