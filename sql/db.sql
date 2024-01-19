@@ -147,7 +147,6 @@ INSERT INTO AREA_PERMISO(idArea, idPermiso) VALUES
 (2, 7),
 (2, 8),
 (3, 5),
-(4, 8),
 (4, 9),
 (5, 1),
 (5, 2),

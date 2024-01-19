@@ -18,6 +18,7 @@
                 <div class="flex items-center mb-4">
                     <p class="font-bold text-xl mx-8">Lista de remisiones</p>
                                         
+                    {% if 'crearRemision' in canDo %}
                     <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="block w-fit h-fit p-4 text-white bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-full text-sm text-center " type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4" viewBox="0 0 448 512">
                             <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
@@ -84,7 +85,7 @@
                             </div>
                         </div>
                     </div> 
-                    
+                    {% endif %}
                 </div>
 
                 <div class="sm:hidden w-full px-4">
