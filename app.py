@@ -156,6 +156,30 @@ def newRemission():
     else:
         return jsonify({'result':'failed'})
 
+@app.route('/editRemission', methods= ['POST'])
+def editRemission():
+        
+    user = verifyUser()
+
+    if user[0]:        
+
+        data = {
+            'numRemision' : request.form['numRemision'],
+            'numCompra' : request.form['numCompra'],
+            'piezas' : request.form['piezas'],
+            'remisionado' : request.form['remisionado'],
+            'facturado' : request.form['facturado'],
+            'saldoAFavor' : request.form['bonificado']
+        }
+        
+        changueRemission(mysql, data)
+        
+        urlDetail = '/registro/remission/' + str(data['numRemision']) + '/' + str(data['numCompra'])
+        return redirect(urlDetail)
+
+    else:
+        return redirect(url_for('login'))
+
 @app.route('/confirmDeliver/<idRemission>/<idCompra>', methods = ['POST'] )
 def confirmDeliver(idRemission, idCompra):
 

@@ -6,6 +6,7 @@ const newRemission = async () => {
     const piezas = document.getElementById('piezas');
     const remisionado = document.getElementById('remisionado');
     const facturado = document.getElementById('facturado');
+    const bonificado = document.getElementById('bonificado');
 
     const data = {
             numCompra : numCompra.value,
@@ -13,7 +14,8 @@ const newRemission = async () => {
             numCliente : numCliente.value,
             piezas : piezas.value,
             remisionado : remisionado.value,
-            facturado : facturado.value
+            facturado : facturado.value,
+            bonificado : bonificado.value
     }
     
     let url =''
@@ -45,6 +47,8 @@ const newRemission = async () => {
             piezas.value = ''
             remisionado.value = ''
             facturado.value = ''
+            bonificado.value = ''
+            document.getElementById('total').textContent = 'Total: $ 0.0'
         }else{
             alert('Hubo un error en la base de datos')
         }
@@ -62,14 +66,20 @@ const getTotalMount = () => {
     const remisionado = document.getElementById('remisionado').value;
     const total = document.getElementById('total');
 
-    let totalMount = 0;
-    if (facturado != '')   totalMount += parseInt(facturado);
-    if (remisionado != '')   totalMount += parseInt(remisionado);
-1
-    total.textContent = `Total ${totalMount}`
+    let totalMount = 0.0;
+    if (facturado != '')   totalMount += parseFloat(facturado);
+    if (remisionado != '')   totalMount += parseFloat(remisionado);
+
+    total.textContent = `Total: $ ${totalMount}`
 }
 
-document.getElementById('btnSubmit').onclick = newRemission;
-document.getElementById('btnClose').onclick = refreshPage;
+const btnSubmit = document.getElementById('btnSubmit');
+if (btnSubmit) btnSubmit.onclick = newRemission;
+
+const btnClose = document.getElementById('btnClose');
+if (btnClose) btnClose.onclick = refreshPage;
+
 document.getElementById('facturado').oninput = getTotalMount;
 document.getElementById('remisionado').oninput  = getTotalMount;
+
+getTotalMount()

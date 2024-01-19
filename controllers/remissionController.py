@@ -53,9 +53,27 @@ def addRemission(mysql, data):
         costumerid = cur.fetchone()
 
         cur.execute('''        
-            INSERT INTO REMISION (numRemision, numCompra, piezas, importeRemisionado, importeFacturado, cliente)
-            VALUES (%s, %s, %s, %s, %s, %s)
-        ''', (data['numRemission'], data['numCompra'], data['piezas'], data['remisionado'], data['facturado'], costumerid ))
+            INSERT INTO REMISION (numRemision, numCompra, piezas, importeRemisionado, importeFacturado, cliente, saldoAFavor)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+        ''', (data['numRemission'], data['numCompra'], data['piezas'], data['remisionado'], data['facturado'], costumerid, data['saldoAFavor'] ))
+        mysql.connection.commit()
+
+        return {'result' : 'success'}
+
+    except Exception as e:
+        print(e)
+        return {'result':'failed'}
+
+    finally:
+        cur.close()
+
+def changueRemission(mysql, data):    
+    cur = mysql.connection.cursor()
+    try:                
+        cur.execute('''        
+            UPDATE REMISION SET piezas = %s, importeRemisionado = %s, importeFacturado = %s, saldoAFavor = %s
+            WHERE numRemision = %s and numCompra = %s
+        ''', ( data['piezas'], data['remisionado'], data['facturado'],data['saldoAFavor'], data['numRemision'], data['numCompra'] ))
         mysql.connection.commit()
 
         return {'result' : 'success'}
