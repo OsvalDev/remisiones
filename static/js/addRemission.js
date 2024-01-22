@@ -85,12 +85,20 @@ const restrictBonification = () =>{
     const bonificado = document.getElementById('bonificado');
     const max = bonificado.getAttribute('max');
     const value = parseFloat(bonificado.value);
+    const currency = document.getElementById('saldoInicial');
 
-    if ( value > max )
-        bonificado.value = max
-    
+    if ( currency ){
+        let maxTotal = parseFloat(currency.value) + max
+        if ( value > maxTotal )
+            bonificado.value = maxTotal;
+    }else{
+        if ( value > max )
+            bonificado.value = max;            
+    }
+
     if ( value < 0 )
-        bonificado.value = 0
+        bonificado.value = 0;
+    
 };
 
 const btnSubmit = document.getElementById('btnSubmit');
