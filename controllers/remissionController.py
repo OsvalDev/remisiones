@@ -75,7 +75,36 @@ def addRemission(mysql, data):
 
 def changueRemission(mysql, data):    
     cur = mysql.connection.cursor()
-    try:                
+    try:             
+        cur.execute('''        
+            SELECT id, saldoBonificado
+            FROM CLIENTE
+            WHERE id = (
+                    SELECT cliente
+                    FROM REMISION
+                    WHERE numRemision = %s and numCompra = %s
+            )
+        ''', ( data['numRemision'], data['numCompra'] ))
+        saldoBonificado = cur.fetchone()
+
+        if data['saldoInicial'] != data['saldoAFavor']:
+            initialCurrency = data['saldoInicial']
+            newBonify = data['saldoAFavor']
+
+            if initialCurrency < newBonify:
+                total = newBonify - initialCurrency
+                newActual = saldoBonificado[1] - total
+                if newActual >=0:
+                    cur.execute('UPDATE CLIENTE SET saldoBonificado = %s WHERE id = %s', (newActual, saldoBonificado[0]))
+                    mysql.connection.commit()
+                else:
+                    return {'result':'failed', 'msg' : 'Saldo insuficiente'}
+            else:
+                total = initialCurrency - newBonify
+                newActual = saldoBonificado[1] + total
+                cur.execute('UPDATE CLIENTE SET saldoBonificado = %s WHERE id = %s', (newActual, saldoBonificado[0]))
+                mysql.connection.commit()
+
         cur.execute('''        
             UPDATE REMISION SET piezas = %s, importeRemisionado = %s, importeFacturado = %s, saldoAFavor = %s
             WHERE numRemision = %s and numCompra = %s

@@ -83,11 +83,12 @@ const getTotalMount = () => {
 
 const restrictBonification = () =>{    
     const bonificado = document.getElementById('bonificado');
-    const max = bonificado.getAttribute('max');
+    const max = parseFloat(bonificado.getAttribute('max'));
     const value = parseFloat(bonificado.value);
     const currency = document.getElementById('saldoInicial');
-
+    
     if ( currency ){
+        console.log(currency.value)
         let maxTotal = parseFloat(currency.value) + max
         if ( value > maxTotal )
             bonificado.value = maxTotal;
