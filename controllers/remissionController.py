@@ -25,15 +25,15 @@ def getCostumerName(mysql, data):
     cur = mysql.connection.cursor()
     try:                
         cur.execute('''        
-            SELECT nombre
+            SELECT nombre, saldoBonificado
             FROM CLIENTE
             WHERE clave = %s
         ''', (value, ))
         data = cur.fetchone()
         if data != None:
-            return {'result':'success', 'name' : data[0]}
+            return {'result':'success', 'name' : data[0], 'saldo' : data[1]}
         else:
-            return {'result':'success', 'name' : 'Cliente no encontrado'}
+            return {'result':'success', 'name' : 'Cliente no encontrado', 'saldo' : 0}
 
     except Exception as e:
         print(e)
@@ -46,17 +46,23 @@ def addRemission(mysql, data):
     cur = mysql.connection.cursor()
     try:                
         cur.execute('''        
-            SELECT id
+            SELECT id, saldoBonificado
             FROM CLIENTE
             WHERE clave = %s
         ''', (data['numCliente'], ))
-        costumerid = cur.fetchone()
-
+        costumerid = cur.fetchone()        
         cur.execute('''        
             INSERT INTO REMISION (numRemision, numCompra, piezas, importeRemisionado, importeFacturado, cliente, saldoAFavor)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
-        ''', (data['numRemission'], data['numCompra'], data['piezas'], data['remisionado'], data['facturado'], costumerid, data['saldoAFavor'] ))
+        ''', (data['numRemission'], data['numCompra'], data['piezas'], data['remisionado'], data['facturado'], costumerid[0], data['bonificado'] ))
         mysql.connection.commit()
+
+        if data['bonificado'] != '' and int(data['bonificado']) > 0:
+            mount = int(data['bonificado'])
+            balance =  int(costumerid[1])
+            
+            cur.execute('UPDATE CLIENTE SET saldoBonificado = %s WHERE id = %s', (balance-mount, costumerid[0]))
+            mysql.connection.commit()
 
         return {'result' : 'success'}
 
@@ -100,7 +106,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
 
     try:
         cur.execute('''        
-            SELECT r.numRemision, r.numCompra, c.nombre, r.piezas, r.importeFacturado, r.importeRemisionado, r.saldoAFavor, r.fecha
+            SELECT r.numRemision, r.numCompra, c.nombre, r.piezas, r.importeFacturado, r.importeRemisionado, r.saldoAFavor, r.fecha, c.clave
             FROM REMISION AS r
             JOIN CLIENTE AS c ON r.cliente = c.id
             WHERE r.numRemision = %s and r.numCompra = %s

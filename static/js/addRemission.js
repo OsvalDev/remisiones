@@ -1,3 +1,4 @@
+import costumer from './costumer.js'
 const newRemission = async () => {        
 
     const numCompra = document.getElementById('numCompra');
@@ -48,7 +49,8 @@ const newRemission = async () => {
             remisionado.value = ''
             facturado.value = ''
             bonificado.value = ''
-            document.getElementById('total').textContent = 'Total: $ 0.0'
+            costumer.nameCostumer()
+            document.getElementById('total').textContent = 'Total: $ 0.0'            
         }else{
             alert('Hubo un error en la base de datos')
         }
@@ -62,16 +64,34 @@ const newRemission = async () => {
 const refreshPage = () => window.location.href = '/registro/dashboard';
 
 const getTotalMount = () => {
-    const facturado = document.getElementById('facturado').value;
-    const remisionado = document.getElementById('remisionado').value;
+    const facturado = document.getElementById('facturado');
+    const remisionado = document.getElementById('remisionado');
     const total = document.getElementById('total');
 
-    let totalMount = 0.0;
-    if (facturado != '')   totalMount += parseFloat(facturado);
-    if (remisionado != '')   totalMount += parseFloat(remisionado);
+    if (parseFloat(facturado.value) < 0)
+        facturado.value = 0
+    
+    if (parseFloat(remisionado.value) < 0)
+        remisionado.value = 0
+
+    let totalMount = 0.0;    
+    if (facturado.value != '')   totalMount += parseFloat(facturado.value);
+    if (remisionado.value != '')   totalMount += parseFloat(remisionado.value);
 
     total.textContent = `Total: $ ${totalMount}`
-}
+};
+
+const restrictBonification = () =>{    
+    const bonificado = document.getElementById('bonificado');
+    const max = bonificado.getAttribute('max');
+    const value = parseFloat(bonificado.value);
+
+    if ( value > max )
+        bonificado.value = max
+    
+    if ( value < 0 )
+        bonificado.value = 0
+};
 
 const btnSubmit = document.getElementById('btnSubmit');
 if (btnSubmit) btnSubmit.onclick = newRemission;
@@ -81,5 +101,6 @@ if (btnClose) btnClose.onclick = refreshPage;
 
 document.getElementById('facturado').oninput = getTotalMount;
 document.getElementById('remisionado').oninput  = getTotalMount;
+document.getElementById('bonificado').oninput  = restrictBonification;
 
 getTotalMount()

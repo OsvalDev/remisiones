@@ -17,13 +17,27 @@ document.getElementById('btn-confirmDeliver').onclick = () => switchVisible('pop
 document.getElementById('close-confirmDeliver').onclick = () => switchVisible('popover-confirmDeliver');
 
 //Logistic
-document.getElementById('btn-endConfirmLog').onclick = () => switchVisible('popover-endConfirmLog');
-document.getElementById('close-endConfirmLog').onclick = () => switchVisible('popover-endConfirmLog');
-document.getElementById('btn-endLog').onclick = () => switchVisible('popover-endLog');
-document.getElementById('close-endLog').onclick = () => switchVisible('popover-endLog');
+if (document.getElementById('btn-endConfirmLog'))
+    document.getElementById('btn-endConfirmLog').onclick = () => switchVisible('popover-endConfirmLog');
+
+if (document.getElementById('close-endConfirmLog'))
+    document.getElementById('close-endConfirmLog').onclick = () => switchVisible('popover-endConfirmLog');
+
+if (document.getElementById('btn-endLog'))
+    document.getElementById('btn-endLog').onclick = () => switchVisible('popover-endLog');
+
+if (document.getElementById('close-endLog'))
+    document.getElementById('close-endLog').onclick = () => switchVisible('popover-endLog');
 
 //surtiment
-document.getElementById('btn-endConfirmSur').onclick = () => switchVisible('popover-endConfirmSur');
-document.getElementById('close-endConfirmSur').onclick = () => switchVisible('popover-endConfirmSur');
-document.getElementById('btn-endSur').onclick = () => switchVisible('popover-endSur');
-document.getElementById('close-endSur').onclick = () => switchVisible('popover-endSur');
+if (document.getElementById('btn-endConfirmSur'))
+    document.getElementById('btn-endConfirmSur').onclick = () => switchVisible('popover-endConfirmSur');
+
+if (document.getElementById('close-endConfirmSur'))
+    document.getElementById('close-endConfirmSur').onclick = () => switchVisible('popover-endConfirmSur');
+
+if (document.getElementById('btn-endSur'))
+    document.getElementById('btn-endSur').onclick = () => switchVisible('popover-endSur');
+
+if (document.getElementById('close-endSur'))
+    document.getElementById('close-endSur').onclick = () => switchVisible('popover-endSur');

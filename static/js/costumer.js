@@ -27,11 +27,14 @@ const nameCostumer = async () => {
         const responseData = await response.json();
 
         if (responseData.result === 'success') {
-            document.getElementById('nameCostumerView').textContent = responseData.name;
+            if (document.getElementById('nameCostumerView'))
+                document.getElementById('nameCostumerView').textContent = responseData.name;
+            document.getElementById('saldo').textContent = "Saldo: $ " + responseData.saldo;
+            document.getElementById('bonificado').setAttribute('max', responseData.saldo);
 
-            if (responseData.name != 'Cliente no encontrado'){
+            if (responseData.name != 'Cliente no encontrado' && document.getElementById('btnSubmit') ){
                 document.getElementById('btnSubmit').removeAttribute("disabled");
-            }else{
+            }else if(document.getElementById('btnSubmit')){                
                 document.getElementById('btnSubmit').setAttribute("disabled", "disabled");
             }
                 
@@ -44,4 +47,9 @@ const nameCostumer = async () => {
     }
 };
 
-document.getElementById('numCliente').oninput = nameCostumer
+if ( document.getElementById('numCliente') )
+    document.getElementById('numCliente').oninput = nameCostumer
+
+nameCostumer()
+
+export default {nameCostumer};
