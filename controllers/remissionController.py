@@ -88,8 +88,8 @@ def changueRemission(mysql, data):
         saldoBonificado = cur.fetchone()
 
         if data['saldoInicial'] != data['saldoAFavor']:
-            initialCurrency = data['saldoInicial']
-            newBonify = data['saldoAFavor']
+            initialCurrency = float(data['saldoInicial'])
+            newBonify = float(data['saldoAFavor'])
 
             if initialCurrency < newBonify:
                 total = newBonify - initialCurrency
