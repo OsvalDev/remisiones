@@ -25,3 +25,22 @@ def login(mysql, data):
 
     finally:
         cur.close()
+
+def loginApp(mysql, data):
+    cur = mysql.connection.cursor()
+    try:                
+        cur.execute('''SELECT u.id FROM USUARIO AS u JOIN USUARIO_AREA AS ua ON u.id = ua.idUsuario
+                    JOIN AREA AS a ON a.id = ua.idArea
+                    WHERE u.id = %s and u.psw = %s and u.activo = 1 and a.nombre = 'chofer' ''', (data['id'], data['psw']) )
+        userData = cur.fetchone()
+
+        if userData != None:
+            return {'result' : 'success', 'msg' : 'Ha iniciado sesion correctamente', 'id' : userData[0]}
+        else:
+            return {'result' : 'failed', 'msg' : 'Numero de trabajador o contraseña incorrecto', 'id' : None}
+    except Exception as e:
+        print(e)
+        return {'result' : 'failed', 'msg' : 'Error en la conexion con la base de datos', 'id' : None}
+
+    finally:
+        cur.close()

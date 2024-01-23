@@ -269,6 +269,14 @@ def addChofer(idRemission, idCompra):
         return redirect(urlDetail)
     else:
         return redirect(url_for('login'))
+
+#post routes android
+@app.route('/loginApp', methods= ['POST'])
+def postLoginApp():
+    data = request.get_json()    
+    result = funLogin(mysql, data)
     
+    return jsonify( result[1] )
+
 if __name__ == '__main__':
     app.run()
