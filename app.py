@@ -276,7 +276,7 @@ def postLoginApp():
     data = request.get_json()    
     result = loginApp(mysql, data)
     
-    return jsonify( result[1] )
+    return jsonify( result   )
 
 if __name__ == '__main__':
     app.run()

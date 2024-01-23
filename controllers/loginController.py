@@ -37,7 +37,7 @@ def loginApp(mysql, data):
         if userData != None:
             return {'result' : 'success', 'msg' : 'Ha iniciado sesion correctamente', 'id' : userData[0]}
         else:
-            return {'result' : 'failed', 'msg' : 'Numero de trabajador o contraseña incorrecto', 'id' : None}
+            return {'result' : 'failed', 'msg' : 'Numero de trabajador o contraseña invalidos', 'id' : None}
     except Exception as e:
         print(e)
         return {'result' : 'failed', 'msg' : 'Error en la conexion con la base de datos', 'id' : None}
