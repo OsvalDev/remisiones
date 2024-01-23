@@ -71,8 +71,8 @@ def remissionList(idRemission, idCompra):
     result = getRemissionDetail(mysql, idRemission, idCompra)
     if user[0]:
         admin = verifyAdmin(mysql, user[0])
-        
-        return render_template('remissionDetail.html', user = user[1], admin = admin , canDo = user[2], data = result)
+        choferes = getChoferes(mysql)
+        return render_template('remissionDetail.html', user = user[1], admin = admin , canDo = user[2], data = result, choferes = choferes)
     else:
         return redirect(url_for('login'))
 #post routes
@@ -247,6 +247,24 @@ def addDevolution(idRemission, idCompra):
         }        
 
         registerDevolution(mysql, data)
+        urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
+        return redirect(urlDetail)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/chofer/<idRemission>/<idCompra>', methods = ['POST'] )
+def addChofer(idRemission, idCompra):
+
+    user = verifyUser()
+
+    if user[0]:
+        data = {
+            'numRemision' : idRemission,
+            'numCompra' : idCompra,
+            'chofer' : request.form['chofer'],            
+        }        
+
+        registerChofer(mysql, data)
         urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
         return redirect(urlDetail)
     else:

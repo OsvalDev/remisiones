@@ -123,3 +123,23 @@ def editStatusUser(mysql, id, status):
 
     finally:
         cur.close()
+
+def getChoferes(mysql):
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute('''
+            SELECT u.id, u.nombre
+            FROM USUARIO AS u 
+            JOIN USUARIO_AREA AS ua ON u.id = ua.idUsuario
+            JOIN AREA AS a ON ua.idArea = a.id
+            WHERE a.nombre = 'chofer'
+            ''', )
+        choferList = cur.fetchall()        
+        return choferList
+    
+    except Exception as e:
+        print(e)
+        return 'Error en la base de datos'
+
+    finally:
+        cur.close()

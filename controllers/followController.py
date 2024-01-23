@@ -80,3 +80,31 @@ def registerDevolution (mysql, data):
 
     finally:
         cur.close()
+
+
+def registerChofer(mysql, data):
+    cur = mysql.connection.cursor()
+
+    try:
+        cur.execute('SELECT * FROM PROCESO WHERE accion = %s and numRemision = %s and numCompra = %s',
+                    ('Entrega',data['numRemision'], data['numCompra']))
+        verify = cur.fetchone()
+
+        if verify == None:
+            cur.execute('''INSERT INTO PROCESO (accion, numRemision, numCompra, usuario)
+                            VALUES (%s, %s, %s, %s )''',
+                        ('Entrega', data['numRemision'], data['numCompra'], data['chofer']))
+            mysql.connection.commit()
+
+        else:
+            cur.execute('''UPDATE PROCESO SET usuario = %s WHERE numRemision = %s and numCompra = %s''',
+                        (data['chofer'], data['numRemision'], data['numCompra']))
+            mysql.connection.commit()
+
+        return True
+    except Exception as e:
+        print(e)
+        return {'failed'}
+    
+    finally:
+        cur.close()

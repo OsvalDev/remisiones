@@ -29,6 +29,12 @@ if (document.getElementById('btn-endLog'))
 if (document.getElementById('close-endLog'))
     document.getElementById('close-endLog').onclick = () => switchVisible('popover-endLog');
 
+if (document.getElementById('btn-chofer'))
+    document.getElementById('btn-chofer').onclick = () => switchVisible('popover-chofer');
+
+if (document.getElementById('close-chofer'))
+    document.getElementById('close-chofer').onclick = () => switchVisible('popover-chofer');
+
 //surtiment
 if (document.getElementById('btn-endConfirmSur'))
     document.getElementById('btn-endConfirmSur').onclick = () => switchVisible('popover-endConfirmSur');

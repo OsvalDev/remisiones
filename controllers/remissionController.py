@@ -128,7 +128,8 @@ def getRemissionDetail(mysql, numRemision, numCompra):
         'confirmacionEntrega' : None,
         'pagos' : None,
         'confirmacionPagos' : None,
-        'devoluciones' : None
+        'devoluciones' : None,
+        'chofer' : None
     }
     
     cur = mysql.connection.cursor()
@@ -160,6 +161,14 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                 WHERE p.numRemision = %s and p.numCompra = %s and p.accion = 'Logistica'
             ''', (numRemision, numCompra))
             data['logistica'] = cur.fetchone()
+            
+            cur.execute('''                        
+                SELECT u.nombre
+                FROM PROCESO AS p
+                JOIN USUARIO AS u ON p.usuario = u.id
+                WHERE p.numRemision = %s and p.numCompra = %s and p.accion = 'Entrega'
+            ''', (numRemision, numCompra))
+            data['chofer'] = cur.fetchone()
 
             #confirmacionEntrega
             cur.execute('''        
