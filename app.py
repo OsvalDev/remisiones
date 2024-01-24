@@ -1,11 +1,12 @@
 from flask import Flask, render_template, redirect, url_for, request, jsonify, session
 from flask_mysqldb import MySQL
 
-from controllers.loginController import login as funLogin, loginApp
+from controllers.loginController import login as funLogin
 from controllers.userController import *
 from controllers.costumersController import *
 from controllers.remissionController import *
 from controllers.followController import *
+from controllers.appController import *
 from utils.userSession import verifyUser
 
 app = Flask(__name__)
@@ -277,7 +278,14 @@ def postLoginApp():
     data = request.get_json()    
     result = loginApp(mysql, data)
     
-    return jsonify( result   )
+    return jsonify( result )
+
+@app.route('/remissionList', methods= ['POST'])
+def postRemissionList():
+    data = request.get_json()    
+    result = choferRemissionList(mysql, data)
+    
+    return jsonify( result )
 
 if __name__ == '__main__':
     app.run()
