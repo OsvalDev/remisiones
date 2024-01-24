@@ -8,6 +8,7 @@ const newRemission = async () => {
     const remisionado = document.getElementById('remisionado');
     const facturado = document.getElementById('facturado');
     const bonificado = document.getElementById('bonificado');
+    const factura = document.getElementById('numFactura');
 
     const data = {
             numCompra : numCompra.value,
@@ -16,7 +17,8 @@ const newRemission = async () => {
             piezas : piezas.value,
             remisionado : remisionado.value,
             facturado : facturado.value,
-            bonificado : bonificado.value
+            bonificado : bonificado.value,
+            factura : factura.value
     }
     
     let url =''
@@ -49,6 +51,7 @@ const newRemission = async () => {
             remisionado.value = ''
             facturado.value = ''
             bonificado.value = ''
+            factura.value = ''
             costumer.nameCostumer()
             document.getElementById('total').textContent = 'Total: $ 0.0'            
         }else{

@@ -52,9 +52,9 @@ def addRemission(mysql, data):
         ''', (data['numCliente'], ))
         costumerid = cur.fetchone()        
         cur.execute('''        
-            INSERT INTO REMISION (numRemision, numCompra, piezas, importeRemisionado, importeFacturado, cliente, saldoAFavor)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-        ''', (data['numRemission'], data['numCompra'], data['piezas'], data['remisionado'], data['facturado'], costumerid[0], data['bonificado'] ))
+            INSERT INTO REMISION (numRemision, numCompra, piezas, importeRemisionado, importeFacturado, cliente, saldoAFavor, numFactura)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        ''', (data['numRemission'], data['numCompra'], data['piezas'], data['remisionado'], data['facturado'], costumerid[0], data['bonificado'], data['factura'] ))
         mysql.connection.commit()
 
         if data['bonificado'] != '' and int(data['bonificado']) > 0:
@@ -106,9 +106,9 @@ def changueRemission(mysql, data):
                 mysql.connection.commit()
 
         cur.execute('''        
-            UPDATE REMISION SET piezas = %s, importeRemisionado = %s, importeFacturado = %s, saldoAFavor = %s
+            UPDATE REMISION SET piezas = %s, importeRemisionado = %s, importeFacturado = %s, saldoAFavor = %s, numFactura = %s
             WHERE numRemision = %s and numCompra = %s
-        ''', ( data['piezas'], data['remisionado'], data['facturado'],data['saldoAFavor'], data['numRemision'], data['numCompra'] ))
+        ''', ( data['piezas'], data['remisionado'], data['facturado'],data['saldoAFavor'], data['numFactura'], data['numRemision'], data['numCompra'] ))
         mysql.connection.commit()
 
         return {'result' : 'success'}
@@ -136,7 +136,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
 
     try:
         cur.execute('''        
-            SELECT r.numRemision, r.numCompra, c.nombre, r.piezas, r.importeFacturado, r.importeRemisionado, r.saldoAFavor, r.fecha, c.clave
+            SELECT r.numRemision, r.numCompra, c.nombre, r.piezas, r.importeFacturado, r.importeRemisionado, r.saldoAFavor, r.fecha, c.clave, r.numFactura
             FROM REMISION AS r
             JOIN CLIENTE AS c ON r.cliente = c.id
             WHERE r.numRemision = %s and r.numCompra = %s

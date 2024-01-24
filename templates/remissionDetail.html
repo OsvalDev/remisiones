@@ -65,6 +65,10 @@
                                                     <input type="hidden" name="numRemision" value="{{ data['baseData'][0] }}">
                                                     <input type="hidden" name="numCompra" value="{{ data['baseData'][1] }}">
                                                     <div>
+                                                        <label for="numFactura" class="block mb-2 text-sm font-medium text-gray-900 ">Numero de factura</label>
+                                                        <input value="{{ data['baseData'][9] }}" type="text" name="numFactura" id="numFactura" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 " required>
+                                                    </div>
+                                                    <div>
                                                         <label for="piezas" class="block mb-2 text-sm font-medium text-gray-900 ">Piezas</label>
                                                         <input value="{{ data['baseData'][3] }}" type="number" name="piezas" id="piezas" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 " required>
                                                     </div>
@@ -100,6 +104,7 @@
   
                     </div>
                     <div class="border-l-pink-600 border-l-4 ml-6 px-8 mb-4">
+                        <p># factura : {{ data['baseData'][9] }}</p>
                         <p>Piezas : {{ data['baseData'][3] }}</p>
                         <p>Importe facturado : ${{ data['baseData'][4] }}</p>
                         <p>Importe remisionado : ${{ data['baseData'][5] }}</p>

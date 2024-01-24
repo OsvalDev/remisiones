@@ -170,7 +170,8 @@ def editRemission():
             'remisionado' : request.form['remisionado'],
             'facturado' : request.form['facturado'],
             'saldoAFavor' : request.form['bonificado'],
-            'saldoInicial' : request.form['saldoInicial']
+            'saldoInicial' : request.form['saldoInicial'],
+            'numFactura' : request.form['numFactura']
         }
         
         changueRemission(mysql, data)
