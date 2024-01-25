@@ -21,7 +21,7 @@ def choferRemissionList(mysql, data):
     cur = mysql.connection.cursor()
     try:                
         cur.execute('''                        
-                SELECT r.numRemision, c.nombre, r.importeRemisionado, r.estatus, r.fechaCompromisoCliente
+                SELECT r.numRemision, r.numCompra, c.nombre, r.importeRemisionado, r.estatus, r.fechaCompromisoCliente
                 FROM PROCESO AS p
                 JOIN USUARIO AS u ON p.usuario = u.id
                 JOIN REMISION AS r ON p.numRemision = r.numRemision and p.numCompra = r.numCompra
