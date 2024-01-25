@@ -48,7 +48,7 @@ def choferRemissionDetail(mysql, data):
                 SELECT r.numRemision, r.numCompra, c.nombre, r.importeRemisionado, r.estatus, r.fechaCompromisoCliente
                 FROM REMISION AS r
                 JOIN CLIENTE AS c ON r.cliente = c.id
-                WHERE p.accion = 'Entrega' and p.numRemision = %s and p.numCompra = %s
+                WHERE r.numRemision = %s and r.numCompra = %s
             ''', (data['numRemission'], data['numCompra']))
         remission = cur.fetchone()
 
