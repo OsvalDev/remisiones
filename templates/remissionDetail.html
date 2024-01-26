@@ -459,29 +459,17 @@
                         {% else %}
                             <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
                         {% endif %}   
+
+                        {% if data['notasPagos'] %}
+                            <p class="font-bold text-xl px-4 py-2">Notas adicionales</p>
+                            {% for nota in data['notasPagos'] %}
+                                <p>{{ nota[0] }} / {{ nota[1] }} </p>
+                                <p>{{ nota[2] }}</p>            
+                            {% endfor %}
+                        {% endif %}   
                     </div>
                 </div>
-                <!-- Detail  -->
-                <div class="w-full sm:w-3/4">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 flex justify-center items-center bg-gray-600 {% if data['confirmacionPagos'][0] %} bg-pink-600 {% endif %} rounded-full text-white">
-                            <p>6</p>
-                        </div>
-                        
-                        <p class="font-bold text-xl px-4 py-2">Confirmacion de pagos</p>
-                    </div>
-                    <div class="border-l-gray-600 {% if data['confirmacionPagos'][0] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
-                        {% if data['confirmacionPagos'] %}     
-                            {% for pago in data['confirmacionPagos'] %}
-                                <p class="font-bold text-xl px-4 py-2">Id de pago: {{ pago[0] }} </p>                                
-                                <p>Fecha: {{ pago[1] }} </p>
-                                <p>Responsable: {{ pago[2] }} </p>                                
-                            {% endfor %} 
-                        {% else %}
-                            <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
-                        {% endif %}                        
-                    </div>
-                </div>
+                
                 <div class="w-full sm:w-3/4">
                     <div class="flex items-center mb-4">                                            
                         <p class="font-bold text-xl px-4 py-2">Adicionales</p>

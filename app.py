@@ -314,5 +314,12 @@ def postPayment():
     
     return jsonify( result )
 
+@app.route('/note', methods= ['POST'])
+def postNote():
+    data = request.get_json()    
+    result = registerNote(mysql, data)
+    
+    return jsonify( result )
+
 if __name__ == '__main__':
     app.run()

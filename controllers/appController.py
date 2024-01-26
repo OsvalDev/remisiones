@@ -104,3 +104,23 @@ def registerPayment(mysql, data):
 
     finally:
         cur.close()
+
+def registerNote(mysql, data):
+    cur = mysql.connection.cursor()
+    try:                
+        cur.execute('''SELECT nombre FROM USUARIO WHERE id = %s''', (data['id'],) )
+        user = cur.fetchone()
+
+        cur.execute('''SELECT id FROM PAGO WHERE numRemision = %s and numCompra = %s''', (data['numRemission'], data['numCompra']) )
+        pago = cur.fetchone()
+
+        cur.execute('''INSERT INTO NOTAPAGO (id, contenido, usuario) VALUES (%s, %s, %s)''', (pago[0], data['content'], user[0]) )
+        mysql.connection.commit()
+
+        return {'result' : 'success', 'msg' : 'Nota registrada'}
+    except Exception as e:
+        print(e)
+        return {'result' : 'failed', 'msg' : 'Error en la conexion con la base de datos'}
+
+    finally:
+        cur.close()

@@ -127,7 +127,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
         'logistica' : None,
         'confirmacionEntrega' : None,
         'pagos' : None,
-        'confirmacionPagos' : None,
+        'notasPagos' : None,
         'devoluciones' : None,
         'chofer' : None
     }
@@ -185,17 +185,15 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                 JOIN USUARIO AS U ON U.id = P.responsable 
                 WHERE P.numRemision = %s and P.numCompra = %s
             ''', (numRemision, numCompra))
-            data['pagos'] = cur.fetchall()            
-                        
-            #confirmacion pagos
+            data['pagos'] = cur.fetchall()                                                
+
             cur.execute('''        
-                SELECT P.id, PR.fecha, U.nombre
+                SELECT NP.usuario, NP.fecha, NP.contenido
                 FROM PAGO AS P
-                JOIN PROCESO AS PR ON PR.id = P.proceso
-                JOIN USUARIO AS U ON U.id = PR.usuario
-                WHERE P.confirmado = 1 and P.numRemision = %s and P.numCompra = %s
+                JOIN NOTAPAGO AS NP ON P.id = NP.id 
+                WHERE P.numRemision = %s and P.numCompra = %s
             ''', (numRemision, numCompra))
-            data['confirmacionPagos'] = cur.fetchall()                  
+            data['notasPagos'] = cur.fetchall()
 
             #surtimiento
             cur.execute('''                        
