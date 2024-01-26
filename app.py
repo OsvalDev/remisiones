@@ -272,6 +272,19 @@ def addChofer(idRemission, idCompra):
     else:
         return redirect(url_for('login'))
 
+@app.route('/confirmPay/<idRemission>/<idCompra>', methods= ['POST'])
+def confirmPay(idRemission, idCompra):    
+    user = verifyUser()
+
+    if user[0]:
+        id = request.form['idUser']
+        payment = request.form['idPayment']
+        confirmPay(mysql, id, payment)
+        urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
+        return redirect(urlDetail)
+    else:
+        return redirect(url_for('login'))
+
 #post routes android
 @app.route('/loginApp', methods= ['POST'])
 def postLoginApp():

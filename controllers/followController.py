@@ -108,3 +108,20 @@ def registerChofer(mysql, data):
     
     finally:
         cur.close()
+
+
+def confirmPay (mysql, payment, user):
+    cur = mysql.connection.cursor()
+
+    try:
+        cur.execute('''UPDATE PAGO SET confirmado = 1, confirmante = %s WHERE id = %s
+                    ''', (user, payment))
+        mysql.connection.commit()
+
+        return True
+    except Exception as e:
+        print(e)
+        return {'failed'}
+
+    finally:
+        cur.close()
