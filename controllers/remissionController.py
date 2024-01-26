@@ -180,7 +180,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
 
             #pagos
             cur.execute('''        
-                SELECT P.id, P.cantidad, P.pagoPersona, P.fecha, U.nombre, p.comprobante
+                SELECT P.id, P.cantidad, P.pagoPersona, P.fecha, U.nombre, P.comprobante
                 FROM PAGO AS P
                 JOIN USUARIO AS U ON U.id = P.responsable
                 WHERE P.numRemision = %s and P.numCompra = %s
