@@ -74,7 +74,7 @@ def registerPayment(mysql, data):
     
     filename = 'payment' + datetime.now().strftime('%Y%m%d%H%M%S') + '.png'
         
-    directory = 'static/comprobant/'
+    directory = 'comprobant/'
     urlImg = os.path.join(directory, filename)
     
     if not os.path.exists(directory):
