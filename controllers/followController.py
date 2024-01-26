@@ -110,7 +110,7 @@ def registerChofer(mysql, data):
         cur.close()
 
 
-def confirmPay (mysql, payment, user):
+def confirmPayment (mysql, payment, user):
     cur = mysql.connection.cursor()
 
     try:

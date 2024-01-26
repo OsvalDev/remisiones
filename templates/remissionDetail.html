@@ -454,7 +454,7 @@
                                     <p>Confirmado por: {{ pago[7] }}</p>
                                 {% endif %}   
 
-                                <img class="w-40 h-40 active:w-[60vw]" src="{{ url_for('static', filename= pago[5]) }}" alt="">
+                                <img class="w-40 active:w-[60vw]" src="{{ url_for('static', filename= pago[5]) }}" alt="">
                             {% endfor %}
                         {% else %}
                             <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>

@@ -279,7 +279,7 @@ def confirmPay(idRemission, idCompra):
     if user[0]:
         id = request.form['idUser']
         payment = request.form['idPayment']
-        confirmPay(mysql, id, payment)
+        confirmPayment(mysql,  payment, user[1])
         urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
         return redirect(urlDetail)
     else:
