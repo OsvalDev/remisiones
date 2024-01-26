@@ -294,5 +294,12 @@ def postRemissionDetail():
     
     return jsonify( result )
 
+@app.route('/payment', methods= ['POST'])
+def postPayment():
+    data = request.get_json()    
+    result = registerPayment(mysql, data)
+    
+    return jsonify( result )
+
 if __name__ == '__main__':
     app.run()

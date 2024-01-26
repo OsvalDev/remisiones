@@ -1,3 +1,7 @@
+import base64
+from datetime import datetime
+import os
+
 def loginApp(mysql, data):
     cur = mysql.connection.cursor()
     try:                
@@ -59,6 +63,44 @@ def choferRemissionDetail(mysql, data):
     except Exception as e:
         print(e)
         return {'result' : 'failed', 'msg' : 'Error en la conexion con la base de datos', 'data' : None}
+
+    finally:
+        cur.close()
+
+def registerPayment(mysql, data):
+
+    
+    image_data = base64.b64decode(data['img'])
+    
+    filename = 'payment' + datetime.now().strftime('%Y%m%d%H%M%S') + '.png'
+        
+    directory = 'static/comprobant/'
+    urlImg = os.path.join(directory, filename)
+    
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    with open(urlImg, 'wb') as f:
+        f.write(image_data)
+    
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute('''                        
+                SELECT id
+                FROM PROCESO
+                WHERE numRemision = %s and numCompra = %s and accion = "Entrega"
+            ''', (data['numRemission'], data['numCompra']))
+        remission = cur.fetchone()        
+
+        cur.execute('''INSERT INTO PAGO(cantidad, pagoPersona, comprobante, proceso, responsable, numRemision, numCompra)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)''',
+                    (data['cantidad'], data['pagoPersona'], urlImg, remission[0], data['responsable'], data['numRemission'], data['numCompra'] ))
+        mysql.connection.commit()        
+    
+        return {'result' : 'success', 'msg' : 'Pago registrado'}
+    except Exception as e:
+        print(e)
+        return {'result' : 'failed', 'msg' : 'Error en la conexion con la base de datos'}
 
     finally:
         cur.close()
