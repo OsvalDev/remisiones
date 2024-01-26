@@ -45,6 +45,30 @@ def choferRemissionList(mysql, data):
     finally:
         cur.close()
 
+def choferRemissionListDone(mysql, data):
+    cur = mysql.connection.cursor()
+    try:                
+        cur.execute('''                        
+                SELECT r.numRemision, r.numCompra, c.nombre, r.importeRemisionado, r.estatus, r.fechaCompromisoCliente
+                FROM PROCESO AS p
+                JOIN USUARIO AS u ON p.usuario = u.id
+                JOIN REMISION AS r ON p.numRemision = r.numRemision and p.numCompra = r.numCompra
+                JOIN CLIENTE AS c ON r.cliente = c.id
+                WHERE p.accion = 'Entrega' and p.concluido = 1 and p.usuario = %s
+            ''', (data['id'],))
+        remissionList = cur.fetchall()
+
+        if remissionList != None:
+            return {'result' : 'success', 'msg' : 'Remisiones asignadas', 'data' : remissionList}
+        else:
+            return {'result' : 'warning', 'msg' : 'No existen remisiones asignadas', 'data' : remissionList}
+    except Exception as e:
+        print(e)
+        return {'result' : 'failed', 'msg' : 'Error en la conexion con la base de datos', 'data' : None}
+
+    finally:
+        cur.close()
+
 def choferRemissionDetail(mysql, data):
     cur = mysql.connection.cursor()
     try:                

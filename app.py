@@ -300,6 +300,13 @@ def postRemissionList():
     
     return jsonify( result )
 
+@app.route('/remissionListDone', methods= ['POST'])
+def postRemissionListDone():
+    data = request.get_json()    
+    result = choferRemissionListDone(mysql, data)
+    
+    return jsonify( result )
+
 @app.route('/remissionDetail', methods= ['POST'])
 def postRemissionDetail():
     data = request.get_json()    
