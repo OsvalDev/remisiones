@@ -74,9 +74,9 @@ def registerPayment(mysql, data):
     
     filename = 'payment' + datetime.now().strftime('%Y%m%d%H%M%S') + '.png'
         
-    directory = 'comprobant/'
+    directory = 'static/comprobant/'
     urlImg = os.path.join(directory, filename)
-    
+    urlSql = os.path.join("comprobant/", filename)
     if not os.path.exists(directory):
         os.makedirs(directory)
 
@@ -94,7 +94,7 @@ def registerPayment(mysql, data):
 
         cur.execute('''INSERT INTO PAGO(cantidad, pagoPersona, comprobante, proceso, responsable, numRemision, numCompra)
                     VALUES (%s, %s, %s, %s, %s, %s, %s)''',
-                    (data['cantidad'], data['pagoPersona'], urlImg, remission[0], data['responsable'], data['numRemission'], data['numCompra'] ))
+                    (data['cantidad'], data['pagoPersona'], urlSql, remission[0], data['responsable'], data['numRemission'], data['numCompra'] ))
         mysql.connection.commit()        
     
         return {'result' : 'success', 'msg' : 'Pago registrado'}
