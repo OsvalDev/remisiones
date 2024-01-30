@@ -73,6 +73,7 @@ def remissionList(idRemission, idCompra):
     if user[0]:
         admin = verifyAdmin(mysql, user[0])
         choferes = getChoferes(mysql)
+        print(result)
         return render_template('remissionDetail.html', user = user[1], admin = admin , canDo = user[2], data = result, choferes = choferes)
     else:
         return redirect(url_for('login'))

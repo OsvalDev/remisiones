@@ -146,7 +146,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
         if data['baseData']:
             #surtimiento
             cur.execute('''                        
-                SELECT p.fechaCompromiso, p.concluido, u.nombre, p.fecha
+                SELECT p.fechaCompromiso, p.fechaConcluido, u.nombre, p.fecha
                 FROM PROCESO AS p
                 JOIN USUARIO AS u ON p.usuario = u.id
                 WHERE p.numRemision = %s and p.numCompra = %s and p.accion = 'Surtimiento'
@@ -155,7 +155,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
             
             #logistica
             cur.execute('''                        
-                SELECT p.fechaCompromiso, p.concluido, u.nombre, p.fecha
+                SELECT p.fechaCompromiso, p.fechaConcluido, u.nombre, p.fecha
                 FROM PROCESO AS p
                 JOIN USUARIO AS u ON p.usuario = u.id
                 WHERE p.numRemision = %s and p.numCompra = %s and p.accion = 'Logistica'
@@ -180,7 +180,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
 
             #pagos
             cur.execute('''        
-                SELECT P.id, P.cantidad, P.pagoPersona, P.fecha, U.nombre, P.comprobante, P.confirmado, P.confirmante
+                SELECT P.id, P.cantidad, P.pagoPersona, P.fecha, U.nombre, P.comprobante, P.confirmante, P.fechaConfirmacion
                 FROM PAGO AS P
                 JOIN USUARIO AS U ON U.id = P.responsable 
                 WHERE P.numRemision = %s and P.numCompra = %s
@@ -190,7 +190,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
             cur.execute('''        
                 SELECT NP.usuario, NP.fecha, NP.contenido
                 FROM PAGO AS P
-                JOIN NOTAPAGO AS NP ON P.id = NP.id 
+                JOIN NOTA AS NP ON P.id = NP.id 
                 WHERE P.numRemision = %s and P.numCompra = %s
             ''', (numRemision, numCompra))
             data['notasPagos'] = cur.fetchall()

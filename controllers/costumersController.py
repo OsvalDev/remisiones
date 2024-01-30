@@ -14,27 +14,33 @@ def syncClientDb(mysql):
         sqlQuery = 'SELECT * FROM CatClientes'
         cursor = conn.cursor()
         cursor.execute(sqlQuery)        
-        costumerListSqlServer = cursor.fetchall()        
-
+        costumerListSqlServer = cursor.fetchall()                 
         cur = mysql.connection.cursor()
         cur.execute('''        
             SELECT id
             FROM CLIENTE
         ''' )
-        costumerListMysql = cur.fetchall()        
+        costumerListMysql = cur.fetchall()               
 
-        keyCostumers = [key[0] for key in costumerListMysql]
-        inMysql = [row for row in costumerListSqlServer if row['Id'] in keyCostumers]
-        notInMysql = [row for row in costumerListSqlServer if not row['Id'] in keyCostumers]
-        modifiedList = [(row['Clave'], row['Nombre'], row['Id']) for row in inMysql]
+        if costumerListMysql:            
+            keyCostumers = [key[0] for key in costumerListMysql]
+            inMysql = [row for row in costumerListSqlServer if row['Id'] in keyCostumers]
+            notInMysql = [row for row in costumerListSqlServer if not row['Id'] in keyCostumers]
+            modifiedList = [(row['Clave'], row['Nombre'], row['Id']) for row in inMysql]
 
-        sqlQuery = "INSERT INTO CLIENTE (id, clave, nombre ) VALUES (%s, %s, %s)"
-        cur.executemany(sqlQuery, notInMysql)
-        mysql.connection.commit()
+            sqlQuery = "INSERT INTO CLIENTE (id, clave, nombre ) VALUES (%s, %s, %s)"
+            cur.executemany(sqlQuery, notInMysql)
+            mysql.connection.commit()
+            
+            sqlQuery = "UPDATE CLIENTE SET clave = %s, nombre = %s WHERE id = %s"
+            cur.executemany(sqlQuery, modifiedList)
+            mysql.connection.commit()
         
-        sqlQuery = "UPDATE CLIENTE SET clave = %s, nombre = %s WHERE id = %s"
-        cur.executemany(sqlQuery, modifiedList)
-        mysql.connection.commit()
+        else:            
+            procesedList = [(row['Id'], row['Clave'], row['Nombre']) for row in costumerListSqlServer]            
+            sqlQuery = "INSERT INTO CLIENTE (id, clave, nombre ) VALUES (%s, %s, %s)"
+            cur.executemany(sqlQuery, procesedList)
+            mysql.connection.commit()
         
         cur.close()        
         return {'result' : 'success', 'msg' : 'Base de datos sincronizada correctamente'}

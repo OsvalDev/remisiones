@@ -2,81 +2,90 @@ CREATE TABLE USUARIO(
     id INT NOT NULL,
     nombre VARCHAR(200) NOT NULL,
     psw VARCHAR(200) NOT NULL,
+    activo BOOLEAN  NOT NULL DEFAULT 1,
     PRIMARY KEY(id)
 );
 
 CREATE TABLE AREA(
-    id INT AUTO_INCREMENT,
+    id INT NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     PRIMARY KEY(id)
 );
 
 CREATE TABLE USUARIO_AREA(
-    idUsuario INT,
-    idArea INT,
-    fecha TIMESTAMP,
+    idUsuario INT NOT NULL,
+    idArea INT NOT NULL,
+    fecha TIMESTAMP NOT NULL DEFAULT current_timestamp(),
     PRIMARY KEY(idArea, idUsuario, fecha),
     FOREIGN KEY(idArea) REFERENCES AREA(id),
     FOREIGN KEY(idUsuario) REFERENCES USUARIO(id)
 );
 
 CREATE TABLE PERMISO(
-    id INT AUTO_INCREMENT,
+    id INT NOT NULL,
     accion VARCHAR(100) NOT NULL,
     PRIMARY KEY(id)
 );
 
 CREATE TABLE AREA_PERMISO(
-    idArea INT,
-    idPermiso INT,
-    fecha TIMESTAMP,
+    idArea INT(11) NOT NULL,
+    idPermiso INT(11) NOT NULL,
+    fecha TIMESTAMP NOT NULL DEFAULT current_timestamp(),
     PRIMARY KEY(idArea, idPermiso, fecha),
     FOREIGN KEY(idArea) REFERENCES AREA(id),
     FOREIGN KEY(idPermiso) REFERENCES PERMISO(id)
 );
 
 CREATE TABLE CLIENTE(
-    id INT,
+    id INT NOT NULL,
     nombre VARCHAR(100) NOT NULL,
-    direccion VARCHAR(400) NOT NULL,
-    telefono VARCHAR(15) NOT NULL,
-    saldoBonificado INT NOT NULL,
+    clave VARCHAR(400) NOT NULL,
+    saldoBonificado float NOT NULL DEFAULT 0,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE ESTATUS(
+    id INT NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
     PRIMARY KEY(id)
 );
 
 CREATE TABLE REMISION(
-    numRemision VARCHAR(100),
-    numCompra VARCHAR(100),
+    numRemision VARCHAR(100) NOT NULL,
+    numCompra VARCHAR(100) NOT NULL,
     piezas INT NOT NULL,
-    importeRemisionado INT NOT NULL,
-    importeFacturado INT NOT NULL,
-    fechaCompromisoCliente DATETIME NOT NULL,
-    fecha TIMESTAMP,
+    importeRemisionado FLOAT NOT NULL,
+    importeFacturado FLOAT NOT NULL,
+    fechaCompromisoCliente DATE DEFAULT NULL,
+    estatus INT NOT NULL DEFAULT 1,
+    fecha TIMESTAMP NOT NULL DEFAULT current_timestamp(),
     cliente INT NOT NULL,
-    saldoAFavor INT NOT NULL,
+    saldoAFavor FLOAT NOT NULL,
+    numFactura VARCHAR(100) NOT NULL,
     PRIMARY KEY(numCompra, numRemision),
-    FOREIGN KEY(cliente) REFERENCES CLIENTE(id)
+    FOREIGN KEY(cliente) REFERENCES CLIENTE(id),
+    FOREIGN KEY(estatus) REFERENCES ESTATUS(id)
 );
 
 CREATE TABLE DEVOLUCION(
     id INT,
     descripcion VARCHAR(500) NOT NULL,
-    cantidadBonificada INT NOT NULL,
-    fecha TIMESTAMP,
-    numRemision VARCHAR(100),
-    numCompra VARCHAR(100),
+    cantidadBonificada FLOAT NOT NULL,
+    fecha TIMESTAMP NOT NULL DEFAULT current_timestamp(),
+    numRemision VARCHAR(100) NOT NULL,
+    numCompra VARCHAR(100) NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(numCompra, numRemision) REFERENCES REMISION(numCompra, numRemision)
 );
 
 CREATE TABLE PROCESO(
-    id INT AUTO_INCREMENT,
+    id INT NOT NULL AUTO_INCREMENT,
     accion VARCHAR(50) NOT NULL,
-    fecha TIMESTAMP,
-    fechaCompromiso DATE NOT NULL,
-    concluido BOOLEAN NOT NULL,
-    numRemision VARCHAR(100),
-    numCompra VARCHAR(100),
+    fecha TIMESTAMP NOT NULL DEFAULT current_timestamp(),
+    fechaCompromiso DATE DEFAULT NULL,
+    fechaConcluido DATE DEFAULT NULL,
+    numRemision VARCHAR(100) NOT NULL,
+    numCompra VARCHAR(100) NOT NULL,
     usuario INT NOT NULL,    
     PRIMARY KEY(id),
     FOREIGN KEY(numCompra, numRemision) REFERENCES REMISION(numCompra, numRemision),
@@ -84,59 +93,53 @@ CREATE TABLE PROCESO(
 );
 
 CREATE TABLE NOTA(
-    id INT,
-    fecha TIMESTAMP,
+    id INT NOT NULL,
+    fecha TIMESTAMP NOT NULL DEFAULT current_timestamp(),
     contenido VARCHAR(500) NOT NULL,
+    usuario INT NOT NULL,
     PRIMARY KEY(id, fecha),
-    FOREIGN KEY(id) REFERENCES PROCESO(id)
+    FOREIGN KEY(id) REFERENCES PROCESO(id),
+    FOREIGN KEY(usuario) REFERENCES USUARIO(id)
 );
 
 CREATE TABLE PAGO(
-    id INT AUTO_INCREMENT,
-    cantidad INT NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
+    cantidad FLOAT NOT NULL,
     pagoPersona VARCHAR(500) NOT NULL,
-    confirmado BOOLEAN NOT NULL,
     comprobante VARCHAR(500) NOT NULL,
-    fecha TIMESTAMP,
-    proceso INT NOT NULL,
+    fecha TIMESTAMP NOT NULL DEFAULT current_timestamp(),
     responsable INT NOT NULL,
-    numRemision VARCHAR(100),
-    numCompra VARCHAR(100),
+    numRemision VARCHAR(100) NOT NULL,
+    numCompra VARCHAR(100) NOT NULL,
+    confirmante INT,
+    fechaConfirmacion DATETIME,
     PRIMARY KEY(id),
     FOREIGN KEY(numCompra, numRemision) REFERENCES REMISION(numCompra, numRemision),
     FOREIGN KEY(responsable) REFERENCES USUARIO(id),
-    FOREIGN KEY(proceso) REFERENCES PROCESO(id)
+    FOREIGN KEY(confirmante) REFERENCES USUARIO(id)
 );
 
-CREATE TABLE NOTAPAGO(
-    id INT,
-    fecha TIMESTAMP,
-    contenido VARCHAR(500) NOT NULL,
-    PRIMARY KEY(id, fecha),
-    FOREIGN KEY(id) REFERENCES PAGO(id)
-);
+INSERT INTO AREA(id, nombre) VALUES 
+(1, 'ventas'),
+(2, 'logistica'),
+(3, 'surtimiento'),
+(4, 'chofer'),
+(5, 'admin'),
+(6, 'cuentasCobrar'),
+(7, 'gerente');
 
-INSERT INTO AREA(nombre) VALUES 
-('ventas'),
-('logistica'),
-('surtimiento'),
-('chofer'),
-('admin'),
-('cuentasCobrar'),
-('gerente');
-
-INSERT INTO PERMISO(accion) VALUES
-('agregarUsuario'),
-('crearRemision'),
-('agregarCliente'),
-('editarRemision'),
-('seguimientoSurtimiento'),
-('seguimientoLogistica'),
-('asignarChofer'),
-('confirmarEntrega'),
-('registrarPago'),
-('confirmarPago'),
-('registrarDevolucion');
+INSERT INTO PERMISO(id, accion) VALUES
+(1, 'agregarUsuario'),
+(2, 'crearRemision'),
+(3, 'agregarCliente'),
+(4, 'editarRemision'),
+(5, 'seguimientoSurtimiento'),
+(6, 'seguimientoLogistica'),
+(7, 'asignarChofer'),
+(8, 'confirmarEntrega'),
+(9, 'registrarPago'),
+(10, 'confirmarPago'),
+(11, 'registrarDevolucion');
 
 INSERT INTO AREA_PERMISO(idArea, idPermiso) VALUES
 (1, 2),
@@ -161,3 +164,12 @@ INSERT INTO AREA_PERMISO(idArea, idPermiso) VALUES
 (5, 11),
 (6, 10),
 (7, 1);
+
+INSERT INTO ESTATUS VALUES
+(1, 'Sin comenzar'),
+(2, 'Surtimiento'),
+(3, 'Logistica'),
+(4, 'Entrega confirmada'),
+(5, 'Entregado'),
+(6, 'Pagado'),
+(7, 'Finalizado');

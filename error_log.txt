@@ -33,3 +33,190 @@ Traceback (most recent call last):
     modifiedList = [(row[1], row[2], row[0]) for row in inMysql]
                      ~~~^^^
 KeyError: 1
+Traceback (most recent call last):
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 200, in _mogrify
+    query = query % args
+            ~~~~~~^~~~~~
+TypeError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 32, in syncClientDb
+    cur.executemany(sqlQuery, notInMysql)
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 241, in executemany
+    return self._do_execute_many(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 264, in _do_execute_many
+    v = self._mogrify(values, next(args))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 202, in _mogrify
+    raise ProgrammingError(str(m))
+MySQLdb.ProgrammingError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+Traceback (most recent call last):
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 200, in _mogrify
+    query = query % args
+            ~~~~~~^~~~~~
+TypeError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 33, in syncClientDb
+    cur.executemany(sqlQuery, notInMysql)
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 241, in executemany
+    return self._do_execute_many(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 264, in _do_execute_many
+    v = self._mogrify(values, next(args))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 202, in _mogrify
+    raise ProgrammingError(str(m))
+MySQLdb.ProgrammingError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+Traceback (most recent call last):
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 200, in _mogrify
+    query = query % args
+            ~~~~~~^~~~~~
+TypeError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 42, in syncClientDb
+    cur.executemany(sqlQuery, costumerListSqlServer)
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 241, in executemany
+    return self._do_execute_many(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 264, in _do_execute_many
+    v = self._mogrify(values, next(args))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 202, in _mogrify
+    raise ProgrammingError(str(m))
+MySQLdb.ProgrammingError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+Traceback (most recent call last):
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 200, in _mogrify
+    query = query % args
+            ~~~~~~^~~~~~
+TypeError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 43, in syncClientDb
+    cur.executemany(sqlQuery, costumerListSqlServer)
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 241, in executemany
+    return self._do_execute_many(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 264, in _do_execute_many
+    v = self._mogrify(values, next(args))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 202, in _mogrify
+    raise ProgrammingError(str(m))
+MySQLdb.ProgrammingError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+Traceback (most recent call last):
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 200, in _mogrify
+    query = query % args
+            ~~~~~~^~~~~~
+TypeError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 45, in syncClientDb
+    cur.executemany(sqlQuery, costumerListSqlServer)
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 241, in executemany
+    return self._do_execute_many(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 264, in _do_execute_many
+    v = self._mogrify(values, next(args))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 202, in _mogrify
+    raise ProgrammingError(str(m))
+MySQLdb.ProgrammingError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+Traceback (most recent call last):
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 200, in _mogrify
+    query = query % args
+            ~~~~~~^~~~~~
+TypeError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 45, in syncClientDb
+    cur.executemany(sqlQuery, costumerListSqlServer)
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 241, in executemany
+    return self._do_execute_many(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 264, in _do_execute_many
+    v = self._mogrify(values, next(args))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 202, in _mogrify
+    raise ProgrammingError(str(m))
+MySQLdb.ProgrammingError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+Traceback (most recent call last):
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 200, in _mogrify
+    query = query % args
+            ~~~~~~^~~~~~
+TypeError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 43, in syncClientDb
+    cur.executemany(sqlQuery, costumerListSqlServer)
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 241, in executemany
+    return self._do_execute_many(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 264, in _do_execute_many
+    v = self._mogrify(values, next(args))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 202, in _mogrify
+    raise ProgrammingError(str(m))
+MySQLdb.ProgrammingError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 40, in syncClientDb
+    modifiedList = [(row['Clave'], row['Nombre'], row['Id']) for row in inMysql]
+                                                                        ^^^^^^^
+UnboundLocalError: cannot access local variable 'inMysql' where it is not associated with a value
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 41, in syncClientDb
+    print(procesedList)
+          ^^^^^^^^^^^^
+NameError: name 'procesedList' is not defined
+Traceback (most recent call last):
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 200, in _mogrify
+    query = query % args
+            ~~~~~~^~~~~~
+TypeError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 43, in syncClientDb
+    cur.executemany(sqlQuery, costumerListSqlServer)
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 241, in executemany
+    return self._do_execute_many(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 264, in _do_execute_many
+    v = self._mogrify(values, next(args))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 202, in _mogrify
+    raise ProgrammingError(str(m))
+MySQLdb.ProgrammingError: %b requires a bytes-like object, or an object that implements __bytes__, not 'dict'
+Traceback (most recent call last):
+  File "C:\Users\soporte3\Documents\remisiones\controllers\costumersController.py", line 42, in syncClientDb
+    cur.executemany(sqlQuery, procesedList)
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 241, in executemany
+    return self._do_execute_many(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 275, in _do_execute_many
+    rows += self.execute(sql + postfix)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\soporte3\AppData\Local\Programs\Python\Python312\Lib\site-packages\MySQLdb\connections.py", line 257, in query
+    _mysql.connection.query(self, query)
+MySQLdb.IntegrityError: (1062, "Duplicate entry '0' for key 'PRIMARY'")
