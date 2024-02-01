@@ -435,7 +435,7 @@
                                 <div class="flex">
                                     <p class="font-bold text-xl px-4 py-2">Id de pago: {{ pago[0] }} </p>
 
-                                    {% if pago[6] == 0 %}
+                                    {% if not pago[6] %}
                                         <form action="/registro/confirmPay/{{ data['baseData'][0] }}/{{ data['baseData'][1] }}" method="post">
                                             <input type="hidden" name="idUser"  value="{{ user[0] }}">
                                             <input type="hidden" name="idPayment"  value="{{ pago[0] }}">
@@ -452,8 +452,9 @@
                                 <p>Responsable: {{ pago[4] }} </p>
                                 <p>Monto: <strong>${{ pago[1] }}</strong> </p>
                                 
-                                {% if pago[6] == 1 %}
-                                    <p>Confirmado por: {{ pago[7] }}</p>
+                                {% if pago[6] %}
+                                    <p>Confirmado por: {{ pago[6] }}</p>
+                                    <p>Fecha de confirmacion: {{ pago[7] }}</p>
                                 {% endif %}   
 
                                 <img class="w-40 active:w-[60vw]" src="{{ url_for('static', filename= pago[5]) }}" alt="">

@@ -131,7 +131,7 @@ def registerNote(mysql, data):
         cur.execute('''SELECT id FROM PROCESO WHERE numRemision = %s and numCompra = %s and accion = "Entrega" ''', (data['numRemission'], data['numCompra']) )
         pago = cur.fetchone()
 
-        cur.execute('''INSERT INTO NOTAPAGO (id, contenido, usuario) VALUES (%s, %s, %s)''', (pago[0], data['content'], data['id']) )
+        cur.execute('''INSERT INTO NOTA (id, contenido, usuario) VALUES (%s, %s, %s)''', (pago[0], data['content'], data['id']) )
         mysql.connection.commit()
 
         return {'result' : 'success', 'msg' : 'Nota registrada'}
