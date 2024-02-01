@@ -164,7 +164,7 @@
                                 <div data-popper-arrow></div>
                             </div>
                             
-                            {% if data['surtimiento'][1] == 0 %}
+                            {% if not data['surtimiento'][1] and data['surtimiento'] %}
                             <button id="btn-endSur" data-popover-target="popover-endSur" data-popover-trigger="none" class="mx-4 px-4 py-2 my-2 sm:my-0 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600">
                                 Terminado
                             </button>                        
@@ -203,10 +203,11 @@
 
                     <div class="border-l-gray-600 {% if data['surtimiento'][1] == 1 %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
                         {% if data['surtimiento'] %} 
+                            <p>Fecha de registro: {{ data['surtimiento'][3] }}</p>                        
                             <p>Fecha de compromiso: {{ data['surtimiento'][0] }}</p>                        
                             <p>Fecha de finalizacion: 
-                                {% if data['surtimiento'][1] == 1 %}
-                                    {{ data['surtimiento'][3] }}
+                                {% if data['surtimiento'][1] %}
+                                    {{ data['surtimiento'][1] }}
                                 {% else %}
                                     Sin finalizar
                                 {% endif %}
@@ -268,7 +269,7 @@
                                 </div>
                                 <div data-popper-arrow></div>
                             </div>
-                            {% if data['logistica'][1] == 0 %}
+                            {% if not data['logistica'][1] and data['logistica'] %}
                                 <button id="btn-endLog" data-popover-target="popover-endLog" data-popover-trigger="none" class="mx-4 px-4 py-2 my-2 sm:my-0 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600">
                                     Terminado
                                 </button>              
@@ -300,7 +301,7 @@
                                 </div>
                                 <div data-popper-arrow></div>
                             </div>
-                            {% if data['logistica'][1] == 1 %}
+                            {% if data['logistica'][1] %}
                                 <button id="btn-chofer" data-popover-target="popover-chofer" data-popover-trigger="none" class="mx-4 px-4 py-2 my-2 sm:my-0 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600">
                                     Chofer
                                 </button>              
@@ -343,10 +344,10 @@
 
                     <div class="border-l-gray-600 {% if data['logistica'][1] == 1 %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
                         {% if data['logistica'] %}     
-                            <p>Fecha de compromiso: {{ data['logistica'][0] }}</p>                        
+                            <p>Fecha de compromiso: {{ data['logistica'][3] }}</p>                        
                             <p>Fecha de finalizacion: 
-                                {% if data['logistica'][1] == 1 %}
-                                    {{ data['logistica'][3] }}
+                                {% if data['logistica'][1] %}
+                                    {{ data['logistica'][1] }}
                                 {% else %}
                                     Sin finalizar
                                 {% endif %}

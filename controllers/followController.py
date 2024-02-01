@@ -110,7 +110,7 @@ def confirmPayment (mysql, payment, user):
     cur = mysql.connection.cursor()
 
     try:
-        cur.execute('''UPDATE PAGO SET confirmado = 1, confirmante = %s WHERE id = %s
+        cur.execute('''UPDATE PAGO SET confirmante = %s, fechaConfirmacion = current_timestamp() WHERE id = %s
                     ''', (user, payment))
         mysql.connection.commit()
 

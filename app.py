@@ -210,7 +210,7 @@ def dateCommit(idRemission, idCompra):
             'numRemision' : idRemission,
             'numCompra' : idCompra,
             'usuario' : user[0],
-            'estatus' : 2 if request.form['action'] == 'sutimiento' else 3
+            'estatus' : 2 if request.form['action'] == 'Surtimiento' else 3
         }        
 
         registerDateCommit(mysql, data)
@@ -281,7 +281,7 @@ def confirmPay(idRemission, idCompra):
     if user[0]:
         id = request.form['idUser']
         payment = request.form['idPayment']
-        confirmPayment(mysql,  payment, user[1])
+        confirmPayment(mysql,  payment, user[0])
         urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
         return redirect(urlDetail)
     else:
