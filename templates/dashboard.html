@@ -26,7 +26,7 @@
                     </button>
                     
                     
-                    <div id="authentication-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    <div id="authentication-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto  fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                         <div class="relative p-4 max-h-full w-full sm:w-fit">
                             
                             <div class="relative bg-white rounded-lg shadow w-full sm:w-fit">
@@ -178,11 +178,30 @@
                 </div>
             </div>
             
-            <div class="bg-pink-200 w-full h-40 sm:w-[25vw] sm:h-full flex justify-center items-center">
-                Charts
+            <div class="w-full h-40 sm:w-[25vw] sm:h-full flex flex-col justify-center items-center">
+                <div class="w-full h-full flex-1 p-4">
+                    
+                    <div class="w-full bg-white rounded-lg shadow-md p-2">                                            
+                        <h5 class="text-xl font-bold leading-none text-gray-900 mb-2 pe-1">Importes</h5>                                                            
+                      
+                        <div id="column-chart"></div>
+                        
+                    </div>
+  
+                </div>
+                <div class="w-full h-full flex-1 p-4 ">
+                    
+                    <div class="w-full bg-white rounded-lg shadow-md p-2">                                                   
+                        <h5 class="text-xl font-bold leading-none text-gray-900 pe-1">Ventas clientes</h5>                                                            
+                        <div id="donut-chart"></div>                    
+                    </div>
+                                        
+                </div>
             </div>
         </div>
 
         <script src="{{ url_for('static', filename='js/costumer.js') }}" type="module"></script>    
-        <script src="{{ url_for('static', filename='js/addRemission.js') }}" type="module"></script>    
+        <script src="{{ url_for('static', filename='js/addRemission.js') }}" type="module"></script>            
+        <script src="{{ url_for('static', filename='js/charts.js') }}" type="module"></script>            
+
 {% endblock %}

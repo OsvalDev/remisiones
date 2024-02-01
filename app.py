@@ -7,6 +7,7 @@ from controllers.costumersController import *
 from controllers.remissionController import *
 from controllers.followController import *
 from controllers.appController import *
+from controllers.chartController import *
 from utils.userSession import verifyUser
 
 app = Flask(__name__)
@@ -286,6 +287,17 @@ def confirmPay(idRemission, idCompra):
         return redirect(urlDetail)
     else:
         return redirect(url_for('login'))
+    
+#-----------------------------------------------------------------
+#api charts
+
+@app.route('/getImportes')
+def getImportes():        
+    return jsonify( getImportesApi(mysql) )        
+
+@app.route('/getTotalCostumers')
+def getTotalCostumers():        
+    return jsonify( getTotalCostumersApi(mysql) )        
 
 #post routes android
 @app.route('/loginApp', methods= ['POST'])
