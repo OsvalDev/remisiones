@@ -39,7 +39,7 @@ def registerEnd (mysql, data):
     cur = mysql.connection.cursor()
 
     try:
-        cur.execute('''UPDATE PROCESO SET concluido = 1 WHERE accion = %s and numRemision = %s and numCompra = %s
+        cur.execute('''UPDATE PROCESO SET fechaConcluido = current_timestamp() WHERE accion = %s and numRemision = %s and numCompra = %s
                     ''', (data['accion'], data['numRemision'], data['numCompra']))
         mysql.connection.commit()
 
