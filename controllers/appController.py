@@ -25,11 +25,12 @@ def choferRemissionList(mysql, data):
     cur = mysql.connection.cursor()
     try:                
         cur.execute('''                        
-                SELECT r.numRemision, r.numCompra, c.nombre, r.importeRemisionado, r.estatus, r.fechaCompromisoCliente
+                SELECT r.numRemision, r.numCompra, c.nombre, r.importeRemisionado, e.nombre, r.fechaCompromisoCliente
                 FROM PROCESO AS p
                 JOIN USUARIO AS u ON p.usuario = u.id
                 JOIN REMISION AS r ON p.numRemision = r.numRemision and p.numCompra = r.numCompra
                 JOIN CLIENTE AS c ON r.cliente = c.id
+                JOIN ESTATUS AS e ON  e.id = r.estatus
                 WHERE p.accion = 'Entrega' and p.fechaConcluido IS NULL and p.usuario = %s
             ''', (data['id'],))
         remissionList = cur.fetchall()
@@ -49,11 +50,12 @@ def choferRemissionListDone(mysql, data):
     cur = mysql.connection.cursor()
     try:                
         cur.execute('''                        
-                SELECT r.numRemision, r.numCompra, c.nombre, r.importeRemisionado, r.estatus, r.fechaCompromisoCliente
+                SELECT r.numRemision, r.numCompra, c.nombre, r.importeRemisionado, e.nombre, r.fechaCompromisoCliente
                 FROM PROCESO AS p
                 JOIN USUARIO AS u ON p.usuario = u.id
                 JOIN REMISION AS r ON p.numRemision = r.numRemision and p.numCompra = r.numCompra
                 JOIN CLIENTE AS c ON r.cliente = c.id
+                JOIN ESTATUS AS e ON  e.id = r.estatus
                 WHERE p.accion = 'Entrega' and p.fechaConcluido IS NOT NULL and p.usuario = %s
             ''', (data['id'],))
         remissionList = cur.fetchall()
