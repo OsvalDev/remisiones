@@ -201,7 +201,7 @@
                         {% endif %}                  
                     </div>
 
-                    <div class="border-l-gray-600 {% if data['surtimiento'][1] == 1 %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
+                    <div class="border-l-gray-600 {% if data['surtimiento'][1] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
                         {% if data['surtimiento'] %} 
                             <p>Fecha de registro: {{ data['surtimiento'][3] }}</p>                        
                             <p>Fecha de compromiso: {{ data['surtimiento'][0] }}</p>                        
@@ -342,9 +342,10 @@
                         {% endif %}
                     </div>
 
-                    <div class="border-l-gray-600 {% if data['logistica'][1] == 1 %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
+                    <div class="border-l-gray-600 {% if data['logistica'][1] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
                         {% if data['logistica'] %}     
-                            <p>Fecha de compromiso: {{ data['logistica'][3] }}</p>                        
+                            <p>Fecha de registro: {{ data['logistica'][3] }}</p>                        
+                            <p>Fecha de compromiso: {{ data['logistica'][0] }}</p>                        
                             <p>Fecha de finalizacion: 
                                 {% if data['logistica'][1] %}
                                     {{ data['logistica'][1] }}

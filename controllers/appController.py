@@ -30,7 +30,7 @@ def choferRemissionList(mysql, data):
                 JOIN USUARIO AS u ON p.usuario = u.id
                 JOIN REMISION AS r ON p.numRemision = r.numRemision and p.numCompra = r.numCompra
                 JOIN CLIENTE AS c ON r.cliente = c.id
-                WHERE p.accion = 'Entrega' and p.concluido = 0 and p.usuario = %s
+                WHERE p.accion = 'Entrega' and p.fechaConcluido IS NULL and p.usuario = %s
             ''', (data['id'],))
         remissionList = cur.fetchall()
 
@@ -54,7 +54,7 @@ def choferRemissionListDone(mysql, data):
                 JOIN USUARIO AS u ON p.usuario = u.id
                 JOIN REMISION AS r ON p.numRemision = r.numRemision and p.numCompra = r.numCompra
                 JOIN CLIENTE AS c ON r.cliente = c.id
-                WHERE p.accion = 'Entrega' and p.concluido = 1 and p.usuario = %s
+                WHERE p.accion = 'Entrega' and p.fechaConcluido IS NOT NULL and p.usuario = %s
             ''', (data['id'],))
         remissionList = cur.fetchall()
 
@@ -73,9 +73,10 @@ def choferRemissionDetail(mysql, data):
     cur = mysql.connection.cursor()
     try:                
         cur.execute('''                        
-                SELECT r.numRemision, r.numCompra, c.nombre, r.importeRemisionado, r.estatus, r.fechaCompromisoCliente
+                SELECT r.numRemision, r.numCompra, c.nombre, r.importeRemisionado, e.nombre, r.fechaCompromisoCliente
                 FROM REMISION AS r
                 JOIN CLIENTE AS c ON r.cliente = c.id
+                JOIN ESTATUS AS e ON  e.id = r.estatus
                 WHERE r.numRemision = %s and r.numCompra = %s
             ''', (data['numRemission'], data['numCompra']))
         remission = cur.fetchone()
@@ -109,16 +110,9 @@ def registerPayment(mysql, data):
     
     cur = mysql.connection.cursor()
     try:
-        cur.execute('''                        
-                SELECT id
-                FROM PROCESO
-                WHERE numRemision = %s and numCompra = %s and accion = "Entrega"
-            ''', (data['numRemission'], data['numCompra']))
-        remission = cur.fetchone()        
-
-        cur.execute('''INSERT INTO PAGO(cantidad, pagoPersona, comprobante, proceso, responsable, numRemision, numCompra)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s)''',
-                    (data['cantidad'], data['pagoPersona'], urlSql, remission[0], data['responsable'], data['numRemission'], data['numCompra'] ))
+        cur.execute('''INSERT INTO PAGO(cantidad, pagoPersona, comprobante, responsable, numRemision, numCompra)
+                    VALUES (%s, %s, %s, %s, %s, %s)''',
+                    (data['cantidad'], data['pagoPersona'], urlSql, data['responsable'], data['numRemission'], data['numCompra'] ))
         mysql.connection.commit()        
     
         return {'result' : 'success', 'msg' : 'Pago registrado'}
@@ -132,13 +126,10 @@ def registerPayment(mysql, data):
 def registerNote(mysql, data):
     cur = mysql.connection.cursor()
     try:                
-        cur.execute('''SELECT nombre FROM USUARIO WHERE id = %s''', (data['id'],) )
-        user = cur.fetchone()
-
-        cur.execute('''SELECT id FROM PAGO WHERE numRemision = %s and numCompra = %s''', (data['numRemission'], data['numCompra']) )
+        cur.execute('''SELECT id FROM PROCESO WHERE numRemision = %s and numCompra = %s and accion = "Entrega" ''', (data['numRemission'], data['numCompra']) )
         pago = cur.fetchone()
 
-        cur.execute('''INSERT INTO NOTAPAGO (id, contenido, usuario) VALUES (%s, %s, %s)''', (pago[0], data['content'], user[0]) )
+        cur.execute('''INSERT INTO NOTAPAGO (id, contenido, usuario) VALUES (%s, %s, %s)''', (pago[0], data['content'], data['id']) )
         mysql.connection.commit()
 
         return {'result' : 'success', 'msg' : 'Nota registrada'}
