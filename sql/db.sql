@@ -68,7 +68,7 @@ CREATE TABLE REMISION(
 );
 
 CREATE TABLE DEVOLUCION(
-    id INT,
+    id INT AUTO_INCREMENT,
     descripcion VARCHAR(500) NOT NULL,
     cantidadBonificada FLOAT NOT NULL,
     fecha TIMESTAMP NOT NULL DEFAULT current_timestamp(),

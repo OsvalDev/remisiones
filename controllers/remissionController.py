@@ -2,9 +2,10 @@ def getRemissions(mysql):
     cur = mysql.connection.cursor()
     try:                
         cur.execute('''        
-            SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, r.estatus
+            SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre
             FROM REMISION AS r
             JOIN CLIENTE AS c ON r.cliente = c.id
+            JOIN ESTATUS AS e ON e.id = r.estatus
             ORDER BY r.numCompra, r.numRemision
         ''')
         data = cur.fetchall()

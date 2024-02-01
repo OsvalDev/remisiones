@@ -2,12 +2,8 @@ def registerDateConfirmation (mysql, date, idRemission, idCompra):
     cur = mysql.connection.cursor()
 
     try:
-        cur.execute('UPDATE REMISION SET fechaCompromisoCliente = %s WHERE numRemision = %s and numCompra = %s',
+        cur.execute('UPDATE REMISION SET fechaCompromisoCliente = %s, estatus = 4 WHERE numRemision = %s and numCompra = %s',
                     (date, idRemission, idCompra))
-        mysql.connection.commit()
-
-        cur.execute('UPDATE REMISION SET estatus = "Entrega confirmada" WHERE numRemision = %s and numCompra = %s',
-                    (idRemission, idCompra))
         mysql.connection.commit()
 
         return True
@@ -28,7 +24,7 @@ def registerDateCommit (mysql, data):
         mysql.connection.commit()
 
         cur.execute('UPDATE REMISION SET estatus = %s WHERE numRemision = %s and numCompra = %s',
-                    (data['accion'], data['numRemision'], data['numCompra']))
+                    (data['estatus'], data['numRemision'], data['numCompra']))
         mysql.connection.commit()
 
         return True

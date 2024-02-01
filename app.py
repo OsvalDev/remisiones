@@ -209,7 +209,8 @@ def dateCommit(idRemission, idCompra):
             'fechaCompromiso' : request.form['dateConfirm'],
             'numRemision' : idRemission,
             'numCompra' : idCompra,
-            'usuario' : user[0]
+            'usuario' : user[0],
+            'estatus' : 2 if request.form['action'] == 'sutimiento' else 3
         }        
 
         registerDateCommit(mysql, data)
