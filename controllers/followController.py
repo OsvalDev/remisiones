@@ -126,8 +126,10 @@ def addNoteWeb(mysql, data):
     cur = mysql.connection.cursor()                    
 
     try:
-        if data['category'] in ['general', 'confirmacion']:
+        if data['category'] == 'general':
             cur.execute('''INSERT INTO NOTAREMISION (numRemision, numCompra, contenido, usuario) VALUES (%s, %s, %s, %s)''', (data['numRemision'], data['numCompra'], data['content'], data['id']) )
+        elif data['category'] == 'confirmacion':
+            cur.execute('''INSERT INTO NOTAENTREGA (numRemision, numCompra, contenido, usuario) VALUES (%s, %s, %s, %s)''', (data['numRemision'], data['numCompra'], data['content'], data['id']) )
         elif data['category'] == 'pago':
             cur.execute('''INSERT INTO NOTAPAGO (id, contenido, usuario) VALUES (%s, %s, %s)''', (data['idCategory'], data['content'], data['id']) )
         else:

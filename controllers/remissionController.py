@@ -128,9 +128,13 @@ def getRemissionDetail(mysql, numRemision, numCompra):
         'logistica' : None,
         'confirmacionEntrega' : None,
         'pagos' : None,
-        'notasPagos' : None,
         'devoluciones' : None,
-        'chofer' : None
+        'chofer' : None,
+        'baseComment' : None,
+        'surtimientoComment' : None,
+        'logisticaComment' : None,
+        'confirmacionComment' : None,        
+        'notasPagos' : None,
     }
     
     cur = mysql.connection.cursor()
@@ -145,6 +149,16 @@ def getRemissionDetail(mysql, numRemision, numCompra):
         data['baseData'] = cur.fetchone()
 
         if data['baseData']:
+            #base comment
+            cur.execute('''        
+                SELECT u.nombre, N.fecha, N.contenido
+                FROM REMISION AS R
+                JOIN NOTAREMISION AS N ON R.numRemision = N.numRemision and R.numCompra = N.numCompra 
+                JOIN USUARIO AS u on u.id = N.usuario
+                WHERE R.numRemision = %s and R.numCompra = %s
+            ''', (numRemision, numCompra))
+            data['baseComment'] = cur.fetchall()
+
             #surtimiento
             cur.execute('''                        
                 SELECT p.fechaCompromiso, p.fechaConcluido, u.nombre, p.fecha
