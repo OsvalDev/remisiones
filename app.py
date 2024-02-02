@@ -8,6 +8,7 @@ from controllers.remissionController import *
 from controllers.followController import *
 from controllers.appController import *
 from controllers.chartController import *
+from controllers.filterController import *
 from utils.userSession import verifyUser
 
 app = Flask(__name__)
@@ -34,7 +35,8 @@ def dashboard():
 
     if user[0]:
         remissionList = getRemissions(mysql)
-        return render_template('dashboard.html', user = user[1], canDo = user[2], remissionList = remissionList)
+        costumerList = getActiveCostumerList(mysql)['data']
+        return render_template('dashboard.html', user = user[1], canDo = user[2], remissionList = remissionList, costumers = costumerList)
     else:
         return redirect(url_for('login'))
     
@@ -298,6 +300,10 @@ def getImportes():
 @app.route('/getTotalCostumers')
 def getTotalCostumers():        
     return jsonify( getTotalCostumersApi(mysql) )        
+
+@app.route('/getRemissionByCostumer/<clave>')
+def getRemissionByCostumer(clave):        
+    return jsonify( getRemissionByCostumerApi(mysql, clave) )
 
 #post routes android
 @app.route('/loginApp', methods= ['POST'])
