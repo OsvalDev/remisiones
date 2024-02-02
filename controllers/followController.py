@@ -121,3 +121,26 @@ def confirmPayment (mysql, payment, user):
 
     finally:
         cur.close()
+
+def addNoteWeb(mysql, data):
+    cur = mysql.connection.cursor()                    
+
+    try:
+        if data['category'] in ['general', 'confirmacion']:
+            cur.execute('''INSERT INTO NOTAREMISION (numRemision, numCompra, contenido, usuario) VALUES (%s, %s, %s, %s)''', (data['numRemision'], data['numCompra'], data['content'], data['id']) )
+        elif data['category'] == 'pago':
+            cur.execute('''INSERT INTO NOTAPAGO (id, contenido, usuario) VALUES (%s, %s, %s)''', (data['idCategory'], data['content'], data['id']) )
+        else:
+            cur.execute('''SELECT id FROM PROCESO WHERE numRemision = %s and numCompra = %s and accion = %s''', (data['numRemission'], data['numCompra'], data['category']) )
+            idPrroceso = cur.fetchone()[0]
+            cur.execute('''INSERT INTO NOTA (id, contenido, usuario) VALUES (%s, %s, %s)''', (idPrroceso, data['content'], data['id']) )
+
+        mysql.connection.commit()
+
+        return True
+    except Exception as e:
+        print(e)
+        return {'failed'}
+
+    finally:
+        cur.close()

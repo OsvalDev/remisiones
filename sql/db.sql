@@ -67,6 +67,17 @@ CREATE TABLE REMISION(
     FOREIGN KEY(estatus) REFERENCES ESTATUS(id)
 );
 
+CREATE TABLE NOTAREMISION(
+    numRemision VARCHAR(100) NOT NULL,
+    numCompra VARCHAR(100) NOT NULL,
+    fecha TIMESTAMP NOT NULL DEFAULT current_timestamp(),
+    contenido VARCHAR(500) NOT NULL,
+    usuario INT NOT NULL,
+    PRIMARY KEY(numCompra, numRemision, fecha),
+    FOREIGN KEY(numCompra, numRemision) REFERENCES REMISION(numCompra, numRemision),
+    FOREIGN KEY(usuario) REFERENCES USUARIO(id)
+);
+
 CREATE TABLE DEVOLUCION(
     id INT AUTO_INCREMENT,
     descripcion VARCHAR(500) NOT NULL,
@@ -117,6 +128,16 @@ CREATE TABLE PAGO(
     FOREIGN KEY(numCompra, numRemision) REFERENCES REMISION(numCompra, numRemision),
     FOREIGN KEY(responsable) REFERENCES USUARIO(id),
     FOREIGN KEY(confirmante) REFERENCES USUARIO(id)
+);
+
+CREATE TABLE NOTAPAGO(
+    id INT NOT NULL,
+    fecha TIMESTAMP NOT NULL DEFAULT current_timestamp(),
+    contenido VARCHAR(500) NOT NULL,
+    usuario INT NOT NULL,
+    PRIMARY KEY(id, fecha),
+    FOREIGN KEY(id) REFERENCES PAGO(id),
+    FOREIGN KEY(usuario) REFERENCES USUARIO(id)
 );
 
 INSERT INTO AREA(id, nombre) VALUES 

@@ -290,6 +290,25 @@ def confirmPay(idRemission, idCompra):
     else:
         return redirect(url_for('login'))
     
+@app.route('/noteWeb', methods= ['POST'])
+def addNote():
+    user = verifyUser()
+
+    if user[0]:
+        data = {
+            'id' : user[0],
+            'content' : request.form['detail'],
+            'numRemision' : request.form['numRemision'],
+            'numCompra' : request.form['numCompra'],            
+            'category' : request.form['category']
+        }
+        addNoteWeb(mysql, data)
+
+        urlDetail = '/registro/remission/' + str(data['numRemision']) + '/' + str(data['numCompra'])
+        return redirect(urlDetail)
+    else:
+        return redirect(url_for('login'))
+
 #-----------------------------------------------------------------
 #api charts
 
