@@ -300,7 +300,8 @@ def addNote():
             'content' : request.form['detail'],
             'numRemision' : request.form['numRemision'],
             'numCompra' : request.form['numCompra'],            
-            'category' : request.form['category']
+            'category' : request.form['category'],
+            'idPago' : request.form['idPayment']
         }
         addNoteWeb(mysql, data)
 

@@ -217,7 +217,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                 JOIN USUARIO AS u on u.id = N.usuario
                 WHERE R.numRemision = %s and R.numCompra = %s
             ''', (numRemision, numCompra))
-            data['baseComment'] = cur.fetchall()
+            data['registroComment'] = cur.fetchall()
             #pagos
             cur.execute('''        
                 SELECT P.id, P.cantidad, P.pagoPersona, P.fecha, U.nombre, P.comprobante, Us.nombre, P.fechaConfirmacion
@@ -226,8 +226,32 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                 LEFT JOIN USUARIO AS Us ON Us.id = P.confirmante
                 WHERE P.numRemision = %s and P.numCompra = %s
             ''', (numRemision, numCompra))
-            data['pagos'] = cur.fetchall()                                                
-            #nnotas pagos
+            data['pagos'] = cur.fetchall()
+
+            #notas by pago
+            i = 0
+            aux = []
+            for pago in data['pagos']:
+                # Convertir el elemento de la tupla a una lista
+                pago_lista = list(pago)
+                
+                cur.execute('''
+                    SELECT u.nombre, NP.fecha, NP.contenido
+                    FROM NOTAPAGO AS NP
+                    JOIN USUARIO AS u on u.id = NP.usuario
+                    WHERE NP.id = %s
+                ''', (pago[0],))
+                
+                # Agregar la información adicional a la lista
+                pago_lista.append(cur.fetchall())
+                
+                # Convertir la lista de nuevo a una tupla si es necesario
+                aux.append( tuple(pago_lista) )
+                
+                i += 1
+            data['pagos'] = aux
+
+            #notas pagos
             cur.execute('''        
                 SELECT u.nombre, NP.fecha, NP.contenido
                 FROM PROCESO AS P

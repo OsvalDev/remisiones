@@ -124,17 +124,22 @@ def confirmPayment (mysql, payment, user):
 
 def addNoteWeb(mysql, data):
     cur = mysql.connection.cursor()                    
-    
+    print(data)
     try:
         if data['category'] == 'general':
+            print('0')
             cur.execute('''INSERT INTO NOTAREMISION (numRemision, numCompra, contenido, usuario) VALUES (%s, %s, %s, %s)''', (data['numRemision'], data['numCompra'], data['content'], data['id']) )
         elif data['category'] == 'confirmacion':
+            print('1')
             cur.execute('''INSERT INTO NOTAENTREGA (numRemision, numCompra, contenido, usuario) VALUES (%s, %s, %s, %s)''', (data['numRemision'], data['numCompra'], data['content'], data['id']) )
         elif data['category'] == 'pago':
-            cur.execute('''INSERT INTO NOTAPAGO (id, contenido, usuario) VALUES (%s, %s, %s)''', (data['idCategory'], data['content'], data['id']) )
+            print('2')
+            cur.execute('''INSERT INTO NOTAPAGO (id, contenido, usuario) VALUES (%s, %s, %s)''', (data['idPago'], data['content'], data['id']) )
         else:
-            cur.execute('''SELECT id FROM PROCESO WHERE numRemision = %s and numCompra = %s and accion = %s''', (data['numRemission'], data['numCompra'], data['category']) )
+            print('3')
+            cur.execute('''SELECT id FROM PROCESO WHERE numRemision = %s and numCompra = %s and accion = %s''', (data['numRemision'], data['numCompra'], data['category']) )
             idPrroceso = cur.fetchone()[0]
+            print(idPrroceso)
             cur.execute('''INSERT INTO NOTA (id, contenido, usuario) VALUES (%s, %s, %s)''', (idPrroceso, data['content'], data['id']) )
 
         mysql.connection.commit()
