@@ -285,7 +285,7 @@
                     </div>
                     
                     <div class="border-l-gray-600 {% if data['surtimiento'][1] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
-                        <div class="border-l-pink-600 border-l-4 ml-6 px-8 mb-4 flex flex-wrap">
+                        <div class="flex flex-wrap">
                             <div class="w-full sm:w-fit">
                                 {% if data['surtimiento'] %} 
                                     <p>Fecha de registro: {{ data['surtimiento'][3] }}</p>                        
@@ -474,7 +474,7 @@
                     </div>
 
                     <div class="border-l-gray-600 {% if data['logistica'][1] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
-                        <div class="border-l-pink-600 border-l-4 ml-6 px-8 mb-4 flex flex-wrap">
+                        <div class="flex flex-wrap">
                             <div class="w-full sm:w-fit">
                                 {% if data['logistica'] %}     
                                     <p>Fecha de registro: {{ data['logistica'][3] }}</p>                        
@@ -592,7 +592,7 @@
                         {% endif %}            
                     </div>
                     <div class="border-l-gray-600 {% if data['confirmacionEntrega'][0] %} border-l-pink-600 {% endif %}  border-l-4 ml-6 px-8 mb-4">
-                        <div class="border-l-pink-600 border-l-4 ml-6 px-8 mb-4 flex flex-wrap">
+                        <div class="flex flex-wrap">
                             <div class="w-full sm:w-fit">
                                 {% if data['confirmacionEntrega'][0] %}     
                                     <p>Fecha de entrega: {{ data['confirmacionEntrega'][0] }} </p>                            
@@ -658,7 +658,7 @@
                         {% endif %}
                     </div>
                     <div class="border-l-gray-600 {% if data['pagos'][0] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">                        
-                        <div class="border-l-pink-600 border-l-4 ml-6 px-8 mb-4 flex flex-wrap">
+                        <div class="flex flex-wrap">
                             <div class="w-full sm:w-fit">
                             
                                 {% if data['pagos'] %}
