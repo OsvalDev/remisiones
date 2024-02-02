@@ -133,8 +133,8 @@ def getRemissionDetail(mysql, numRemision, numCompra):
         'baseComment' : None,
         'surtimientoComment' : None,
         'logisticaComment' : None,
-        'confirmacionComment' : None,        
-        'notasPagos' : None,
+        'registroComment' : None,        
+        'notasPagos' : None,        
     }
     
     cur = mysql.connection.cursor()
@@ -167,6 +167,15 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                 WHERE p.numRemision = %s and p.numCompra = %s and p.accion = 'Surtimiento'
             ''', (numRemision, numCompra))
             data['surtimiento'] = cur.fetchone()
+            #notas surtimiento
+            cur.execute('''        
+                SELECT u.nombre, NP.fecha, NP.contenido
+                FROM PROCESO AS P
+                JOIN NOTA AS NP ON P.id = NP.id 
+                JOIN USUARIO AS u on u.id = NP.usuario
+                WHERE P.numRemision = %s and P.numCompra = %s and P.accion = "Surtimiento"
+            ''', (numRemision, numCompra))
+            data['surtimientoComment'] = cur.fetchall()
             
             #logistica
             cur.execute('''                        
@@ -176,7 +185,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                 WHERE p.numRemision = %s and p.numCompra = %s and p.accion = 'Logistica'
             ''', (numRemision, numCompra))
             data['logistica'] = cur.fetchone()
-            
+            #chofer
             cur.execute('''                        
                 SELECT u.nombre
                 FROM PROCESO AS p
@@ -184,7 +193,15 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                 WHERE p.numRemision = %s and p.numCompra = %s and p.accion = 'Entrega'
             ''', (numRemision, numCompra))
             data['chofer'] = cur.fetchone()
-
+            #notas logistica
+            cur.execute('''        
+                SELECT u.nombre, NP.fecha, NP.contenido
+                FROM PROCESO AS P
+                JOIN NOTA AS NP ON P.id = NP.id 
+                JOIN USUARIO AS u on u.id = NP.usuario
+                WHERE P.numRemision = %s and P.numCompra = %s and P.accion = "Logistica"
+            ''', (numRemision, numCompra))
+            data['logisticaComment'] = cur.fetchall()
             #confirmacionEntrega
             cur.execute('''        
                 SELECT r.fechaCompromisocliente
@@ -192,7 +209,15 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                 WHERE r.numRemision = %s and r.numCompra = %s
             ''', (numRemision, numCompra))
             data['confirmacionEntrega'] = cur.fetchone()
-
+            #base comment
+            cur.execute('''        
+                SELECT u.nombre, N.fecha, N.contenido
+                FROM REMISION AS R
+                JOIN NOTAENTREGA AS N ON R.numRemision = N.numRemision and R.numCompra = N.numCompra 
+                JOIN USUARIO AS u on u.id = N.usuario
+                WHERE R.numRemision = %s and R.numCompra = %s
+            ''', (numRemision, numCompra))
+            data['baseComment'] = cur.fetchall()
             #pagos
             cur.execute('''        
                 SELECT P.id, P.cantidad, P.pagoPersona, P.fecha, U.nombre, P.comprobante, Us.nombre, P.fechaConfirmacion
@@ -202,13 +227,13 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                 WHERE P.numRemision = %s and P.numCompra = %s
             ''', (numRemision, numCompra))
             data['pagos'] = cur.fetchall()                                                
-
+            #nnotas pagos
             cur.execute('''        
                 SELECT u.nombre, NP.fecha, NP.contenido
                 FROM PROCESO AS P
                 JOIN NOTA AS NP ON P.id = NP.id 
                 JOIN USUARIO AS u on u.id = NP.usuario
-                WHERE P.numRemision = %s and P.numCompra = %s
+                WHERE P.numRemision = %s and P.numCompra = %s and P.accion = "Entrega"
             ''', (numRemision, numCompra))
             data['notasPagos'] = cur.fetchall()
 

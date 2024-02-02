@@ -124,7 +124,7 @@ def confirmPayment (mysql, payment, user):
 
 def addNoteWeb(mysql, data):
     cur = mysql.connection.cursor()                    
-
+    
     try:
         if data['category'] == 'general':
             cur.execute('''INSERT INTO NOTAREMISION (numRemision, numCompra, contenido, usuario) VALUES (%s, %s, %s, %s)''', (data['numRemision'], data['numCompra'], data['content'], data['id']) )
