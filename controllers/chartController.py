@@ -1,14 +1,20 @@
-def getImportesApi(mysql, costumer=None):
+def getImportesApi(mysql, data=None):
     cur = mysql.connection.cursor()
-    try:
-        if costumer is None:
+    try:            
+        if data is None:
             cur.execute('''SELECT SUM(importeRemisionado), SUM(importeFacturado) FROM REMISION''')
         else:
-            cur.execute('''SELECT SUM(importeRemisionado), SUM(importeFacturado) FROM REMISION AS R JOIN CLIENTE AS C ON R.cliente = C.id WHERE C.clave  = %s''', (costumer,))
+            claves = data['costumers']
+            if len(claves) > 0:
+                placeholders = ', '.join(['%s' for _ in claves])
+                query = f'''SELECT SUM(importeRemisionado), SUM(importeFacturado) FROM REMISION AS R JOIN CLIENTE AS C ON R.cliente = C.id WHERE C.clave IN ({placeholders})'''
+                cur.execute(query, claves)
+            else:
+                cur.execute('''SELECT SUM(importeRemisionado), SUM(importeFacturado) FROM REMISION''')
         
         data = cur.fetchone()
         
-        return {'result':'success', 'data' : data}        
+        return {'result':'success', 'data' : data}
 
     except Exception as e:
         print(e)
@@ -17,32 +23,21 @@ def getImportesApi(mysql, costumer=None):
     finally:
         cur.close()
 
-def getTotalCostumersApi(mysql, costumer=None):
+def getTotalCostumersApi(mysql):
     cur = mysql.connection.cursor()
-    try:
-        if costumer is None:
-            cur.execute('''SELECT c.nombre, SUM(r.importeRemisionado) AS totalRemisionado, SUM(r.importeFacturado) AS totalFacturado
-                            FROM REMISION AS r
-                            JOIN CLIENTE AS c ON r.cliente = c.id
-                            GROUP BY c.id
-                            ORDER BY totalRemisionado DESC, totalFacturado DESC                        
-                            LIMIT 10;''')
-        else:
-            cur.execute('''SELECT c.nombre, SUM(r.importeRemisionado) AS totalRemisionado, SUM(r.importeFacturado) AS totalFacturado
-                            FROM REMISION AS r
-                            JOIN CLIENTE AS c ON r.cliente = c.id
-                            WHERE c.clave = %s
-                            GROUP BY c.id
-                            ORDER BY totalRemisionado DESC, totalFacturado DESC                        
-                            LIMIT 10;''', (costumer,))
-        
+    try:        
+        cur.execute('''SELECT c.nombre, SUM(r.importeRemisionado + r.importeFacturado) AS totalSuma
+                        FROM REMISION AS r
+                        JOIN CLIENTE AS c ON r.cliente = c.id
+                        GROUP BY c.id
+                        ORDER BY totalSuma
+                        LIMIT 10;''')            
         data = cur.fetchall()
         
         nombres = [row[0] for row in data]
-        totalRemisionado = [row[1] for row in data]
-        totalFacturado = [row[2] for row in data]
+        total = [row[1] for row in data]
         
-        return {'result':'success', 'data' : [nombres, totalRemisionado, totalFacturado]}
+        return {'result':'success', 'data' : [nombres, total]}
 
     except Exception as e:
         print(e)

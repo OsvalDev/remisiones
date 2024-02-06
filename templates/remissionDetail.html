@@ -142,7 +142,7 @@
                         
                     </div>
                     <div class="border-l-pink-600 border-l-4 ml-6 px-8 mb-4 flex flex-wrap">
-                        <div class="w-full sm:w-fit">
+                        <div class="w-full sm:w-1/2">
                             <p># factura : {{ data['baseData'][9] }}</p>
                             <p>Piezas : {{ data['baseData'][3] }}</p>
                             <p>Importe facturado : ${{ data['baseData'][4] }}</p>
@@ -288,7 +288,7 @@
                     
                     <div class="border-l-gray-600 {% if data['surtimiento'][1] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
                         <div class="flex flex-wrap">
-                            <div class="w-full sm:w-fit">
+                            <div class="w-full sm:w-1/2">
                                 {% if data['surtimiento'] %} 
                                     <p>Fecha de registro: {{ data['surtimiento'][3] }}</p>                        
                                     <p>Fecha de compromiso: {{ data['surtimiento'][0] }}</p>                        
@@ -478,7 +478,7 @@
 
                     <div class="border-l-gray-600 {% if data['logistica'][1] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
                         <div class="flex flex-wrap">
-                            <div class="w-full sm:w-fit">
+                            <div class="w-full sm:w-1/2">
                                 {% if data['logistica'] %}     
                                     <p>Fecha de registro: {{ data['logistica'][3] }}</p>                        
                                     <p>Fecha de compromiso: {{ data['logistica'][0] }}</p>                        
@@ -597,7 +597,7 @@
                     </div>
                     <div class="border-l-gray-600 {% if data['confirmacionEntrega'][0] %} border-l-pink-600 {% endif %}  border-l-4 ml-6 px-8 mb-4">
                         <div class="flex flex-wrap">
-                            <div class="w-full sm:w-fit">
+                            <div class="w-full sm:w-1/2">
                                 {% if data['confirmacionEntrega'][0] %}     
                                     <p>Fecha de entrega: {{ data['confirmacionEntrega'][0] }} </p>                            
                                 {% else %}
@@ -664,7 +664,7 @@
                     </div>
                     <div class="border-l-gray-600 {% if data['pagos'][0] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">                        
                         <div class="flex flex-wrap">
-                            <div class="w-full sm:w-fit">
+                            <div class="w-full sm:w-1/2">
                             
                                 {% if data['pagos'] %}
                                     {% for pago in data['pagos'] %}

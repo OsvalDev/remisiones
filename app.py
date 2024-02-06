@@ -36,7 +36,9 @@ def dashboard():
     if user[0]:
         remissionList = getRemissions(mysql)
         costumerList = getActiveCostumerList(mysql)['data']
-        return render_template('dashboard.html', user = user[1], canDo = user[2], remissionList = remissionList, costumers = costumerList)
+        estatusList = getEstatusList(mysql)['data']
+        print(remissionList)
+        return render_template('dashboard.html', user = user[1], canDo = user[2], remissionList = remissionList, costumers = costumerList, estatusList = estatusList)
     else:
         return redirect(url_for('login'))
     
@@ -321,9 +323,10 @@ def getImportes():
 def getTotalCostumers():        
     return jsonify( getTotalCostumersApi(mysql) )        
 
-@app.route('/getRemissionByCostumer/<clave>')
-def getRemissionByCostumer(clave):        
-    return jsonify( getRemissionByCostumerApi(mysql, clave) )
+@app.route('/getRemissionByFilter', methods= ['POST'])
+def getRemissionByFilter():
+    data = request.get_json()
+    return jsonify( getRemissionByApi(mysql, data) )
 
 #post routes android
 @app.route('/loginApp', methods= ['POST'])
