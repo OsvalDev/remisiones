@@ -157,6 +157,49 @@ const filterCostumerData = async (element) => {
     }
 };
 
+const downloadPdf = async() => {
+    let url;
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {        
+        url = '/pdf';
+    } else {        
+        url = '/registro/pdf';
+    }
+    
+    //recollect data
+    var checkboxes = document.querySelectorAll('input[type="checkbox"].btnCostumerFilter:checked');
+    var valuesCostumers = Array.from(checkboxes).map(checkbox => checkbox.value);
+    const data = { costumers : valuesCostumers,
+                    status: [],
+                    dateStart : '',
+                    dateEnd : '',
+                    numRemision : '',
+                    numCompra : '' };
+    
+    try {
+        const response = await fetch(url, {            
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => response.blob())
+        .then(blob => {
+            const url = window.URL.createObjectURL(new Blob([blob]));
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'remisiones.xlsx';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a); // Limpiar el elemento 'a' después de la descarga
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => console.error('Error:', error));
+
+    } catch (err) {
+        console.log('Error en la solicitud: ', err.message);
+    }
+};
+
 const buttons = document.querySelectorAll('.btnCostumerFilter');
 buttons.forEach(boton => {
     boton.oninput = function() {
@@ -164,3 +207,4 @@ buttons.forEach(boton => {
     };
 });
 
+document.getElementById('btnDownload').onclick = downloadPdf

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, jsonify, session
+from flask import Flask, render_template, redirect, url_for, request, jsonify, session, send_file, make_response, Response
 from flask_mysqldb import MySQL
 
 from controllers.loginController import login as funLogin
@@ -10,7 +10,7 @@ from controllers.appController import *
 from controllers.chartController import *
 from controllers.filterController import *
 from utils.userSession import verifyUser
-
+from utils.makePdf import getPdf as makePdf
 app = Flask(__name__)
 
 # Configuración de la base de datos
@@ -328,6 +328,15 @@ def getRemissionByFilter():
     data = request.get_json()
     return jsonify( getRemissionByApi(mysql, data) )
 
+@app.route('/pdf', methods= ['POST'])
+def getPdf():
+    data = request.get_json()
+    data = getRemissionByApi(mysql, data)['data']
+    headers = ['Num Compra', 'Num Remision', 'Fecha', 'Cliente', 'Importe Remisionado', 'Importe Facturado', 'Estatus']
+    doc = makePdf(data, headers)
+    
+    return Response(doc, mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', headers= {"Content-Disposition": "attachment;filename=remisiones.xlsx"} )
+#-----------------------------------------------------------------
 #post routes android
 @app.route('/loginApp', methods= ['POST'])
 def postLoginApp():
