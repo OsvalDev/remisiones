@@ -358,28 +358,28 @@ def processExcel(mysql, file):
                 continue
 
 
-            # #ingresar el registro
-            cur.execute('''        
-                SELECT id, saldoBonificado
-                FROM CLIENTE
-                WHERE clave = %s
-            ''', (row['Clave del cliente'], ))
-            costumerid = cur.fetchone()
+            # # #ingresar el registro
+            # cur.execute('''        
+            #     SELECT id, saldoBonificado
+            #     FROM CLIENTE
+            #     WHERE clave = %s
+            # ''', (row['Clave del cliente'], ))
+            # costumerid = cur.fetchone()
 
-            # Inserta la nueva remisión en la base de datos
-            cur.execute('''        
-                INSERT INTO REMISION (numRemision, numCompra, piezas, importeRemisionado, importeFacturado, cliente, saldoAFavor, numFactura)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-            ''', (row['Numero de remision'], row['Numero de compra'], row['Piezas'], row['Importe remisionado'], row['Importe facturado'], costumerid[0], row['Monto bonificado'], row['Numero de factura'] ))
-            mysql.connection.commit()
+            # # Inserta la nueva remisión en la base de datos
+            # cur.execute('''        
+            #     INSERT INTO REMISION (numRemision, numCompra, piezas, importeRemisionado, importeFacturado, cliente, saldoAFavor, numFactura)
+            #     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            # ''', (row['Numero de remision'], row['Numero de compra'], row['Piezas'], row['Importe remisionado'], row['Importe facturado'], costumerid[0], row['Monto bonificado'], row['Numero de factura'] ))
+            # mysql.connection.commit()
 
-            # Actualiza el saldoBonificado del cliente si es necesario
-            if row['Monto bonificado'] != '' and int(row['Monto bonificado']) > 0:
-                mount = int(row['Monto bonificado'])
-                balance = int(costumerid[1])
+            # # Actualiza el saldoBonificado del cliente si es necesario
+            # if row['Monto bonificado'] != '' and int(row['Monto bonificado']) > 0:
+            #     mount = int(row['Monto bonificado'])
+            #     balance = int(costumerid[1])
                 
-                cur.execute('UPDATE CLIENTE SET saldoBonificado = %s WHERE id = %s', (balance - mount, costumerid[0]))
-                mysql.connection.commit()
+            #     cur.execute('UPDATE CLIENTE SET saldoBonificado = %s WHERE id = %s', (balance - mount, costumerid[0]))
+            #     mysql.connection.commit()
             
         
         return resultingMsg
