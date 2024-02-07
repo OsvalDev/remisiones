@@ -316,27 +316,27 @@ def processExcel(mysql, file):
                 resultingMsg +=f"Monto bonificado incompleto en la fila {index + 2}. </br>"
                 continue
 
-            # # Verifica que los valores numéricos sean válidos
-            # try:
-            #     piezas = int(row['Piezas'])                
-            # except ValueError:
-            #     resultingMsg +=f"El valor de piezas no es numerico en la fila {index + 2}.</br>"
-            #     continue
-            # try:                
-            #     remisionado = float(row['Importe remisionado'])                
-            # except ValueError:
-            #     resultingMsg +=f"El valor de importe remisionado no es numerico en la fila {index + 2}.</br>"
-            #     continue
-            # try:                
-            #     facturado = float(row['Importe facturado'])                
-            # except ValueError:
-            #     resultingMsg +=f"El valor de importe facturado no es numerico en la fila {index + 2}.</br>"
-            #     continue
-            # try:                
-            #     bonificado = float(row['Monto bonificado'])
-            # except ValueError:
-            #     resultingMsg +=f"El valor de monto bonificado no es numerico en la fila {index + 2}.</br>"
-            #     continue
+            # Verifica que los valores numéricos sean válidos
+            try:
+                piezas = int(row['Piezas'])                
+            except ValueError:
+                resultingMsg +=f"El valor de piezas no es numerico en la fila {index + 2}.</br>"
+                continue
+            try:                
+                remisionado = float(row['Importe remisionado'])                
+            except ValueError:
+                resultingMsg +=f"El valor de importe remisionado no es numerico en la fila {index + 2}.</br>"
+                continue
+            try:                
+                facturado = float(row['Importe facturado'])                
+            except ValueError:
+                resultingMsg +=f"El valor de importe facturado no es numerico en la fila {index + 2}.</br>"
+                continue
+            try:                
+                bonificado = float(row['Monto bonificado'])
+            except ValueError:
+                resultingMsg +=f"El valor de monto bonificado no es numerico en la fila {index + 2}.</br>"
+                continue
 
             # cur = mysql.connection.cursor()
             # #No existe otra remision con el mismo numero de remision y numero de compra
