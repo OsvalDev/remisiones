@@ -312,6 +312,18 @@ def addNote():
     else:
         return redirect(url_for('login'))
 
+@app.route('/uploadExcel', methods= ['POST'])
+def uploadExcel():
+    user = verifyUser()
+
+    if user[0]:
+        file = request.files['excel']
+        processExcel(mysql, file)
+        
+        return redirect(url_for('dashboard'))
+    else:
+        return redirect(url_for('login'))
+
 #-----------------------------------------------------------------
 #api charts
 

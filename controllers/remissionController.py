@@ -280,3 +280,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
     
     finally:
         cur.close()
+
+def processExcel(mysql, file):
+    print('simon carnal')
+    return True
