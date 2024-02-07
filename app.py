@@ -318,9 +318,12 @@ def uploadExcel():
 
     if user[0]:
         file = request.files['excel']
-        processExcel(mysql, file)
+        result = processExcel(mysql, file)
         
-        return redirect(url_for('dashboard'))
+        if result == '':
+            return redirect(url_for('dashboard'))
+        else:
+            return render_template('debugUpload.html', msg = result)
     else:
         return redirect(url_for('login'))
 
