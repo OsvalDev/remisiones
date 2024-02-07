@@ -338,13 +338,13 @@ def processExcel(mysql, file):
                 resultingMsg +=f"El valor de monto bonificado no es numerico en la fila {index + 2}.</br>"
                 continue
 
-            # cur = mysql.connection.cursor()
-            # #No existe otra remision con el mismo numero de remision y numero de compra
-            # cur.execute('SELECT * FROM REMISION WHERE numRemision = %s and numCompra = %s', (row['Numero de remision'], row['Numero de compra']))
-            # auxTest = cur.fetchone()
-            # if auxTest:
-            #     resultingMsg += f'La remision { row['Numero de remision'] } con # de compra { row['Numero de compra'] } ya existe en la fila {index + 2}. </br>'
-            #     continue
+            cur = mysql.connection.cursor()
+            #No existe otra remision con el mismo numero de remision y numero de compra
+            cur.execute('SELECT * FROM REMISION WHERE numRemision = %s and numCompra = %s', (row['Numero de remision'], row['Numero de compra']))
+            auxTest = cur.fetchone()
+            if auxTest:
+                resultingMsg += f'La remision { row['Numero de remision'] } con # de compra { row['Numero de compra'] } ya existe en la fila {index + 2}. </br>'
+                continue
 
             # #la clave del cliente existe
             # cur.execute('SELECT saldoBonificado FROM CLIENTE WHERE clave = %s', (row['Clave del cliente'], ))
