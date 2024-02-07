@@ -8,7 +8,7 @@ def getRemissions(mysql):
             FROM REMISION AS r
             JOIN CLIENTE AS c ON r.cliente = c.id
             JOIN ESTATUS AS e ON e.id = r.estatus
-            ORDER BY r.numCompra, r.numRemision
+            ORDER BY r.fecha DESC
         ''')
         data = cur.fetchall()
         if data != None:

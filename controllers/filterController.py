@@ -82,7 +82,7 @@ def getRemissionByApi(mysql, data):
             JOIN CLIENTE AS c ON r.cliente = c.id
             JOIN ESTATUS AS e ON e.id = r.estatus
             {whereClausure}
-            ORDER BY r.fecha
+            ORDER BY r.fecha DESC
         '''
 
         cur.execute(query, params)        
