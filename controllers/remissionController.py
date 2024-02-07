@@ -353,7 +353,7 @@ def processExcel(mysql, file):
                 resultingMsg += f"La clave del cliente en la fila {index + 2} no existe. </br>"
                 continue
             
-            if float(auxTest[0]) <= row['Monto bonificado']:
+            if float(auxTest[0]) < row['Monto bonificado']:
                 resultingMsg += f"El saldo del cliente en la fila {index + 2} no es suficiente para la bonificacion. </br>"
                 continue
 

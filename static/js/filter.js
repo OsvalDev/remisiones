@@ -170,12 +170,15 @@ const downloadPdf = async() => {
     //recollect data
     var checkboxes = document.querySelectorAll('input[type="checkbox"].btnCostumerFilter:checked');
     var valuesCostumers = Array.from(checkboxes).map(checkbox => checkbox.value);
+    checkboxes = document.querySelectorAll('input[type="checkbox"].statusFilter:checked');
+    var valuesStatus = Array.from(checkboxes).map(checkbox => checkbox.value);
+    
     const data = { costumers : valuesCostumers,
-                    status: [],
-                    dateStart : '',
-                    dateEnd : '',
-                    numRemision : '',
-                    numCompra : '' };
+        status: valuesStatus,
+        dateStart : document.getElementById('dateStart').value,
+        dateEnd : document.getElementById('dateEnd').value,
+        numRemision : document.getElementById('numRemision').value,
+        numCompra : document.getElementById('numCompraFilter').value };
     
     try {
         const response = await fetch(url, {            
