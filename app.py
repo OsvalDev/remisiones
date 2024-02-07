@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, jsonify, session, send_file, make_response, Response
+from flask import Flask, render_template, redirect, url_for, request, jsonify, session, Response
 from flask_mysqldb import MySQL
 
 from controllers.loginController import login as funLogin

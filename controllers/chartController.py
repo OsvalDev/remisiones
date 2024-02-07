@@ -3,14 +3,16 @@ def getImportesApi(mysql, data=None):
     try:            
         if data is None:
             cur.execute('''SELECT SUM(importeRemisionado), SUM(importeFacturado) FROM REMISION''')
-        else:
-            claves = data['costumers']
-            if len(claves) > 0:
-                placeholders = ', '.join(['%s' for _ in claves])
-                query = f'''SELECT SUM(importeRemisionado), SUM(importeFacturado) FROM REMISION AS R JOIN CLIENTE AS C ON R.cliente = C.id WHERE C.clave IN ({placeholders})'''
-                cur.execute(query, claves)
-            else:
-                cur.execute('''SELECT SUM(importeRemisionado), SUM(importeFacturado) FROM REMISION''')
+        else:            
+            query = f'''
+                SELECT SUM(r.importeRemisionado), SUM(r.importeFacturado)
+                FROM REMISION AS r
+                JOIN CLIENTE AS c ON r.cliente = c.id
+                JOIN ESTATUS AS e ON e.id = r.estatus
+                {data['whereClausure']}            
+            '''
+
+            cur.execute(query, data['params'])                    
         
         data = cur.fetchone()
         

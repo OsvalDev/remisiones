@@ -4,7 +4,7 @@ const formatDate = (fechaString) => {
     return fechaFormateada
 }
 
-const filterCostumerData = async (element) => {
+const filterCostumerData = async () => {
     let url;
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {        
         url = '/getRemissionByFilter';
@@ -15,12 +15,16 @@ const filterCostumerData = async (element) => {
     //recollect data
     var checkboxes = document.querySelectorAll('input[type="checkbox"].btnCostumerFilter:checked');
     var valuesCostumers = Array.from(checkboxes).map(checkbox => checkbox.value);
+    
+    checkboxes = document.querySelectorAll('input[type="checkbox"].statusFilter:checked');
+    var valuesStatus = Array.from(checkboxes).map(checkbox => checkbox.value);
+
     const data = { costumers : valuesCostumers,
-                    status: [],
-                    dateStart : '',
-                    dateEnd : '',
-                    numRemision : '',
-                    numCompra : '' };
+                    status: valuesStatus,
+                    dateStart : document.getElementById('dateStart').value,
+                    dateEnd : document.getElementById('dateEnd').value,
+                    numRemision : document.getElementById('numRemision').value,
+                    numCompra : document.getElementById('numCompraFilter').value };
     
     try {
         const response = await fetch(url, {            
@@ -147,9 +151,7 @@ const filterCostumerData = async (element) => {
             if(document.getElementById("column-chart") && typeof ApexCharts !== 'undefined') {                   
                 const chart = new ApexCharts(document.getElementById("column-chart"), options);
                 chart.render()
-            }
-
-            console.log(responseData);
+            }            
         }
 
     } catch (err) {
@@ -200,11 +202,28 @@ const downloadPdf = async() => {
     }
 };
 
-const buttons = document.querySelectorAll('.btnCostumerFilter');
+const buttons = document.querySelectorAll('.btnCostumerFilter, .statusFilter');
 buttons.forEach(boton => {
-    boton.oninput = function() {
-        filterCostumerData(this);
-    };
+    boton.oninput = filterCostumerData;
 });
+
+document.getElementById('numRemision').oninput = filterCostumerData;
+document.getElementById('numCompraFilter').oninput = filterCostumerData;
+
+let previousValueStart = dateStart.value;
+let previousValueEnd = dateEnd.value;
+
+function checkInputChange() {
+    if (dateStart.value !== previousValueStart) {
+        filterCostumerData()
+        previousValueStart = dateStart.value;
+    }
+    if (dateEnd.value !== previousValueEnd) {
+        filterCostumerData()
+        previousValueEnd = dateEnd.value;
+    }
+}
+
+setInterval(checkInputChange, 1000);
 
 document.getElementById('btnDownload').onclick = downloadPdf
