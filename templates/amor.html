@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Amorcito</title>
+
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.init({
+        appId: "2e7c10d0-0a4c-4f1f-97c8-2a264b178b94",
+        safari_web_id: "web.onesignal.auto.0b751c21-4ab5-448f-a888-cd2e20e2cfd5",
+        notifyButton: {
+            enable: true,
+        },
+        });
+    });
+    </script>
+</head>
+<body>
+    <div class="w-screen h-screen flex items-center justify-center flex-col">
+        <img id="img" loop="infinite" src="https://i.pinimg.com/originals/3c/0b/05/3c0b05b570541100099e9d9ef78f337c.gif" >
+
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-center" id="tittle">¿ Quieres ser mi San Valentin ?</h1>
+            <div class="flex justify-center mt-8" id="container">
+                <button id="si" class="bg-green-500 rounded-lg hover:bg-green-300 px-8 py-2 text-white mx-4">Si</button>
+                <div>
+                    <button id="no" class="bg-red-500 rounded-lg px-8 py-2 text-white mx-4">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const frases = ['Segura?','Segurisima?', 'Completamente segura?', 'Pero si estas segura?', 'Piensalo de nuevo', 'Ultima oportunidad', 'Enserio no?', 'Y si lo vuelves a pensar?', 'Di si porfavor', 'Vamos di si']
+        var lastIndex = 0
+        btnNO = document.getElementById('no');
+        btnSi = document.getElementById('si');
+
+        const puchoNo = () => {
+
+            do {
+                nextIndex = Math.floor(Math.random() * (10 - 0)) + 0
+                if (nextIndex != lastIndex){
+                    lastIndex = nextIndex
+                    break
+                }
+
+            }while(true)
+
+            btnNO.textContent = frases[nextIndex]
+            let tamañoTextoActual = parseFloat(window.getComputedStyle(btnSi).fontSize);
+            let anchoActual = parseFloat(window.getComputedStyle(btnSi).width);
+            let altoActual = parseFloat(window.getComputedStyle(btnSi).height);
+            
+            tamañoTextoActual += 2;
+
+            anchoActual += 30;
+            altoActual += 30;
+            
+            btnSi.style.fontSize = tamañoTextoActual + 'px';
+            btnSi.style.width = anchoActual + 'px';
+            btnSi.style.height = altoActual + 'px';
+        }
+
+        const puchoSi = () => {
+            document.getElementById('container').remove()
+            document.getElementById('tittle').textContent = "Yipiiiiie!!! Te amimiiiiiii"
+            document.getElementById('img').src = 'https://i.pinimg.com/originals/bc/5f/d6/bc5fd6af900184aaa9ebabeb236e76b0.gif'
+        }
+
+        btnSi.onclick = puchoSi
+        btnNO.onclick = puchoNo;
+    </script>
+</body>
+</html>
