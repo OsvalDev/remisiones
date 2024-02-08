@@ -143,7 +143,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
 
     try:
         cur.execute('''        
-            SELECT r.numRemision, r.numCompra, c.nombre, r.piezas, r.importeFacturado, r.importeRemisionado, r.saldoAFavor, r.fecha, c.clave, r.numFactura
+            SELECT r.numRemision, r.numCompra, c.nombre, r.piezas, r.importeFacturado, r.importeRemisionado, r.saldoAFavor, r.fecha, c.clave, r.numFactura, r.estatus
             FROM REMISION AS r
             JOIN CLIENTE AS c ON r.cliente = c.id
             WHERE r.numRemision = %s and r.numCompra = %s

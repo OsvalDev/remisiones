@@ -242,6 +242,23 @@ def endommit(idRemission, idCompra):
     else:
         return redirect(url_for('login'))
 
+@app.route('/autorizationRC/<idRemission>/<idCompra>', methods = ['POST'] )
+def autorizationRC(idRemission, idCompra):
+
+    user = verifyUser()
+
+    if user[0]:
+        data = {            
+            'numRemision' : idRemission,
+            'numCompra' : idCompra
+        }        
+
+        updateAutorization(mysql, data)
+        urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
+        return redirect(urlDetail)
+    else:
+        return redirect(url_for('login'))
+
 @app.route('/addDevolution/<idRemission>/<idCompra>', methods = ['POST'] )
 def addDevolution(idRemission, idCompra):
 

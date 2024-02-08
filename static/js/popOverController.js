@@ -47,3 +47,9 @@ if (document.getElementById('btn-endSur'))
 
 if (document.getElementById('close-endSur'))
     document.getElementById('close-endSur').onclick = () => switchVisible('popover-endSur');
+
+if (document.getElementById('btn-autorization'))
+    document.getElementById('btn-autorization').onclick = () => switchVisible('popover-autorization');
+
+if (document.getElementById('close-autorization'))
+    document.getElementById('close-autorization').onclick = () => switchVisible('popover-autorization');
