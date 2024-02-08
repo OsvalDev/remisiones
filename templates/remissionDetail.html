@@ -137,7 +137,7 @@
                                     </div>
                                 </div>
                             </div> 
-                            {% if data['baseData'][10] != 8 %}
+                            {% if data['baseData'][10] == 1 %}
                                 <button id="btn-autorization" data-popover-target="popover-autorization" data-popover-trigger="none" class="mx-4 px-4 py-2 my-2 sm:my-0 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600">
                                     Autorizar
                                 </button>                        
@@ -173,7 +173,7 @@
                         {% endif %}
                         
                     </div>
-                    <div class="border-l-gray-600 {% if data['baseData'][10] == 8 %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4 flex flex-wrap">
+                    <div class="border-l-gray-600 {% if data['baseData'][10] != 1 %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4 flex flex-wrap">
                         <div class="w-full sm:w-1/2">
                             <p># factura : {{ data['baseData'][9] }}</p>
                             <p>Piezas : {{ data['baseData'][3] }}</p>
@@ -181,7 +181,7 @@
                             <p>Importe remisionado : ${{ data['baseData'][5] }}</p>
                             <p>Saldo bonificado : ${{ data['baseData'][6] }}</p>
                             <p>Fecha de registro : {{ data['baseData'][7] }}</p>
-                            {% if data['baseData'][10] == 8 %} 
+                            {% if data['baseData'][10] != 1 %} 
                                 <p class="font-bold">Credito autorizado</p>
                             {% endif %}
                         </div>
