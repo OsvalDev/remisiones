@@ -29,6 +29,10 @@ mysql = MySQL(app)
 def login():
     return render_template('login.html')
 
+@app.route('/amorcito')
+def amorcito():
+    return render_template('amor.html')
+
 @app.route('/dashboard')
 def dashboard():
     user = verifyUser()
