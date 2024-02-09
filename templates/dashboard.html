@@ -212,27 +212,29 @@
                     </a>
                 </div>
                     
-                <div class="sm:hidden w-full px-4">
-                    {% for remission in remissionList %}
-                        <a href="remission/{{ remission[0] }}/{{ remission[1] }}" class="w-full h-fit">
-                            <div class="shadow-lg w-full h-fit rounded-lg my-4 p-4 hover:bg-gray-200 flex flex-col items-center">
-                                <div>
-                                    <p class="font-bold">
-                                        {{ remission[3] }}  <!-- cliente -->
+                <div class="sm:hidden w-full px-4" id="mainCardsContainer">
+                    <div id="containerCards">                                        
+                        {% for remission in remissionList %}
+                            <a href="remission/{{ remission[0] }}/{{ remission[1] }}" class="w-full h-fit">
+                                <div class="shadow-lg w-full h-fit rounded-lg my-4 p-4 hover:bg-gray-200 flex flex-col items-center">
+                                    <div>
+                                        <p class="font-bold">
+                                            {{ remission[3] }}  <!-- cliente -->
+                                        </p>
+                                        <p>
+                                        #Remision: {{ remission[1] }}  <!-- Número de compra --> / #Compra: {{ remission[0] }}<!-- Número de remision -->
+                                        </p>
+                                        <p>
+                                            {{ remission[2] }}<!-- fecha de registro -->
+                                        </p>
+                                    </div>                                  
+                                    <p class="my-2 font-bold">                                    
+                                        {{ remission[4] }}  <!-- estatus -->
                                     </p>
-                                    <p>
-                                    #Remision: {{ remission[1] }}  <!-- Número de compra --> / #Compra: {{ remission[0] }}<!-- Número de remision -->
-                                    </p>
-                                    <p>
-                                        {{ remission[2] }}<!-- fecha de registro -->
-                                    </p>
-                                </div>                                  
-                                <p class="my-2 font-bold">                                    
-                                    {{ remission[4] }}  <!-- estatus -->
-                                </p>
-                            </div>
-                        </a>                        
-                    {% endfor %}                    
+                                </div>
+                            </a>                        
+                        {% endfor %}                    
+                    </div>
                 </div>
                 
                 <div class="h-fit hidden sm:block relative overflow-x-auto shadow-md sm:rounded-lg">

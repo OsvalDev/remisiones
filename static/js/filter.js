@@ -48,11 +48,20 @@ const filterCostumerData = async () => {
             if (existingAlert && existingAlert.parentNode) {
                 existingAlert.parentNode.removeChild(existingAlert);
             }
+            
+            const existingContainerCard = document.getElementById('containerCards');
+            if (existingContainerCard && existingContainerCard.parentNode) {
+                existingContainerCard.parentNode.removeChild(existingContainerCard);
+            }
 
             const tableBody = document.createElement('tbody');            
             tableBody.id = 'tableRows';
+
+            const cardsContainer = document.createElement('div');            
+            cardsContainer.id = 'containerCards';
             
             let contentRows = '';
+            let contentCards = ''
             for (let data of responseData.data){                
                 contentRows += `
                     <tr class="bg-white border-b hover:bg-gray-100" >
@@ -93,11 +102,37 @@ const filterCostumerData = async () => {
                         </td>                                
                     </tr>
                 `;
+
+                contentCards += `
+                <a href="remission/${ data[0] }/${ data[1] }" class="w-full h-fit">
+                    <div class="shadow-lg w-full h-fit rounded-lg my-4 p-4 hover:bg-gray-200 flex flex-col items-center">
+                        <div>
+                            <p class="font-bold">
+                                ${ data[3] }  <!-- cliente -->
+                            </p>
+                            <p>
+                            #Remision: ${ data[1] }  <!-- Número de compra --> / #Compra: ${ data[0] }<!-- Número de remision -->
+                            </p>
+                            <p>
+                                ${ formatDate( data[2] ) }<!-- fecha de registro -->
+                            </p>
+                        </div>                                  
+                        <p class="my-2 font-bold">                                    
+                            ${ data[4] }  <!-- estatus -->
+                        </p>
+                    </div>
+                </a>     
+                `;
             }
             tableBody.innerHTML = contentRows;
             const container = document.getElementById('tableRowsContainer');
             container.appendChild(tableBody);
             container.disabled = true;
+            
+            cardsContainer.innerHTML = contentCards;
+            const containerMain = document.getElementById('mainCardsContainer');
+            containerMain.appendChild(cardsContainer);
+            containerMain.disabled = true;
 
             //Update importe chart
             const existingBarchart = document.getElementById('column-chart');
