@@ -171,7 +171,8 @@ INSERT INTO PERMISO(id, accion) VALUES
 (8, 'confirmarEntrega'),
 (9, 'registrarPago'),
 (10, 'confirmarPago'),
-(11, 'registrarDevolucion');
+(11, 'registrarDevolucion'),
+(12, 'autorizar');
 
 INSERT INTO AREA_PERMISO(idArea, idPermiso) VALUES
 (1, 2),
@@ -194,7 +195,9 @@ INSERT INTO AREA_PERMISO(idArea, idPermiso) VALUES
 (5, 9),
 (5, 10),
 (5, 11),
+(5, 12),
 (6, 10),
+(6, 12)
 (7, 1);
 
 INSERT INTO ESTATUS VALUES

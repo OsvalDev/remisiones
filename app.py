@@ -59,6 +59,19 @@ def users():
     else:
         return redirect(url_for('login'))
 
+@app.route('/autorizations')
+def autorizations():
+    user = verifyUser()
+
+    if user[0]:
+        data = getRemissionsToAutorizate(mysql)
+        
+        admin = verifyAdmin(mysql, user[0])
+
+        return render_template('autorizations.html', user = user[1], admin = admin , canDo = user[2], data = data)
+    else:
+        return redirect(url_for('login'))
+
 @app.route('/costumers')
 def costumers():
     user = verifyUser()
@@ -258,7 +271,12 @@ def autorizationRC(idRemission, idCompra):
         }        
 
         updateAutorization(mysql, data)
-        urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
+
+        urlDetail = ''
+        if request.form['origin'] == 'many':
+            urlDetail = '/registro/autorizations'
+        else:
+            urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
         return redirect(urlDetail)
     else:
         return redirect(url_for('login'))

@@ -23,6 +23,30 @@ def getRemissions(mysql):
     finally:
         cur.close()
 
+def getRemissionsToAutorizate(mysql):
+    cur = mysql.connection.cursor()
+    try:                
+        cur.execute('''        
+            SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre, r.importeRemisionado, r.importeFacturado
+            FROM REMISION AS r
+            JOIN CLIENTE AS c ON r.cliente = c.id
+            JOIN ESTATUS AS e ON e.id = r.estatus
+            WHERE r.estatus = 1
+            ORDER BY r.fecha DESC
+        ''')
+        data = cur.fetchall()
+        if data != None:
+            return data
+        else:
+            return 'No hay remisiones disponibles'
+
+    except Exception as e:
+        print(e)
+        return 'Error en la base de datos'
+
+    finally:
+        cur.close()
+
 def getCostumerName(mysql, data):
     value = data['numCliente']
     cur = mysql.connection.cursor()
