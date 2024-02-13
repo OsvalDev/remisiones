@@ -71,6 +71,42 @@ def autorizations():
         return render_template('autorizations.html', user = user[1], admin = admin , canDo = user[2], data = data)
     else:
         return redirect(url_for('login'))
+@app.route('/supply')
+def supply():
+    user = verifyUser()
+
+    if user[0]:
+        data = getRemissionsToAutorizate(mysql)
+        
+        admin = verifyAdmin(mysql, user[0])
+
+        return render_template('autorizations.html', user = user[1], admin = admin , canDo = user[2], data = data)
+    else:
+        return redirect(url_for('login'))
+@app.route('/logistics')
+def logistics():
+    user = verifyUser()
+
+    if user[0]:
+        data = getRemissionsToAutorizate(mysql)
+        
+        admin = verifyAdmin(mysql, user[0])
+
+        return render_template('autorizations.html', user = user[1], admin = admin , canDo = user[2], data = data)
+    else:
+        return redirect(url_for('login'))
+@app.route('/delivery')
+def delivery():
+    user = verifyUser()
+
+    if user[0]:
+        data = getRemissionsToAutorizate(mysql)
+        
+        admin = verifyAdmin(mysql, user[0])
+
+        return render_template('autorizations.html', user = user[1], admin = admin , canDo = user[2], data = data)
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/costumers')
 def costumers():
