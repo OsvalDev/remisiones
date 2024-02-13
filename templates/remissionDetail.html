@@ -198,7 +198,7 @@
                         {% endif %}   
                     </div>
                 </div>
-                
+                {% if data['baseData'][10] != 1 %}
                 <!-- Detail  -->
                 <div class="w-full sm:w-3/4">
                     <div class="flex flex-wrap items-center mb-4">
@@ -857,6 +857,9 @@
                     </div>
                 </div>
 
+                {% else %}
+                    <p class="font-bold text-2xl"> Remision sin autorizar</p>
+                {% endif %}   
 
             </div>
         </div>
