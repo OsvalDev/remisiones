@@ -65,10 +65,11 @@ def autorizations():
 
     if user[0]:
         data = getRemissionsByType(mysql, 1)
-        
+        costumerList = getActiveCostumerList(mysql)['data']
+        estatusList = getEstatusList(mysql)['data']
         admin = verifyAdmin(mysql, user[0])
 
-        return render_template('autorizations.html', user = user[1], admin = admin , canDo = user[2], data = data)
+        return render_template('autorizations.html', user = user[1], admin = admin , canDo = user[2], data = data, costumers = costumerList, estatusList = estatusList)
     else:
         return redirect(url_for('login'))
 @app.route('/supply')
@@ -77,10 +78,11 @@ def supply():
 
     if user[0]:
         data = getRemissionsToSupply(mysql)
-        
+        costumerList = getActiveCostumerList(mysql)['data']
+        estatusList = getEstatusList(mysql)['data']
         admin = verifyAdmin(mysql, user[0])
         print(data)
-        return render_template('supply.html', user = user[1], admin = admin , canDo = user[2], data = data[0], existDate = data[1])
+        return render_template('supply.html', user = user[1], admin = admin , canDo = user[2], data = data[0], existDate = data[1], costumers = costumerList, estatusList = estatusList)
     else:
         return redirect(url_for('login'))
 @app.route('/logistics')
@@ -89,10 +91,11 @@ def logistics():
 
     if user[0]:
         data = getRemissionsToLogistic(mysql)
-        
+        costumerList = getActiveCostumerList(mysql)['data']
+        estatusList = getEstatusList(mysql)['data']
         admin = verifyAdmin(mysql, user[0])
         print(data)
-        return render_template('logistics.html', user = user[1], admin = admin , canDo = user[2],  data = data[0], existDate = data[1])
+        return render_template('logistics.html', user = user[1], admin = admin , canDo = user[2],  data = data[0], existDate = data[1], costumers = costumerList, estatusList = estatusList)
     else:
         return redirect(url_for('login'))
 @app.route('/delivery')
@@ -101,10 +104,11 @@ def delivery():
 
     if user[0]:
         data = getRemissionsByType(mysql, 3, 4)
-        
+        costumerList = getActiveCostumerList(mysql)['data']
+        estatusList = getEstatusList(mysql)['data']
         admin = verifyAdmin(mysql, user[0])
 
-        return render_template('delivery.html', user = user[1], admin = admin , canDo = user[2], data = data)
+        return render_template('delivery.html', user = user[1], admin = admin , canDo = user[2], data = data, costumers = costumerList, estatusList = estatusList)
     else:
         return redirect(url_for('login'))
 
