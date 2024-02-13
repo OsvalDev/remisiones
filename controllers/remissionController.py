@@ -78,7 +78,40 @@ def getRemissionsToSupply(mysql):
                 if exist != None:
                     existDate.append([True, exist[0]])
                 else:
-                    existDate.append([False, exist[0]])
+                    existDate.append([False, ''])
+            return [data, existDate]
+        else:
+            return 'No hay remisiones disponibles'
+
+    except Exception as e:
+        print(e)
+        return 'Error en la base de datos'
+
+    finally:
+        cur.close()
+
+def getRemissionsToLogistic(mysql):
+    cur = mysql.connection.cursor()
+    try:                
+        cur.execute('''        
+            SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre, r.importeRemisionado, r.importeFacturado
+            FROM REMISION AS r
+            JOIN CLIENTE AS c ON r.cliente = c.id
+            JOIN ESTATUS AS e ON e.id = r.estatus
+            WHERE r.estatus = 2 or r.estatus = 3 or r.estatus = 4
+            ORDER BY r.fecha DESC
+        ''')
+        data = cur.fetchall()
+        existDate = []        
+        
+        if data != None:
+            for remission in data:
+                cur.execute('SELECT fechaConcluido FROM PROCESO WHERE accion = "Logistica" and numRemision = %s and numCompra = %s', (remission[0], remission[1]))
+                exist = cur.fetchone()                
+                if exist != None:
+                    existDate.append([True, exist[0]])
+                else:
+                    existDate.append([False, ''])            
             return [data, existDate]
         else:
             return 'No hay remisiones disponibles'

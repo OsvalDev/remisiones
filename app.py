@@ -88,10 +88,11 @@ def logistics():
     user = verifyUser()
 
     if user[0]:
-        data = getRemissionsByType(mysql, 3, 4)
+        data = getRemissionsToLogistic(mysql)
         
         admin = verifyAdmin(mysql, user[0])
-        return render_template('logistics.html', user = user[1], admin = admin , canDo = user[2], data = data)
+        print(data)
+        return render_template('logistics.html', user = user[1], admin = admin , canDo = user[2],  data = data[0], existDate = data[1])
     else:
         return redirect(url_for('login'))
 @app.route('/delivery')
