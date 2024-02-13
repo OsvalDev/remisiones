@@ -12,9 +12,11 @@ const switchVisible = (target) => {
     }
 };
 
+if (document.getElementById('btn-confirmDeliver'))
+    document.getElementById('btn-confirmDeliver').onclick = () => switchVisible('popover-confirmDeliver');
 
-document.getElementById('btn-confirmDeliver').onclick = () => switchVisible('popover-confirmDeliver');
-document.getElementById('close-confirmDeliver').onclick = () => switchVisible('popover-confirmDeliver');
+if (document.getElementById('close-confirmDeliver'))
+    document.getElementById('close-confirmDeliver').onclick = () => switchVisible('popover-confirmDeliver');
 
 //Logistic
 if (document.getElementById('btn-endConfirmLog'))

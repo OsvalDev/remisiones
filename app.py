@@ -64,7 +64,7 @@ def autorizations():
     user = verifyUser()
 
     if user[0]:
-        data = getRemissionsToAutorizate(mysql)
+        data = getRemissionsByType(mysql, 1)
         
         admin = verifyAdmin(mysql, user[0])
 
@@ -76,11 +76,11 @@ def supply():
     user = verifyUser()
 
     if user[0]:
-        data = getRemissionsToAutorizate(mysql)
+        data = getRemissionsToSupply(mysql)
         
         admin = verifyAdmin(mysql, user[0])
-
-        return render_template('autorizations.html', user = user[1], admin = admin , canDo = user[2], data = data)
+        print(data)
+        return render_template('supply.html', user = user[1], admin = admin , canDo = user[2], data = data[0], existDate = data[1])
     else:
         return redirect(url_for('login'))
 @app.route('/logistics')
@@ -88,11 +88,10 @@ def logistics():
     user = verifyUser()
 
     if user[0]:
-        data = getRemissionsToAutorizate(mysql)
+        data = getRemissionsByType(mysql, 3, 4)
         
         admin = verifyAdmin(mysql, user[0])
-
-        return render_template('autorizations.html', user = user[1], admin = admin , canDo = user[2], data = data)
+        return render_template('logistics.html', user = user[1], admin = admin , canDo = user[2], data = data)
     else:
         return redirect(url_for('login'))
 @app.route('/delivery')
@@ -100,11 +99,11 @@ def delivery():
     user = verifyUser()
 
     if user[0]:
-        data = getRemissionsToAutorizate(mysql)
+        data = getRemissionsByType(mysql, 3, 4)
         
         admin = verifyAdmin(mysql, user[0])
 
-        return render_template('autorizations.html', user = user[1], admin = admin , canDo = user[2], data = data)
+        return render_template('delivery.html', user = user[1], admin = admin , canDo = user[2], data = data)
     else:
         return redirect(url_for('login'))
 

@@ -23,7 +23,41 @@ def getRemissions(mysql):
     finally:
         cur.close()
 
-def getRemissionsToAutorizate(mysql):
+def getRemissionsByType(mysql, idEstatus, another = False):
+    cur = mysql.connection.cursor()
+    try:                
+        if another == False:
+            cur.execute('''        
+                SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre, r.importeRemisionado, r.importeFacturado
+                FROM REMISION AS r
+                JOIN CLIENTE AS c ON r.cliente = c.id
+                JOIN ESTATUS AS e ON e.id = r.estatus
+                WHERE r.estatus = %s
+                ORDER BY r.fecha DESC
+            ''', (idEstatus, ))
+        else:
+            cur.execute('''        
+                SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre, r.importeRemisionado, r.importeFacturado
+                FROM REMISION AS r
+                JOIN CLIENTE AS c ON r.cliente = c.id
+                JOIN ESTATUS AS e ON e.id = r.estatus
+                WHERE r.estatus = %s or r.estatus = %s
+                ORDER BY r.fecha DESC
+            ''', (idEstatus, another))
+        data = cur.fetchall()
+        if data != None:
+            return data
+        else:
+            return 'No hay remisiones disponibles'
+
+    except Exception as e:
+        print(e)
+        return 'Error en la base de datos'
+
+    finally:
+        cur.close()
+
+def getRemissionsToSupply(mysql):
     cur = mysql.connection.cursor()
     try:                
         cur.execute('''        
@@ -31,12 +65,21 @@ def getRemissionsToAutorizate(mysql):
             FROM REMISION AS r
             JOIN CLIENTE AS c ON r.cliente = c.id
             JOIN ESTATUS AS e ON e.id = r.estatus
-            WHERE r.estatus = 1
+            WHERE r.estatus = 2 or r.estatus = 8
             ORDER BY r.fecha DESC
         ''')
         data = cur.fetchall()
+        existDate = []
+
         if data != None:
-            return data
+            for remission in data:
+                cur.execute('SELECT fechaConcluido FROM PROCESO WHERE accion = "Surtimiento" and numRemision = %s and numCompra = %s', (remission[0], remission[1]))
+                exist = cur.fetchone()
+                if exist != None:
+                    existDate.append([True, exist[0]])
+                else:
+                    existDate.append([False, exist[0]])
+            return [data, existDate]
         else:
             return 'No hay remisiones disponibles'
 
