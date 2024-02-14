@@ -28,7 +28,7 @@ def getRemissionsByType(mysql, idEstatus, another = False):
     try:                
         if another == False:
             cur.execute('''        
-                SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre, r.importeRemisionado, r.importeFacturado
+                SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre, r.importeRemisionado, r.importeFacturado, r.fechaCompromisoCliente
                 FROM REMISION AS r
                 JOIN CLIENTE AS c ON r.cliente = c.id
                 JOIN ESTATUS AS e ON e.id = r.estatus
@@ -37,7 +37,7 @@ def getRemissionsByType(mysql, idEstatus, another = False):
             ''', (idEstatus, ))
         else:
             cur.execute('''        
-                SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre, r.importeRemisionado, r.importeFacturado
+                SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre, r.importeRemisionado, r.importeFacturado, r.fechaCompromisoCliente  
                 FROM REMISION AS r
                 JOIN CLIENTE AS c ON r.cliente = c.id
                 JOIN ESTATUS AS e ON e.id = r.estatus

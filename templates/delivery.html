@@ -200,7 +200,7 @@
                                                         </svg>
                                                     </div>
                                                 
-                                                    <input name="dateConfirm" datepicker datepicker-autohide datepicker-format="yyyy/mm/dd" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full ps-10 p-2.5" placeholder="Selecciona una fecha">
+                                                    <input {% if remission[7] %} value="{{ remission[7] }}" {% endif %} name="dateConfirm" datepicker datepicker-autohide datepicker-format="yyyy/mm/dd" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full ps-10 p-2.5" placeholder="Selecciona una fecha">
                                                     <input type="hidden" name="origin"  value="many">
                                                     <button id="confirmDeliver" class="p-4 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600 mx-4">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512">
