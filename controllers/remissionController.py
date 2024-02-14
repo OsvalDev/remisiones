@@ -75,6 +75,7 @@ def getRemissionsToSupply(mysql):
             for remission in data:
                 cur.execute('SELECT fechaConcluido FROM PROCESO WHERE accion = "Surtimiento" and numRemision = %s and numCompra = %s', (remission[0], remission[1]))
                 exist = cur.fetchone()
+                print(exist)
                 if exist != None:
                     existDate.append([True, exist[0]])
                 else:

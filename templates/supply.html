@@ -113,7 +113,7 @@
                                         </a>
                                     </td>                                
                                     <td class="w-60 flex justify-center py-4 px-4">                                        
-                                        {% if existDate[loop.index - 1][0] %}
+                                        {% if not existDate[loop.index - 1][0] %}
                                         <div class="">
                                                 
                                             <div class="relative">
@@ -137,7 +137,7 @@
                                         </div>
                                         {% endif %}
                                         
-                                        {% if existDate[loop.index - 1][0] and existDate[loop.index - 1][1] %}
+                                        {% if existDate[loop.index - 1][0] and not existDate[loop.index - 1][1] %}
                                         <form action="/registro/endCommit/{{ remission[0] }}/{{ remission[1] }}" method="post" class="flex justify-center">                                        
                                             <input type="hidden" name="action" value="Surtimiento">
                                             <button class="p-4 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600 mx-4">
