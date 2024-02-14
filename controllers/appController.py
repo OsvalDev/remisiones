@@ -116,7 +116,9 @@ def registerPayment(mysql, data):
                     VALUES (%s, %s, %s, %s, %s, %s)''',
                     (data['cantidad'], data['pagoPersona'], urlSql, data['responsable'], data['numRemission'], data['numCompra'] ))
         mysql.connection.commit()        
-    
+        cur.execute('''UPDATE REMISION SET estatus = 5 WHERE numRemision = %s and numCompra = %s
+            ''', (data['numRemission'], data['numCompra']))
+        mysql.connection.commit()
         return {'result' : 'success', 'msg' : 'Pago registrado'}
     except Exception as e:
         print(e)
