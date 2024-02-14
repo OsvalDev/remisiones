@@ -18,6 +18,83 @@
                 
                 <p class="font-bold text-xl sm:mb-8 mb-2">Remisiones en logistica</p>
             
+                <div class="w-screen sm:w-full h-20 overflow-x-auto mb-4 flex items-center justify-between ">
+                    
+                    <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" class="text-white bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 mx-2 text-center inline-flex items-center " type="button">Cliente<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+                                        
+                    <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                        <ul class="p-3 space-y-3 text-sm text-gray-700 w-fit" aria-labelledby="dropdownHoverButton">
+                            {% for costumer in costumers %}                                
+                                <li>
+                                    <div class="flex items-center">
+                                      <input id="checkbox-item-{{ costumer[1] }}" type="checkbox" value="{{ costumer[1] }}" class="btnCostumerFilter w-4 h-4 text-pink-600 bg-gray-100 border-gray-300 rounded focus:ring-pink-500 focus:ring-2">
+                                      <label for="checkbox-item-{{ costumer[1] }}" class="ms-2 text-sm font-medium text-gray-900">{{ costumer[0] }}</label>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>                    
+                    
+                    <button id="dpdState" data-dropdown-toggle="dpdStateHover" class="text-white bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 mx-2 text-center inline-flex items-center " type="button">Estatus<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+                                        
+                    <div id="dpdStateHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                        <ul class="p-3 space-y-3 text-sm text-gray-700 w-fit" aria-labelledby="dpdState">
+                            {% for estatus in estatusList %}
+                                <li>
+                                    <div class="flex items-center">
+                                        <input id="checkbox-item-{{ estatus[0] }}" type="checkbox" value="{{ estatus[0] }}" class="statusFilter w-4 h-4 text-pink-600 bg-gray-100 border-gray-300 rounded focus:ring-pink-500 focus:ring-2">
+                                        <label for="checkbox-item-{{ estatus[0] }}" class="ms-2 text-sm font-medium text-gray-900">{{ estatus[1] }}</label>
+                                      </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div>
+                        
+                        <div date-rangepicker datepicker-format="yyyy/mm/dd" class="flex items-center" onclick="console.log('click div')">
+                            <div class="relative  mx-2">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                    </svg>
+                                </div>
+                                <input id="dateStart" name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-40 sm:w-full ps-10 p-2.5  " placeholder="Inicio">
+                            </div>
+                                
+                            <div class="relative mx-2">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                    </svg>
+                                </div>
+                                <input id="dateEnd" name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-40 sm:w-full ps-10 p-2.5  " placeholder="Fin">
+                            </div>
+                        </div>
+  
+                    </div>
+
+                    <div class=" mx-2">
+                        <input id="numRemision" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-40 sm:w-full p-2.5 mx-2 " placeholder="# Remision" required>
+                    </div>
+                    
+                    <div class=" mx-2">
+                        <input id="numCompraFilter" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-40 sm:w-full p-2.5 mx-2 " placeholder="# Compra" required>
+                    </div>
+
+                    <a href="/registro/dashboard" class="p-2 mx-4 bg-pink-700 hover:bg-pink-800 text-white rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4" viewBox="0 0 384 512">
+                            <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+                        </svg>
+                    </a>
+                </div>
+
                 <div class="sm:hidden w-full px-4" id="mainCardsContainer">
                     <div id="containerCards">                                        
                         {% for remission in data %}
@@ -162,5 +239,5 @@
             
         </div>
 
-
+        <script src="{{ url_for('static', filename='js/filter.js') }}" type="module"></script>
 {% endblock %}
