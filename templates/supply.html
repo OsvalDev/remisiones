@@ -203,6 +203,7 @@
                                                     
                                                     <input name="dateConfirm" datepicker datepicker-autohide datepicker-format="yyyy/mm/dd" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full ps-10 p-2.5" placeholder="Selecciona una fecha">
                                                     <input type="hidden" name="action" value="Surtimiento">
+                                                    <input type="hidden" name="origin"  value="many">
                                                     <button class="p-4 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600 mx-4">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512">
                                                             <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
@@ -217,6 +218,7 @@
                                         {% if existDate[loop.index - 1][0] and not existDate[loop.index - 1][1] %}
                                         <form action="/registro/endCommit/{{ remission[0] }}/{{ remission[1] }}" method="post" class="flex justify-center">                                        
                                             <input type="hidden" name="action" value="Surtimiento">
+                                            <input type="hidden" name="origin"  value="many">
                                             <button class="p-4 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600 mx-4">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512">
                                                     <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>

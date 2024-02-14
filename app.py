@@ -255,7 +255,10 @@ def confirmDeliver(idRemission, idCompra):
         date = request.form['dateConfirm']
 
         registerDateConfirmation(mysql, date, idRemission, idCompra)
-        urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
+        if request.form['origin'] == 'many':
+            urlDetail = '/registro/delivery'
+        else:
+            urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
         return redirect(urlDetail)
     else:
         return redirect(url_for('login'))
@@ -276,7 +279,13 @@ def dateCommit(idRemission, idCompra):
         }        
 
         registerDateCommit(mysql, data)
-        urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
+        if request.form['origin'] == 'many':
+            if request.form['action'] == 'Logistica':
+                urlDetail = '/registro/logistics'
+            else:
+                urlDetail = '/registro/supply'
+        else:
+            urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
         return redirect(urlDetail)
     else:
         return redirect(url_for('login'))
@@ -294,7 +303,13 @@ def endommit(idRemission, idCompra):
         }        
 
         registerEnd(mysql, data)
-        urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
+        if request.form['origin'] == 'many':
+            if request.form['action'] == 'Logistica':
+                urlDetail = '/registro/logistics'
+            else:
+                urlDetail = '/registro/supply'
+        else:
+            urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
         return redirect(urlDetail)
     else:
         return redirect(url_for('login'))
