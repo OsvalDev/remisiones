@@ -23,27 +23,42 @@ def getRemissions(mysql):
     finally:
         cur.close()
 
-def getRemissionsByType(mysql, idEstatus, another = False):
+def getRemissionsByType(mysql, idEstatus, another = False, excludePago = False):
     cur = mysql.connection.cursor()
     try:                
-        if another == False:
-            cur.execute('''        
-                SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre, r.importeRemisionado, r.importeFacturado, r.fechaCompromisoCliente
-                FROM REMISION AS r
-                JOIN CLIENTE AS c ON r.cliente = c.id
-                JOIN ESTATUS AS e ON e.id = r.estatus
-                WHERE r.estatus = %s
-                ORDER BY r.fecha DESC
-            ''', (idEstatus, ))
-        else:
+        if excludePago == True:
             cur.execute('''        
                 SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre, r.importeRemisionado, r.importeFacturado, r.fechaCompromisoCliente  
                 FROM REMISION AS r
                 JOIN CLIENTE AS c ON r.cliente = c.id
                 JOIN ESTATUS AS e ON e.id = r.estatus
-                WHERE r.estatus = %s or r.estatus = %s
-                ORDER BY r.fecha DESC
-            ''', (idEstatus, another))
+                WHERE r.estatus IN (%s, %s)
+                AND NOT EXISTS (
+                    SELECT 1
+                    FROM PAGO AS p
+                    WHERE p.numRemision = r.numRemision AND p.numCompra = r.numCompra
+                )
+                ORDER BY r.fecha DESC;
+            ''', (idEstatus, another ))
+        else:
+            if another == False:
+                cur.execute('''        
+                    SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre, r.importeRemisionado, r.importeFacturado, r.fechaCompromisoCliente
+                    FROM REMISION AS r
+                    JOIN CLIENTE AS c ON r.cliente = c.id
+                    JOIN ESTATUS AS e ON e.id = r.estatus
+                    WHERE r.estatus = %s
+                    ORDER BY r.fecha DESC
+                ''', (idEstatus, ))
+            else:
+                cur.execute('''        
+                    SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre, r.importeRemisionado, r.importeFacturado, r.fechaCompromisoCliente  
+                    FROM REMISION AS r
+                    JOIN CLIENTE AS c ON r.cliente = c.id
+                    JOIN ESTATUS AS e ON e.id = r.estatus
+                    WHERE r.estatus = %s or r.estatus = %s
+                    ORDER BY r.fecha DESC
+                ''', (idEstatus, another))
         data = cur.fetchall()
         if data != None:
             return data

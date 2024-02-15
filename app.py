@@ -103,11 +103,10 @@ def delivery():
     user = verifyUser()
 
     if user[0]:
-        data = getRemissionsByType(mysql, 3, 4)
+        data = getRemissionsByType(mysql, 3, 4, True)
         costumerList = getActiveCostumerList(mysql)['data']
         estatusList = getEstatusList(mysql)['data']
         admin = verifyAdmin(mysql, user[0])
-
         return render_template('delivery.html', user = user[1], admin = admin , canDo = user[2], data = data, costumers = costumerList, estatusList = estatusList)
     else:
         return redirect(url_for('login'))
@@ -135,8 +134,7 @@ def remissionList(idRemission, idCompra):
     if user[0]:
         admin = verifyAdmin(mysql, user[0])
         choferes = getChoferes(mysql)
-        print(result)
-        print(user[2])
+        print(result)        
         return render_template('remissionDetail.html', user = user[1], admin = admin , canDo = user[2], data = result, choferes = choferes)
     else:
         return redirect(url_for('login'))
