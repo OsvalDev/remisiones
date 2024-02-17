@@ -149,8 +149,8 @@ const filterCostumerData = async () => {
                         name: "Monto",
                         color: "#db2777",
                         data: [
-                        { x: "Remisionado", y: responseData.chartData.data[0] },                                    
-                        { x: "Facturado", y: responseData.chartData.data[1] }
+                        { x: "Remisionado", y: parseFloat(responseData.chartData.data[0].toFixed(2)) },                                    
+                        { x: "Facturado", y: parseFloat(responseData.chartData.data[1].toFixed(2)) }
                         ],
                     }
                 ],            

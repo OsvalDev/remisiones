@@ -113,7 +113,7 @@ window.addEventListener("load", async function() {
             padding: { top: -2, }, },
             labels: data[0],
             dataLabels: { enabled: false, },
-            legend: { position: "bottom",
+            legend: { show: false ,position: "top",
             fontFamily: "Inter, sans-serif", },
             yaxis: {
             labels: {
@@ -140,8 +140,8 @@ const options = {
             name: "Monto",
             color: "#db2777",
             data: [
-            { x: "Remisionado", y: importes[0] },                                    
-            { x: "Facturado", y: importes[1] }
+            { x: "Remisionado", y: parseFloat(importes[0].toFixed(2)) },                                    
+            { x: "Facturado", y: parseFloat(importes[1].toFixed(2)) }
             ],
         }
         ],
