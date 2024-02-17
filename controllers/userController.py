@@ -132,7 +132,7 @@ def getChoferes(mysql):
             FROM USUARIO AS u 
             JOIN USUARIO_AREA AS ua ON u.id = ua.idUsuario
             JOIN AREA AS a ON ua.idArea = a.id
-            WHERE a.nombre = 'chofer'
+            WHERE a.nombre = 'chofer' and u.activo = 1
             ''', )
         choferList = cur.fetchall()        
         return choferList
