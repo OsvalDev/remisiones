@@ -242,6 +242,7 @@ def changueRemission(mysql, data):
 def getRemissionDetail(mysql, numRemision, numCompra):
     data = {
         'baseData' : None,
+        'autorizante' : None,
         'surtimiento' : None,
         'logistica' : None,
         'confirmacionEntrega' : None,
@@ -259,7 +260,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
 
     try:
         cur.execute('''        
-            SELECT r.numRemision, r.numCompra, c.nombre, r.piezas, r.importeFacturado, r.importeRemisionado, r.saldoAFavor, r.fecha, c.clave, r.numFactura, r.estatus
+            SELECT r.numRemision, r.numCompra, c.nombre, r.piezas, r.importeFacturado, r.importeRemisionado, r.saldoAFavor, r.fecha, c.clave, r.numFactura, r.estatus, r.autorizador
             FROM REMISION AS r
             JOIN CLIENTE AS c ON r.cliente = c.id
             WHERE r.numRemision = %s and r.numCompra = %s
@@ -267,6 +268,13 @@ def getRemissionDetail(mysql, numRemision, numCompra):
         data['baseData'] = cur.fetchone()
 
         if data['baseData']:
+            #autorizante
+            if data['baseData'][11] != None:
+                cur.execute('''SELECT nombre
+                                FROM USUARIO
+                                WHERE id = %s
+                            ''', (data['baseData'][11],))
+                data['autorizante'] = cur.fetchone()[0]
             #base comment
             cur.execute('''        
                 SELECT u.nombre, N.fecha, N.contenido
