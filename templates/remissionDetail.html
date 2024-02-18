@@ -843,7 +843,9 @@
                                                 </div> 
                                             {% endif %}
                                         </div>
-                                        <p>Quien paga: {{ pago[2] }} </p>                                
+                                        {% if pago[2] %}
+                                            <p>Quien paga: {{ pago[2] }} </p>
+                                        {% endif %}
                                         <p>Fecha: {{ pago[3] }} </p>
                                         <p>Responsable: {{ pago[4] }} </p>
                                         <p>Monto: <strong>${{ pago[1] }}</strong> </p>
@@ -861,8 +863,10 @@
                                                 {% endfor %}
                                             </div>
                                         {% endif %}  
-
-                                        <img class="w-40 active:w-[60vw]" src="{{ url_for('static', filename= pago[5]) }}" alt="">
+                                            
+                                        {% if pago[5] %}
+                                            <img class="w-40 active:w-[60vw]" src="{{ url_for('static', filename= pago[5]) }}" alt="">
+                                        {% endif %}
                                     {% endfor %}
                                 {% else %}
                                     <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
