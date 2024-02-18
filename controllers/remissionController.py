@@ -249,6 +249,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
         'pagos' : None,
         'devoluciones' : None,
         'chofer' : None,
+        'parcelDelivery' : None,
         'baseComment' : None,
         'surtimientoComment' : None,
         'logisticaComment' : None,
@@ -319,6 +320,16 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                 WHERE p.numRemision = %s and p.numCompra = %s and p.accion = 'Entrega'
             ''', (numRemision, numCompra))
             data['chofer'] = cur.fetchone()
+
+            cur.execute('''                        
+                SELECT u.nombre, n.paqueteria, p.fechaConcluido
+                FROM PROCESO AS p
+                JOIN NOTIFICANTEENTREGA AS n ON p.id = n.id
+                JOIN USUARIO AS u ON u.id = n.usuario
+                WHERE p.numRemision = %s and p.numCompra = %s and p.accion = 'Entrega'
+            ''', (numRemision, numCompra))
+            data['parcelDelivery'] = cur.fetchone()
+
             #notas logistica
             cur.execute('''        
                 SELECT u.nombre, NP.fecha, NP.contenido
