@@ -121,6 +121,34 @@ def registerChofer(mysql, data):
     finally:
         cur.close()
 
+def registerDelivery (mysql, data):
+    cur = mysql.connection.cursor()
+
+    try:
+        cur.execute('''INSERT INTO PROCESO (accion, numRemision, numCompra, usuario, fechaConcluido)
+                            VALUES (%s, %s, %s, %s , %s)''',
+                        ('Entrega', data['numRemision'], data['numCompra'], data['usuario'], data['date']))
+        mysql.connection.commit()
+
+        cur.execute('''SELECT id FROM PROCESO WHERE accion = %s and numRemision = %s and numCompra = %s''',
+                        ('Entrega', data['numRemision'], data['numCompra']))
+        idProcess = cur.fetchone()[0]
+
+        cur.execute('''INSERT INTO NOTIFICACIONENTREGA 
+                        VALUES (%s, %s, %s, )''',
+                    (idProcess, data['usuario'], data['parcelName']))
+        mysql.connection.commit()
+
+        cur.execute('''UPDATE REMISION SET estatus = 5 WHERE numRemision = %s and numCompra = %s
+            ''', (data['numRemission'], data['numCompra']))
+        mysql.connection.commit()
+        return True
+    except Exception as e:
+        print(e)
+        return {'failed'}
+    
+    finally:
+        cur.close()
 
 def confirmPayment (mysql, payment, user):
     cur = mysql.connection.cursor()

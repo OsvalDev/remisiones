@@ -289,6 +289,27 @@ def dateCommit(idRemission, idCompra):
     else:
         return redirect(url_for('login'))
     
+@app.route('/parcelDelivery/<idRemission>/<idCompra>', methods = ['POST'] )
+def parcelDelivery(idRemission, idCompra):
+
+    user = verifyUser()
+
+    if user[0]:
+        data = {
+            'user' : user[0],
+            'parcelName' : request.form['parcelName'],
+            'date' : request.form['date'],
+            'numRemision' : idRemission,
+            'numCompra' : idCompra
+        }        
+
+        registerDelivery(mysql, data)        
+            
+        urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
+        return redirect(urlDetail)
+    else:
+        return redirect(url_for('login'))
+
 @app.route('/endCommit/<idRemission>/<idCompra>', methods = ['POST'] )
 def endommit(idRemission, idCompra):
 

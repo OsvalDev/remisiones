@@ -37,6 +37,12 @@ if (document.getElementById('btn-chofer'))
 if (document.getElementById('close-chofer'))
     document.getElementById('close-chofer').onclick = () => switchVisible('popover-chofer');
 
+if (document.getElementById('btn-parcel'))
+    document.getElementById('btn-parcel').onclick = () => switchVisible('popover-parcel');
+
+if (document.getElementById('close-parcel'))
+    document.getElementById('close-parcel').onclick = () => switchVisible('popover-parcel');
+
 //surtiment
 if (document.getElementById('btn-endConfirmSur'))
     document.getElementById('btn-endConfirmSur').onclick = () => switchVisible('popover-endConfirmSur');

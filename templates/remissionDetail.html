@@ -370,53 +370,52 @@
                             {% if not data['logistica'] %}   
                                 <button id="btn-endConfirmLog" data-popover-target="popover-endConfirmLog" data-popover-trigger="none" class="px-4 py-2 my-2 sm:my-0 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600">
                                     Fecha
-                                </button>
-                            {% endif %}
+                                </button>                            
     
-                            <div data-popover id="popover-endConfirmLog" role="tooltip" class="absolute z-10 inline-block w-fit text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 invisible">
-                                <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg flex items-center justify-between ">
-                                    <h3 class="font-semibold text-gray-900 ">Indica la fecha compromiso de fin</h3>
-    
-                                    <button id="close-endConfirmLog" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                </div>
-                                <div class="px-3 py-2">
-                                    
-                                    <div class="relative">
-                                        <form action="/registro/dateCommit/{{ data['baseData'][0] }}/{{ data['baseData'][1] }}" method="post" class="flex">
-                                            <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
-                                                <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                                                </svg>
-                                            </div>
-                                        
-                                            <input name="dateConfirm" datepicker datepicker-autohide datepicker-format="yyyy/mm/dd" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full ps-10 p-2.5" placeholder="Selecciona una fecha">
-                                            <input type="hidden" name="action" value="Logistica">
-                                            <input type="hidden" name="origin"  value="detail">
-                                            <button  class="p-4 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600 mx-4">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512">
-                                                    <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
-                                                </svg>
-                                            </button>
-                                        </form>                                    
+                                <div data-popover id="popover-endConfirmLog" role="tooltip" class="absolute z-10 inline-block w-fit text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 invisible">
+                                    <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg flex items-center justify-between ">
+                                        <h3 class="font-semibold text-gray-900 ">Indica la fecha compromiso de fin</h3>
+        
+                                        <button id="close-endConfirmLog" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
                                     </div>
-                                    
+                                    <div class="px-3 py-2">
+                                        
+                                        <div class="relative">
+                                            <form action="/registro/dateCommit/{{ data['baseData'][0] }}/{{ data['baseData'][1] }}" method="post" class="flex">
+                                                <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
+                                                    <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                                    </svg>
+                                                </div>
+                                            
+                                                <input name="dateConfirm" datepicker datepicker-autohide datepicker-format="yyyy/mm/dd" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full ps-10 p-2.5" placeholder="Selecciona una fecha">
+                                                <input type="hidden" name="action" value="Logistica">
+                                                <input type="hidden" name="origin"  value="detail">
+                                                <button  class="p-4 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600 mx-4">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512">
+                                                        <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
+                                                    </svg>
+                                                </button>
+                                            </form>                                    
+                                        </div>
+                                        
+                                    </div>
+                                    <div data-popper-arrow></div>
                                 </div>
-                                <div data-popper-arrow></div>
-                            </div>
+                            {% endif %}
                             {% if not data['logistica'][1] and data['logistica'] %}
                                 <button id="btn-endLog" data-popover-target="popover-endLog" data-popover-trigger="none" class="mx-4 px-4 py-2 my-2 sm:my-0 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600">
                                     Terminado
                                 </button>              
-                            {% endif %}
-                            <div data-popover id="popover-endLog" role="tooltip" class="absolute z-10 inline-block w-fit text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 invisible">
-                                <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg flex items-center justify-between ">
+                                <div data-popover id="popover-endLog" role="tooltip" class="absolute z-10 inline-block w-fit text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 invisible">
+                                    <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg flex items-center justify-between ">
                                     <h3 class="font-semibold text-gray-900 ">Confirma como terminado</h3>
-    
+                                    
                                     <button id="close-endLog" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -440,45 +439,86 @@
                                     
                                 </div>
                                 <div data-popper-arrow></div>
+                                
                             </div>
+                            {% endif %}
                             {% if data['logistica'][1] and not data['pagos'] %}
                                 <button id="btn-chofer" data-popover-target="popover-chofer" data-popover-trigger="none" class="mx-4 px-4 py-2 my-2 sm:my-0 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600">
                                     Chofer
                                 </button>              
-                            {% endif %}
-                            {% if not data['pagos'] %}
-                            <div data-popover id="popover-chofer" role="tooltip" class="absolute z-10 inline-block w-fit text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 invisible">
-                                <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg flex items-center justify-between ">
-                                    <h3 class="font-semibold text-gray-900 ">Selecciona al Chofer</h3>
-    
-                                    <button id="close-chofer" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                </div>
-                                <div class="px-3 py-2">
-                                    
-                                    <div class="relative">                                        
-                                        
-                                        <form action="/registro/chofer/{{ data['baseData'][0] }}/{{ data['baseData'][1] }}" method="post" class="flex">                                            
-                                            <select id="chofer" name="chofer" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                                                {% for chofer in choferes %}
-                                                    <option value="{{ chofer[0] }}">{{ chofer[1] }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            <button  class="p-4 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600 mx-4">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512">
-                                                    <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
-                                                </svg>
-                                            </button>
-                                        </form>                                        
+                            
+                                <div data-popover id="popover-chofer" role="tooltip" class="absolute z-10 inline-block w-fit text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 invisible">
+                                    <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg flex items-center justify-between ">
+                                        <h3 class="font-semibold text-gray-900 ">Selecciona al Chofer</h3>
+        
+                                        <button id="close-chofer" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
                                     </div>
-                                    
+                                    <div class="px-3 py-2">
+                                        
+                                        <div class="relative">                                        
+                                            
+                                            <form action="/registro/chofer/{{ data['baseData'][0] }}/{{ data['baseData'][1] }}" method="post" class="flex">                                            
+                                                <select id="chofer" name="chofer" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                                                    {% for chofer in choferes %}
+                                                        <option value="{{ chofer[0] }}">{{ chofer[1] }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <button  class="p-4 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600 mx-4">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512">
+                                                        <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
+                                                    </svg>
+                                                </button>
+                                            </form>                                        
+                                        </div>
+                                        
+                                    </div>
+                                    <div data-popper-arrow></div>
                                 </div>
-                                <div data-popper-arrow></div>
-                            </div>
+                                <button id="btn-parcel" data-popover-target="popover-parcel" data-popover-trigger="none" class="px-4 py-2 my-2 sm:my-0 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600">
+                                    Entregado
+                                </button>                            
+    
+                                <div data-popover id="popover-parcel" role="tooltip" class="absolute z-10 inline-block w-fit text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 invisible">
+                                    <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg flex items-center justify-between ">
+                                        <h3 class="font-semibold text-gray-900 ">Datos de entrega</h3>
+        
+                                        <button id="close-parcel" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                    </div>
+                                    <div class="px-3 py-2">
+                                        
+                                        <div class="relative">
+                                            <form action="/registro/parcelDelivery/{{ data['baseData'][0] }}/{{ data['baseData'][1] }}" method="post" class="flex flex-col items-center">
+                                                <div class="absolute inset-y-0 start-0 top-2 flex items-center pointer-events-none h-10 ps-3.5">
+                                                    <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                                    </svg>
+                                                </div>
+                                            
+                                                <input name="date" datepicker datepicker-autohide datepicker-format="yyyy/mm/dd" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full ps-10 p-2.5 mt-2" placeholder="Fecha de entrega">
+                                                <input name="parcelName" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 mt-2" placeholder="Nombre de la paqueteria">
+                                                
+                                                <input type="hidden" name="origin"  value="detail">
+                                                <button  class="p-4 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600 mx-4 my-2 w-fit">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512">
+                                                        <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
+                                                    </svg>
+                                                </button>
+                                            </form>                                    
+                                        </div>
+                                        
+                                    </div>
+                                    <div data-popper-arrow></div>
+                                </div>
                             {% endif %}
                             <button data-modal-target="notaLog-modal" data-modal-toggle="notaLog-modal" class="block ml-4 w-fit h-fit p-4 text-white bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-full text-sm text-center " type="button">                            
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4" viewBox="0 0 512 512">
