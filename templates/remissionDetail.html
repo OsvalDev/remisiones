@@ -87,7 +87,7 @@
 
                                                         <div>
                                                             <label for="bonificado" class="block mb-2 text-sm font-medium text-gray-900 ">Monto bonificado</label>
-                                                            <input value="{{ data['baseData'][6] }}" type="number" name="bonificado" id="bonificado" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 " required>
+                                                            <input value="{{ data['baseData'][6] }}" type="number" step="0.001" name="bonificado" id="bonificado" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 " required>
                                                         </div>
                                                         <input type="hidden" name="numCliente" id="numCliente" value="{{ data['baseData'][8] }}">
                                                         <input type="hidden" name="saldoInicial" id="saldoInicial" value="{{ data['baseData'][6] }}">
@@ -714,8 +714,42 @@
                             <p>5</p>
                         </div>
                         
-                        <p class="font-bold text-xl px-4 py-2">Registro de pagos</p>
+                        <p class="font-bold text-xl px-4 py-2">Registro de pagos</p>                        
+                        
                         {% if 'confirmarPago' in canDo%}
+                            <button id="btn-parcel" data-popover-target="popover-parcel" data-popover-trigger="none" class="px-4 py-2 my-2 sm:my-0 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600">
+                                Pago
+                            </button>                            
+
+                            <div data-popover id="popover-parcel" role="tooltip" class="absolute z-10 inline-block w-fit text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 invisible">
+                                <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg flex items-center justify-between ">
+                                    <h3 class="font-semibold text-gray-900 ">Datos de entrega</h3>
+
+                                    <button id="close-parcel" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <div class="px-3 py-2">
+                                    
+                                    <div class="relative">
+                                        <form action="/registro/newPayment/{{ data['baseData'][0] }}/{{ data['baseData'][1] }}" method="post" class="flex flex-col items-center">                                            
+                                            <input name="mount" type="number" step="0.001" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 mt-2" placeholder="Cantidad pagada">
+                                            
+                                            <input type="hidden" name="origin"  value="detail">
+                                            <button  class="p-4 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600 mx-4 my-2 w-fit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512">
+                                                    <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
+                                                </svg>
+                                            </button>
+                                        </form>                                    
+                                    </div>
+                                    
+                                </div>
+                                <div data-popper-arrow></div>
+                            </div>
                             <button data-modal-target="notaPagos-modal" data-modal-toggle="notaPagos-modal" class="block ml-4 w-fit h-fit p-4 text-white bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-full text-sm text-center " type="button">                            
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4" viewBox="0 0 512 512">
                                     <path d="M123.6 391.3c12.9-9.4 29.6-11.8 44.6-6.4c26.5 9.6 56.2 15.1 87.8 15.1c124.7 0 208-80.5 208-160s-83.3-160-208-160S48 160.5 48 240c0 32 12.4 62.8 35.7 89.2c8.6 9.7 12.8 22.5 11.8 35.5c-1.4 18.1-5.7 34.7-11.3 49.4c17-7.9 31.1-16.7 39.4-22.7zM21.2 431.9c1.8-2.7 3.5-5.4 5.1-8.1c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208s-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6c-15.1 6.6-32.3 12.6-50.1 16.1c-.8 .2-1.6 .3-2.4 .5c-4.4 .8-8.7 1.5-13.2 1.9c-.2 0-.5 .1-.7 .1c-5.1 .5-10.2 .8-15.3 .8c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4c4.1-4.2 7.8-8.7 11.3-13.5c1.7-2.3 3.3-4.6 4.8-6.9c.1-.2 .2-.3 .3-.5z"/>
@@ -886,7 +920,7 @@
                                                     <textarea id="detail" name="detail" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-pink-500 focus:border-pink-500" placeholder="Detalla la devolucion..."></textarea>
                                                     
                                                     <label for="mount" class="block mb-2 text-sm font-medium text-gray-900 ">Indica la cantidad a bonificar:</label>
-                                                    <input type="number" id="mount" name="mount" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 " placeholder="0" required>                                                        
+                                                    <input type="number" step="0.001" id="mount" name="mount" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 " placeholder="0" required>                                                        
 
                                                     <button data-modal-hide="devolution-modal" type="submit" class="text-white bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4">Aceptar</button>
                                                 </form>      

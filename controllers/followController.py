@@ -150,6 +150,26 @@ def registerDelivery (mysql, data):
     finally:
         cur.close()
 
+def newPaymentF(mysql, data):
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute('''INSERT INTO PAGO(cantidad, responsable, numRemision, numCompra, confirmante, fechaConfirmacion)
+                    VALUES (%s, %s, %s, %s, %s, current_timestamp() )''',
+                    ( data['mount'], data['user'], data['numRemission'], data['numCompra'], data['user'] ))
+        mysql.connection.commit()        
+
+        cur.execute('''UPDATE REMISION SET estatus = 6 WHERE numRemision = %s and numCompra = %s
+            ''', (data['numRemission'], data['numCompra']))
+        mysql.connection.commit()
+        return {'result' : 'success', 'msg' : 'Pago registrado'}
+    except Exception as e:
+        print(e)
+        return {'result' : 'failed', 'msg' : 'Error en la conexion con la base de datos'}
+
+    finally:
+        cur.close()
+
+
 def confirmPayment (mysql, payment, user):
     cur = mysql.connection.cursor()
 
