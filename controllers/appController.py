@@ -116,8 +116,8 @@ def registerPayment(mysql, data):
                     VALUES (%s, %s, %s, %s, %s, %s)''',
                     (data['cantidad'], data['pagoPersona'], urlSql, data['responsable'], data['numRemission'], data['numCompra'] ))
         mysql.connection.commit()        
-        cur.execute('''UPDATE PROCESO SET fechaConcluido = current_timestamp() WHERE numRemision = %s and numCompra = %s
-            ''', (data['numRemission'], data['numCompra']))
+        cur.execute('''UPDATE PROCESO SET fechaConcluido = current_timestamp() WHERE numRemision = %s and numCompra = %s and accion = %s and fechaConcluido IS NULL
+            ''', (data['numRemission'], data['numCompra'], 'Entrega'))
         mysql.connection.commit()
         cur.execute('''UPDATE REMISION SET estatus = 5 WHERE numRemision = %s and numCompra = %s
             ''', (data['numRemission'], data['numCompra']))
