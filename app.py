@@ -360,7 +360,8 @@ def autorizationRC(idRemission, idCompra):
     user = verifyUser()
 
     if user[0]:
-        data = {            
+        data = {
+            'user' : user[0],
             'numRemision' : idRemission,
             'numCompra' : idCompra
         }        

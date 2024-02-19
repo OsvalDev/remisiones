@@ -164,6 +164,8 @@ def getCostumerName(mysql, data):
 def addRemission(mysql, data):    
     cur = mysql.connection.cursor()
     try:                
+        numRemission = data['numRemission'].replace(' ', '_')
+        numCompra = data['numCompra'].replace(' ', '_')
         cur.execute('''        
             SELECT id, saldoBonificado
             FROM CLIENTE
@@ -173,7 +175,7 @@ def addRemission(mysql, data):
         cur.execute('''        
             INSERT INTO REMISION (numRemision, numCompra, piezas, importeRemisionado, importeFacturado, cliente, saldoAFavor, numFactura)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        ''', (data['numRemission'], data['numCompra'], data['piezas'], data['remisionado'], data['facturado'], costumerid[0], data['bonificado'], data['factura'] ))
+        ''', (numRemission,numCompra , data['piezas'], data['remisionado'], data['facturado'], costumerid[0], data['bonificado'], data['factura'] ))
         mysql.connection.commit()
 
         if data['bonificado'] != '' and int(data['bonificado']) > 0:

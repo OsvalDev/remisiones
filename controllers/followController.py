@@ -55,8 +55,8 @@ def updateAutorization (mysql, data):
     cur = mysql.connection.cursor()
 
     try:
-        cur.execute('''UPDATE REMISION SET estatus = 8 WHERE numRemision = %s and numCompra = %s
-                    ''', (data['numRemision'], data['numCompra']))
+        cur.execute('''UPDATE REMISION SET estatus = 8, autorizador = %s WHERE numRemision = %s and numCompra = %s
+                    ''', (data['user'],data['numRemision'], data['numCompra']))
         mysql.connection.commit()
 
         return True
