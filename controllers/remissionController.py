@@ -474,13 +474,15 @@ def processExcel(mysql, file):
             except ValueError:
                 resultingMsg +=f"El valor de monto bonificado no es numerico en la fila {index + 2}.</br>"
                 continue
-
+            
+            numRemission = row['Numero de remision'].replace(' ', '_')
+            numCompra = row['Numero de compra'].replace(' ', '_')
             cur = mysql.connection.cursor()
             #No existe otra remision con el mismo numero de remision y numero de compra
-            cur.execute('SELECT * FROM REMISION WHERE numRemision = %s and numCompra = %s', (row['Numero de remision'], row['Numero de compra']))
+            cur.execute('SELECT * FROM REMISION WHERE numRemision = %s and numCompra = %s', (numRemission, numCompra))
             auxTest = cur.fetchone()
             if auxTest:
-                resultingMsg += f"La remision { row['Numero de remision'] } con # de compra { row['Numero de compra'] } ya existe en la fila {index + 2}. </br>"
+                resultingMsg += f"La remision { numRemission } con # de compra { numCompra } ya existe en la fila {index + 2}. </br>"
                 continue
 
             #la clave del cliente existe
@@ -503,9 +505,7 @@ def processExcel(mysql, file):
             ''', (row['Clave del cliente'], ))
             costumerid = cur.fetchone()
 
-            # Inserta la nueva remisión en la base de datos
-            numRemission = row['Numero de remision'].replace(' ', '_')
-            numCompra = row['Numero de compra'].replace(' ', '_')
+            # Inserta la nueva remisión en la base de datos            
             cur.execute('''        
                 INSERT INTO REMISION (numRemision, numCompra, piezas, importeRemisionado, importeFacturado, cliente, saldoAFavor, numFactura)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
