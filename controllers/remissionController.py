@@ -504,10 +504,12 @@ def processExcel(mysql, file):
             costumerid = cur.fetchone()
 
             # Inserta la nueva remisión en la base de datos
+            numRemission = row['Numero de remision'].replace(' ', '_')
+            numCompra = row['Numero de compra'].replace(' ', '_')
             cur.execute('''        
                 INSERT INTO REMISION (numRemision, numCompra, piezas, importeRemisionado, importeFacturado, cliente, saldoAFavor, numFactura)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-            ''', (row['Numero de remision'], row['Numero de compra'], row['Piezas'], row['Importe remisionado'], row['Importe facturado'], costumerid[0], row['Monto bonificado'], row['Numero de factura'] ))
+            ''', (numRemission, numCompra, row['Piezas'], row['Importe remisionado'], row['Importe facturado'], costumerid[0], row['Monto bonificado'], row['Numero de factura'] ))
             mysql.connection.commit()
 
             # Actualiza el saldoBonificado del cliente si es necesario
