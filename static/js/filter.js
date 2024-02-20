@@ -65,12 +65,12 @@ const filterCostumerData = async () => {
             for (let data of responseData.data){                
                 contentRows += `
                     <tr class="bg-white border-b hover:bg-gray-100" >
-                        <td scope="row" class=" w-20">
-                            <a class="block w-full h-full py-4 px-4" href="remission/${ data[0] }/${ data[1] }">
+                        <td scope="row" class="max-w-40 text-wrap whitespace-normal" style="overflow-wrap: break-word;">
+                            <a class="block w-full h-full py-4 px-4 text-wrap" href="remission/${ data[0] }/${ data[1] }">
                                 ${ data[1] }  <!-- Número de compra -->
                             </a>                                        
                         </td>
-                        <td class="w-20">
+                        <td class="w-32">
                             <a class="block w-full h-full py-4 px-4" href="remission/${ data[0] }/${ data[1] }">
                                 ${ data[0] }<!-- Número de remision -->
                             </a>                                        
@@ -85,12 +85,12 @@ const filterCostumerData = async () => {
                                 ${ data[3] }  <!-- cliente -->
                             </a>                                        
                         </td>
-                        <td class="w-20">
+                        <td class="w-32">
                             <a class="block w-full h-full py-4 px-4" href="remission/${ data[0] }/${ data[1] }">
                                 $ ${ data[5] }<!-- importeRemisionado -->
                             </a>                                                                    
                         </td>
-                        <td class="w-20">
+                        <td class="w-32">
                             <a class="block w-full h-full py-4 px-4" href="remission/${ data[0] }/${ data[1] }">
                                 $ ${ data[6] }<!-- importeFacturado -->
                             </a>                                        

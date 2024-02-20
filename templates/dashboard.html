@@ -14,7 +14,7 @@
                 {% include 'partials/floatingBar.html' %}
             </div>
 
-            <div class="sm:w-[70vw] sm:h-full w-full flex flex-col items-center sm:pt-8 pt-4">
+            <div class="sm:w-[70vw] sm:h-full w-full flex flex-col items-center sm:pt-0 pt-4">
                 <div class="flex items-center mb-4">
                     <p class="font-bold text-xl mx-8">Lista de remisiones</p>
                                         
@@ -135,7 +135,7 @@
                     </button>
                 </div>
 
-                <div class="w-screen sm:w-full h-20 overflow-x-auto mb-4 flex items-center justify-between ">
+                <div class="w-screen sm:w-full min-h-12 overflow-x-auto mb-4 flex items-center justify-between ">
                     
                     <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" class="text-white bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 mx-2 text-center inline-flex items-center " type="button">Cliente<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
@@ -242,7 +242,7 @@
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 " id="tableRowsContainer">                        
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                             <tr>
-                                <th scope="col" class="w-20 px-2 py-3 text-center">
+                                <th scope="col" class="max-w-40 px-2 py-3 text-center">
                                     # compra
                                 </th>
                                 <th scope="col" class="w-20 px-1 py-3 text-center">
@@ -254,10 +254,10 @@
                                 <th scope="col" class="w-80 px-6 py-3 text-center">
                                     Cliente
                                 </th>                                
-                                <th scope="col" class="w-20 px-6 py-3 text-center">
+                                <th scope="col" class="w-32 px-6 py-3 text-center">
                                     Remisionado
                                 </th>                                
-                                <th scope="col" class="w-20 px-6 py-3 text-center">
+                                <th scope="col" class="w-32 px-6 py-3 text-center">
                                     Facturado
                                 </th>                                
                                 <th scope="col" class="w-40 px-6 py-3 text-center">
@@ -268,12 +268,12 @@
                         <tbody id="tableRows">                            
                             {% for remission in remissionList %}                                
                                 <tr  class="bg-white border-b hover:bg-gray-100" >
-                                    <td scope="row" class="w-20">
-                                        <a class="block w-full h-full py-4 px-4" href="remission/{{ remission[0] }}/{{ remission[1] }}">
+                                    <td scope="row" class="max-w-40 text-wrap whitespace-normal" style="overflow-wrap: break-word;">
+                                        <a class="block w-full h-full py-4 px-4 text-wrap" href="remission/{{ remission[0] }}/{{ remission[1] }}">
                                             {{ remission[1] }}  <!-- Número de compra -->
                                         </a>                                        
                                     </td>
-                                    <td class="w-20">
+                                    <td class="w-32">
                                         <a class="block w-full h-full py-4" href="remission/{{ remission[0] }}/{{ remission[1] }}">
                                             {{ remission[0] }}<!-- Número de remision -->
                                         </a>                                        
@@ -288,12 +288,12 @@
                                             {{ remission[3] }}  <!-- cliente -->
                                         </a>                                        
                                     </td>                                
-                                    <td class="w-20">
+                                    <td class="w-32">
                                         <a class="block w-full h-full py-4 px-4" href="remission/{{ remission[0] }}/{{ remission[1] }}">
                                             $ {{ remission[5] }}  <!-- remisionado -->
                                         </a>                                        
                                     </td>                                
-                                    <td class="w-20">
+                                    <td class="w-32">
                                         <a class="block w-full h-full py-4 px-4" href="remission/{{ remission[0] }}/{{ remission[1] }}">
                                             $ {{ remission[6] }}  <!-- facturado -->
                                         </a>                                        
