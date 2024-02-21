@@ -530,5 +530,23 @@ def postNote():
     
     return jsonify( result )
 
+#-------------------------------------------------------------
+#routes for costumer site
+@app.route('/cliente')
+def getMainCostumer():
+    return render_template('costumer/login.html')
+
+@app.route('/costumerActiveData', methods= ['POST'])
+def costumerActiveData():    
+    data = request.get_json()
+    result = getCostumerActiveData(mysql, data)
+    return jsonify( result )
+
+@app.route('/costumerActiveList', methods= ['POST'])
+def costumerActiveList():    
+    data = request.get_json()
+    result = getCostumersActiveData(mysql, data)
+    return jsonify( result )
+
 if __name__ == '__main__':
     app.run()

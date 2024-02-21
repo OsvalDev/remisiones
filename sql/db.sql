@@ -160,6 +160,23 @@ CREATE TABLE NOTAPAGO(
     FOREIGN KEY(usuario) REFERENCES USUARIO(id)
 );
 
+CREATE TABLE CLIENTE_SITIO(
+    id INT NOT NULL,
+    psw VARCHAR(100) NOT NULL,
+    bringPsw BOOLEAN NOT NULL DEFAULT 1,
+    PRIMARY KEY(id),
+    FOREIGN KEY(id) REFERENCES CLIENTE(id)
+);
+
+CREATE TABLE CAJA(
+    numRemision VARCHAR(100) NOT NULL,
+    numCompra VARCHAR(100) NOT NULL,
+    tipo VARCHAR(100) NOT NULL,
+    cantidad INT NOT NULL,
+    PRIMARY KEY (numCompra, numRemision, tipo),
+    FOREIGN KEY(numCompra, numRemision) REFERENCES REMISION(numCompra, numRemision)
+);
+
 INSERT INTO AREA(id, nombre) VALUES 
 (1, 'ventas'),
 (2, 'logistica'),

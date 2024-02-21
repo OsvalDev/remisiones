@@ -161,6 +161,52 @@ def getCostumerName(mysql, data):
     finally:
         cur.close()
 
+def getCostumerActiveData(mysql, data):
+    value = data['numCliente']
+    cur = mysql.connection.cursor()
+    try:                
+        cur.execute('''        
+            SELECT c.nombre, s.psw
+            FROM CLIENTE AS c 
+            NATURAL JOIN CLIENTE_SITIO AS s
+            WHERE clave = %s AND bringPsw = 1
+        ''', (value, ))
+        data = cur.fetchone()
+        if data != None:
+            return {'result':'success'}
+        else:
+            return {'result':'failed'}
+
+    except Exception as e:
+        print(e)
+        return {'result':'failed'}
+
+    finally:
+        cur.close()
+
+def getCostumersActiveData(mysql, data):
+    value = data['numCliente']
+    cur = mysql.connection.cursor()
+    try:                
+        cur.execute('''        
+            SELECT c.nombre, s.psw
+            FROM CLIENTE AS c 
+            NATURAL JOIN CLIENTE_SITIO AS s
+            WHERE bringPsw = 1
+        ''', (value, ))
+        data = cur.fetchone()
+        if data != None:
+            return {'result':'success', 'data' : data}
+        else:
+            return {'result':'failed'}
+
+    except Exception as e:
+        print(e)
+        return {'result':'failed'}
+
+    finally:
+        cur.close()
+
 def addRemission(mysql, data):    
     cur = mysql.connection.cursor()
     try:                
