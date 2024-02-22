@@ -1,0 +1,105 @@
+{% extends 'partials/base.html' %}
+
+{% block body %}
+    
+    <body class="w-screen flex justify-center items-center flex-col">
+        {% set userHeader = user %}
+        {% set showAPK = False %}
+        {% include 'partials/header.html' %}  
+
+        <div class="flex flex-wrap justify-center h-[90vh] sm:pt-8 pt-2 pb-4">                    
+
+            <div class="sm:w-[70vw] sm:h-full w-full flex flex-col items-center sm:pt-0 pt-4">
+                <div class="flex items-center mb-4">
+                    {% if active == 'active' %}
+                    <div class="absolute left-8 ">
+                        <a href="/cliente/inicio/active" class="rounded-l-lg bg-pink-600 px-4 py-2 hover:bg-pink-200 m-0 text-white font-bold   ">Actuales</a>
+                        <a href="/cliente/inicio/historial" class="rounded-r-lg bg-pink-300 px-4 py-2 hover:bg-pink-200 m-0 text-white font-bold">Historial</a>
+                    </div>
+                    {% else %}
+                    <div class="absolute left-8 ">
+                        <a href="/cliente/inicio/active" class="rounded-l-lg bg-pink-300 px-4 py-2 hover:bg-pink-200 m-0 text-white font-bold">Actuales</a>
+                        <a href="/cliente/inicio/historial" class="rounded-r-lg bg-pink-600 px-4 py-2 hover:bg-pink-200 m-0 text-white font-bold   ">Historial</a>
+                    </div>
+                    {% endif %}
+                    <p class="font-bold text-xl mx-8">Lista de remisiones {% if active == 'active' %}Activas {% else %}Pasadas {% endif %} </p>
+                    
+                </div>                
+                    
+                <div class="sm:hidden w-full px-4" id="mainCardsContainer">
+                    <div id="containerCards">                                        
+                        {% for remission in remissionList %}
+                            <a href="remission/{{ remission[0] }}/{{ remission[1] }}" class="w-full h-fit">
+                                <div class="shadow-lg w-full h-fit rounded-lg my-4 p-4 hover:bg-gray-200 flex flex-col items-center">
+                                    <div>                                        
+                                        <p>
+                                        #Remision: {{ remission[1] }}  <!-- Número de compra --> / #Compra: {{ remission[0] }}<!-- Número de remision -->
+                                        </p>                                        
+                                    </div>                                  
+                                    <p class="my-2 font-bold">                                    
+                                        {{ remission[4] }}  <!-- estatus -->
+                                    </p>
+                                </div>
+                            </a>                        
+                        {% endfor %}                    
+                    </div>
+                </div>
+                
+                <div class="h-fit hidden sm:block relative overflow-x-auto shadow-md sm:rounded-lg">
+                    
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 " id="tableRowsContainer">                        
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                            <tr>
+                                <th scope="col" class="max-w-40 px-2 py-3 text-center">
+                                    # compra
+                                </th>
+                                <th scope="col" class="w-20 px-1 py-3 text-center">
+                                    # remision
+                                </th>                                
+                                <th scope="col" class="w-32 px-6 py-3 text-center">
+                                    Remisionado
+                                </th>                                
+                                <th scope="col" class="w-32 px-6 py-3 text-center">
+                                    Facturado
+                                </th>                                
+                                <th scope="col" class="w-40 px-6 py-3 text-center">
+                                    Estatus
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableRows">                            
+                            {% for remission in remissionList %}                                
+                                <tr  class="bg-white border-b hover:bg-gray-100" >
+                                    <td scope="row" class="max-w-40 text-wrap whitespace-normal" style="overflow-wrap: break-word;">
+                                        <a class="block w-full h-full py-4 px-4 text-wrap" href="remission/{{ remission[0] }}/{{ remission[1] }}">
+                                            {{ remission[1] }}  <!-- Número de compra -->
+                                        </a>                                        
+                                    </td>
+                                    <td class="w-32">
+                                        <a class="block w-full h-full py-4" href="remission/{{ remission[0] }}/{{ remission[1] }}">
+                                            {{ remission[0] }}<!-- Número de remision -->
+                                        </a>                                        
+                                    </td>                                    
+                                    <td class="w-32">
+                                        <a class="block w-full h-full py-4 px-4" href="remission/{{ remission[0] }}/{{ remission[1] }}">
+                                            $ {{ remission[5] }}  <!-- remisionado -->
+                                        </a>                                        
+                                    </td>                                
+                                    <td class="w-32">
+                                        <a class="block w-full h-full py-4 px-4" href="remission/{{ remission[0] }}/{{ remission[1] }}">
+                                            $ {{ remission[6] }}  <!-- facturado -->
+                                        </a>                                        
+                                    </td>                                
+                                    <td class="w-40">
+                                        <a class="block w-full h-full py-4" href="remission/{{ remission[0] }}/{{ remission[1] }}">
+                                            {{ remission[4] }}  <!-- estatus -->
+                                        </a>
+                                    </td>                                
+                                </tr>                                
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>                                       
+        
+{% endblock %}

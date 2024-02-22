@@ -25,6 +25,40 @@ def getRemissions(mysql):
     finally:
         cur.close()
 
+def getRemissionsCostumer(mysql, active, clave):
+    cur = mysql.connection.cursor()
+    try:               
+        if active == 'active': 
+            cur.execute('''        
+                SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre, r.importeRemisionado, r.importeFacturado
+                FROM REMISION AS r
+                JOIN CLIENTE AS c ON r.cliente = c.id
+                JOIN ESTATUS AS e ON e.id = r.estatus
+                WHERE c.clave = %s
+                ORDER BY r.fecha DESC
+            ''', (clave, ))
+        else:
+            cur.execute('''        
+                SELECT r.numRemision, r.numCompra, r.fecha, c.nombre, e.nombre, r.importeRemisionado, r.importeFacturado
+                FROM REMISION AS r
+                JOIN CLIENTE AS c ON r.cliente = c.id
+                JOIN ESTATUS AS e ON e.id = r.estatus
+                WHERE c.clave = %s AND r.estatus = 7
+                ORDER BY r.fecha DESC
+            ''', (clave, ))
+        data = cur.fetchall()
+        if data != None:
+            return data
+        else:
+            return 'No hay remisiones disponibles'
+
+    except Exception as e:
+        print(e)
+        return 'Error en la base de datos'
+
+    finally:
+        cur.close()
+
 def getRemissionsByType(mysql, idEstatus, another = False, excludePago = False):
     cur = mysql.connection.cursor()
     try:                

@@ -4,12 +4,13 @@ from flask_mysqldb import MySQL
 from controllers.loginController import login as funLogin, loginCostumer
 from controllers.userController import *
 from controllers.costumersController import *
+from controllers.costumerController import *
 from controllers.remissionController import *
 from controllers.followController import *
 from controllers.appController import *
 from controllers.chartController import *
 from controllers.filterController import *
-from utils.userSession import verifyUser
+from utils.userSession import verifyUser, verifyCostumer
 from utils.makePdf import getPdf as makePdf
 app = Flask(__name__)
 
@@ -570,6 +571,34 @@ def postLoginCostumer():
         session['costumer_id'] = data['id']
         session['costumer_name'] = result[0]
         return jsonify( result[1] )
+
+@app.route('/changuePSW', methods= ['POST'])
+def changuePSW(): 
+    user = verifyCostumer()
+
+    if user[0]:   
+        data = {
+            'clave' : user[0],
+            'psw' : request.form['psw']
+        }
+        result = changuePSWF(mysql, data)
+        
+        return redirect('/cliente/inicio/active')
+    else:
+        return redirect(url_for('getMainCostumer'))
+@app.route('/cliente/inicio/<status>')
+def dashboardCostumer(status):
+    user = verifyCostumer()
+
+    if user[0]:
+        changuedPSW = verifyPSWCostumer(mysql, user[0])
+        if changuedPSW:
+            return render_template('costumer/changuePSW.html')
+        remissionList = getRemissionsCostumer(mysql,status, user[0] )
+        print(remissionList)
+        return render_template('costumer/dashboard.html', user = user[1], remissionList = remissionList, active = status, changuedPSW = changuedPSW)
+    else:
+        return redirect(url_for('getMainCostumer'))
 
 if __name__ == '__main__':
     app.run()

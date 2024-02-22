@@ -8,3 +8,11 @@ def verifyUser():
     ]
     
     return user
+
+def verifyCostumer():
+    user = [
+        session.get('costumer_id', None),
+        session.get('costumer_name', None)
+    ]
+    
+    return user

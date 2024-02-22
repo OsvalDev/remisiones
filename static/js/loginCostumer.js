@@ -19,10 +19,10 @@ const login = async () => {
 
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {        
         urls.login = '/loginCostumer';
-        urls.dashboard = '/cliente/dashboard';
+        urls.dashboard = '/cliente/inicio/active';
     } else {        
         urls.login = '/registro/loginCostumer';
-        urls.dashboard = '/registro/cliente/dashboard';
+        urls.dashboard = '/registro/cliente/inicio/active';
     }
     const body = data;
 
