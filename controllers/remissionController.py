@@ -1,4 +1,6 @@
 import pandas as pd
+import secrets
+import string
 
 def getRemissions(mysql):
     cur = mysql.connection.cursor()
@@ -161,6 +163,59 @@ def getCostumerName(mysql, data):
     finally:
         cur.close()
 
+def getCostumerNameActive(mysql, data):
+    value = data['numCliente']
+    cur = mysql.connection.cursor()
+    try:                
+        cur.execute('''        
+            SELECT nombre, saldoBonificado
+            FROM CLIENTE
+            WHERE clave = %s AND id NOT IN (SELECT id
+                                            FROM CLIENTE_SITIO )
+        ''', (value, ))
+        data = cur.fetchone()
+        if data != None:
+            return {'result':'success', 'name' : data[0], 'saldo' : data[1]}
+        else:
+            return {'result':'success', 'name' : 'Cliente no encontrado', 'saldo' : 0}
+
+    except Exception as e:
+        print(e)
+        return {'result':'failed'}
+
+    finally:
+        cur.close()
+
+def activateCostumerF(mysql, data):
+    value = data['numCliente']
+    cur = mysql.connection.cursor()
+    try:                
+        cur.execute('''        
+            SELECT id
+            FROM CLIENTE
+            WHERE clave = %s
+        ''', (value, ))
+        idCostumer = cur.fetchone()
+
+        longitud = 6
+        caracteres = string.ascii_letters + string.digits
+        token = ''.join(secrets.choice(caracteres) for _ in range(longitud))
+        
+        if data != None:
+            cur.execute('INSERT INTO CLIENTE_SITIO(id, psw) VALUES (%s, %s)', (idCostumer[0], token ))
+            mysql.connection.commit()
+
+            return {'result':'success'}
+        else:
+            return {'result':'failed'}
+
+    except Exception as e:
+        print(e)
+        return {'result':'failed'}
+
+    finally:
+        cur.close()
+
 def getCostumerActiveData(mysql, data):
     value = data['numCliente']
     cur = mysql.connection.cursor()
@@ -184,8 +239,7 @@ def getCostumerActiveData(mysql, data):
     finally:
         cur.close()
 
-def getCostumersActiveData(mysql, data):
-    value = data['numCliente']
+def getCostumersActiveData(mysql):
     cur = mysql.connection.cursor()
     try:                
         cur.execute('''        
@@ -193,9 +247,9 @@ def getCostumersActiveData(mysql, data):
             FROM CLIENTE AS c 
             NATURAL JOIN CLIENTE_SITIO AS s
             WHERE bringPsw = 1
-        ''', (value, ))
-        data = cur.fetchone()
-        if data != None:
+        ''')
+        data = cur.fetchall()
+        if len(data) > 0:
             return {'result':'success', 'data' : data}
         else:
             return {'result':'failed'}

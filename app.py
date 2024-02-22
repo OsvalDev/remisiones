@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, jsonify, session, Response
 from flask_mysqldb import MySQL
 
-from controllers.loginController import login as funLogin
+from controllers.loginController import login as funLogin, loginCostumer
 from controllers.userController import *
 from controllers.costumersController import *
 from controllers.remissionController import *
@@ -544,9 +544,32 @@ def costumerActiveData():
 
 @app.route('/costumerActiveList', methods= ['POST'])
 def costumerActiveList():    
-    data = request.get_json()
-    result = getCostumersActiveData(mysql, data)
+    result = getCostumersActiveData(mysql)
     return jsonify( result )
+
+@app.route('/activateCostumer', methods= ['POST'])
+def activateCostumer():    
+    data = request.get_json()
+    result = activateCostumerF(mysql, data)
+    return jsonify( result )
+
+@app.route('/nameCostumerActive', methods= ['POST'])
+def nameCostumerActive():    
+    data = request.get_json()
+    result = getCostumerNameActive(mysql, data)
+    return jsonify( result )
+
+@app.route('/loginCostumer', methods= ['POST'])
+def postLoginCostumer():    
+    data = request.get_json()    
+    result = loginCostumer(mysql, data)
+    
+    if result[1]['result'] == 'failed':
+        return jsonify( result[1] )
+    else:
+        session['costumer_id'] = data['id']
+        session['costumer_name'] = result[0]
+        return jsonify( result[1] )
 
 if __name__ == '__main__':
     app.run()
