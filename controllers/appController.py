@@ -31,7 +31,7 @@ def choferRemissionList(mysql, data):
                 JOIN REMISION AS r ON p.numRemision = r.numRemision and p.numCompra = r.numCompra
                 JOIN CLIENTE AS c ON r.cliente = c.id
                 JOIN ESTATUS AS e ON  e.id = r.estatus
-                WHERE p.accion = 'Entrega' and p.fechaConcluido IS NULL and p.usuario = %s
+                WHERE p.accion = 'Entrega' and r.estatus <> 7  and p.usuario = %s
             ''', (data['id'],))
         remissionList = cur.fetchall()
 
@@ -56,7 +56,7 @@ def choferRemissionListDone(mysql, data):
                 JOIN REMISION AS r ON p.numRemision = r.numRemision and p.numCompra = r.numCompra
                 JOIN CLIENTE AS c ON r.cliente = c.id
                 JOIN ESTATUS AS e ON  e.id = r.estatus
-                WHERE p.accion = 'Entrega' and p.fechaConcluido IS NOT NULL and p.usuario = %s
+                WHERE p.accion = 'Entrega' and r.estatus = 7 and p.usuario = %s
             ''', (data['id'],))
         remissionList = cur.fetchall()
 
