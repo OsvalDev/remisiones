@@ -899,13 +899,10 @@
                                             </div>
                                         {% endif %}  
                                             
-                                        {% if pago[5] %}
-                                            <div class="flex">
-                                                <img class="w-1/3 active:w-2/3" src="{{ url_for('static', filename= pago[5]) }}" alt="FIRMA">
-                                                <img class="w-1/3 active:w-2/3" src="{{ url_for('static', filename= pago[8]) }}" alt="EVIDENCIA ENTREGA">
-                                                <img class="w-1/3 active:w-2/3" src="{{ url_for('static', filename= pago[9]) }}" alt="INE">
-                                            </div>
-
+                                        {% if pago[5] %}                                            
+                                                <img class="w-60 active:w-[60vw] object-cover" src="{{ url_for('static', filename= pago[5]) }}" alt="FIRMA">
+                                                <img class="w-60 active:w-[60vw] object-cover" src="{{ url_for('static', filename= pago[8]) }}" alt="EVIDENCIA ENTREGA">
+                                                <img class="w-60 active:w-[60vw] object-cover" src="{{ url_for('static', filename= pago[9]) }}" alt="INE">
                                             <P>Calidad: {% if pago[10] == 1 %} VALIDADO {% else %} INCONFORME {% endif %} </P>
                                             <P>Cantidad: {% if pago[11] == 1 %} VALIDADO {% else %} INCONFORME {% endif %} </P>
                                         {% endif %}
