@@ -145,7 +145,7 @@ def registerPayment(mysql, data):
         return {'result' : 'success', 'msg' : 'Pago registrado'}
     except Exception as e:
         print(e)
-        return {'result' : 'failed', 'msg' : 'Error en la conexion con la base de datos'}
+        return {'result' : 'failed', 'msg' : e}
 
     finally:
         cur.close()
