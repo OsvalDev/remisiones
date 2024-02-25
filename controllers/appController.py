@@ -132,9 +132,9 @@ def registerPayment(mysql, data):
     
     cur = mysql.connection.cursor()
     try:
-        cur.execute('''INSERT INTO PAGO(cantidad, pagoPersona, comprobante, responsable, numRemision, numCompra, entregasrc, identificacionsrc)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)''',
-                    (data['cantidad'], data['pagoPersona'], urlSql, data['responsable'], data['numRemission'], data['numCompra'], urlSqlEntrega, urlSqlIne ))
+        cur.execute('''INSERT INTO PAGO(cantidad, pagoPersona, comprobante, responsable, numRemision, numCompra, entregasrc, identificacionsrc, calidadval, cantidadval)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)''',
+                    (data['cantidad'], data['pagoPersona'], urlSql, data['responsable'], data['numRemission'], data['numCompra'], urlSqlEntrega, urlSqlIne, data['calidadVal'], data['cantidadVal'] ))
         mysql.connection.commit()        
         cur.execute('''UPDATE PROCESO SET fechaConcluido = current_timestamp() WHERE numRemision = %s and numCompra = %s and accion = %s and fechaConcluido IS NULL
             ''', (data['numRemission'], data['numCompra'], 'Entrega'))
