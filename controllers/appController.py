@@ -96,12 +96,16 @@ def choferRemissionDetail(mysql, data):
 
 def registerPayment(mysql, data):
 
-    
     image_data = base64.b64decode(data['img'])
+    image_dataEntrega = base64.b64decode(data['imgEntrega'])
+    image_dataIne = base64.b64decode(data['imgIne'])
     
     filename = 'payment' + datetime.now().strftime('%Y%m%d%H%M%S') + '.png'
+    filenameEntrega = 'entrega' + datetime.now().strftime('%Y%m%d%H%M%S') + '.png'
+    filenameIne = 'ine' + datetime.now().strftime('%Y%m%d%H%M%S') + '.png'
         
     directory = 'static/comprobant/'
+
     urlImg = os.path.join(directory, filename)
     urlSql = os.path.join("comprobant/", filename)
     if not os.path.exists(directory):
@@ -109,12 +113,28 @@ def registerPayment(mysql, data):
 
     with open(urlImg, 'wb') as f:
         f.write(image_data)
+        
+    urlImgEntrega = os.path.join(directory, filenameEntrega)
+    urlSqlEntrega = os.path.join("comprobant/", filenameEntrega)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    with open(urlImgEntrega, 'wb') as f:
+        f.write(image_dataEntrega)
+
+    urlImgIne = os.path.join(directory, filenameIne)
+    urlSqlIne = os.path.join("comprobant/", filenameIne)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    with open(urlImgIne, 'wb') as f:
+        f.write(image_dataIne)
     
     cur = mysql.connection.cursor()
     try:
-        cur.execute('''INSERT INTO PAGO(cantidad, pagoPersona, comprobante, responsable, numRemision, numCompra)
+        cur.execute('''INSERT INTO PAGO(cantidad, pagoPersona, comprobante, responsable, numRemision, numCompra, entregasrc, identificacionsrc)
                     VALUES (%s, %s, %s, %s, %s, %s)''',
-                    (data['cantidad'], data['pagoPersona'], urlSql, data['responsable'], data['numRemission'], data['numCompra'] ))
+                    (data['cantidad'], data['pagoPersona'], urlSql, data['responsable'], data['numRemission'], data['numCompra'], urlSqlEntrega, urlSqlIne ))
         mysql.connection.commit()        
         cur.execute('''UPDATE PROCESO SET fechaConcluido = current_timestamp() WHERE numRemision = %s and numCompra = %s and accion = %s and fechaConcluido IS NULL
             ''', (data['numRemission'], data['numCompra'], 'Entrega'))

@@ -388,7 +388,8 @@ def addDevolution(idRemission, idCompra):
             'numRemision' : idRemission,
             'numCompra' : idCompra,
             'descripcion' : request.form['detail'],
-            'cantidadBonificada' : request.form['mount']
+            'cantidadBonificada' : request.form['mount'],
+            'resolution' : request.form['resolution']
         }        
 
         registerDevolution(mysql, data)

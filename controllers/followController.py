@@ -71,8 +71,8 @@ def registerDevolution (mysql, data):
     cur = mysql.connection.cursor()
 
     try:
-        cur.execute('''INSERT INTO DEVOLUCION (descripcion, cantidadBonificada, numRemision, numCompra) VALUES(%s, %s, %s, %s)
-                    ''', (data['descripcion'], data['cantidadBonificada'], data['numRemision'], data['numCompra']))
+        cur.execute('''INSERT INTO DEVOLUCION (descripcion, cantidadBonificada, numRemision, numCompra, resolution) VALUES(%s, %s, %s, %s)
+                    ''', (data['descripcion'], data['cantidadBonificada'], data['numRemision'], data['numCompra'], data['resolution']))
         mysql.connection.commit()
 
         cur.execute('''SELECT saldoBonificado, id FROM CLIENTE WHERE id = (
