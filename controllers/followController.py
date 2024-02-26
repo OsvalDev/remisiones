@@ -71,7 +71,7 @@ def registerDevolution (mysql, data):
     cur = mysql.connection.cursor()
 
     try:
-        cur.execute('''INSERT INTO DEVOLUCION (descripcion, cantidadBonificada, numRemision, numCompra, resolution) VALUES(%s, %s, %s, %s)
+        cur.execute('''INSERT INTO DEVOLUCION (descripcion, cantidadBonificada, numRemision, numCompra, resolution) VALUES(%s, %s, %s, %s, %s)
                     ''', (data['descripcion'], data['cantidadBonificada'], data['numRemision'], data['numCompra'], data['resolution']))
         mysql.connection.commit()
 
@@ -209,6 +209,25 @@ def addNoteWeb(mysql, data):
         mysql.connection.commit()
 
         return True
+    except Exception as e:
+        print(e)
+        return {'failed'}
+
+    finally:
+        cur.close()
+
+def addDetailBox(mysql, data):
+    cur = mysql.connection.cursor()
+    print( data )
+    try: 
+        for i in range(data['nFields']):
+            cur.execute('INSERT INTO CAJA VALUES(%s, %s, %s, %s)', (data['numRemision'], data['numCompra'], data['types'][i], int(data['cants'][i])))
+            mysql.connection.commit()
+        
+        cur.execute('UPDATE REMISION SET flete = %s WHERE numRemision = %s and numCompra = %s', (data['flete'], data['numRemision'], data['numCompra']))
+        mysql.connection.commit()
+
+        return True    
     except Exception as e:
         print(e)
         return {'failed'}

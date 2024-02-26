@@ -449,6 +449,29 @@ def addNote():
     else:
         return redirect(url_for('login'))
 
+@app.route('/boxes', methods= ['POST'])
+def detailBoxes():
+    user = verifyUser()
+
+    if user[0]:
+        data = {
+            'types' : [],
+            'cants' : [],
+            'nFields' : int(request.form['numFields']),
+            'flete' : request.form['fleteval'],
+            'numRemision' : request.form['numRemision'],
+            'numCompra' : request.form['numCompra']          
+        }
+
+        for i in range(1, data['nFields'] + 1 ):
+            data['types'].append( request.form['type'+str(i)] )
+            data['cants'].append( request.form['cant'+str(i)] )
+
+        addDetailBox(mysql, data)
+        urlDetail = '/registro/remission/' + str(data['numRemision']) + '/' + str(data['numCompra'])
+        return redirect(urlDetail)
+    else:
+        return redirect(url_for('login'))
 @app.route('/uploadExcel', methods= ['POST'])
 def uploadExcel():
     user = verifyUser()

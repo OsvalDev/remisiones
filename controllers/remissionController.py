@@ -390,14 +390,15 @@ def getRemissionDetail(mysql, numRemision, numCompra):
         'surtimientoComment' : None,
         'logisticaComment' : None,
         'registroComment' : None,        
-        'notasPagos' : None,        
+        'notasPagos' : None,       
+        'boxes' : None 
     }
     
     cur = mysql.connection.cursor()
 
     try:
         cur.execute('''        
-            SELECT r.numRemision, r.numCompra, c.nombre, r.piezas, r.importeFacturado, r.importeRemisionado, r.saldoAFavor, r.fecha, c.clave, r.numFactura, r.estatus, r.autorizador
+            SELECT r.numRemision, r.numCompra, c.nombre, r.piezas, r.importeFacturado, r.importeRemisionado, r.saldoAFavor, r.fecha, c.clave, r.numFactura, r.estatus, r.autorizador, r.flete
             FROM REMISION AS r
             JOIN CLIENTE AS c ON r.cliente = c.id
             WHERE r.numRemision = %s and r.numCompra = %s
@@ -534,13 +535,18 @@ def getRemissionDetail(mysql, numRemision, numCompra):
             ''', (numRemision, numCompra))
             data['notasPagos'] = cur.fetchall()
 
-            #surtimiento
+            #devoluciones
             cur.execute('''                        
-                SELECT D.descripcion, D.cantidadBonificada, D.fecha
+                SELECT D.descripcion, D.cantidadBonificada, D.fecha, D.resolution
                 FROM DEVOLUCION AS D
                 WHERE D.numRemision = %s and D.numCompra = %s
             ''', (numRemision, numCompra))
-            data['devoluciones'] = cur.fetchall()            
+            data['devoluciones'] = cur.fetchall()
+
+            #cajas logisitca
+            cur.execute('SELECT tipo, cantidad FROM CAJA WHERE numRemision = %s and numCompra = %s',
+                        (numRemision, numCompra))
+            data['boxes'] = cur.fetchall()
 
             return data
         
