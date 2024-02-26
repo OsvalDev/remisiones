@@ -132,10 +132,16 @@
                                             
                                         {% if pago[5] %}                                            
                                                 <img class="w-60 active:w-[60vw] object-cover mb-4" src="{{ url_for('static', filename= pago[5]) }}" alt="FIRMA">
-                                                <img class="w-60 active:w-[60vw] object-cover mb-4" src="{{ url_for('static', filename= pago[8]) }}" alt="EVIDENCIA ENTREGA">
-                                                <img class="w-60 active:w-[60vw] object-cover mb-4" src="{{ url_for('static', filename= pago[9]) }}" alt="INE">
-                                            <P>Calidad: {% if pago[10] == 1 %} VALIDADO {% else %} INCONFORME {% endif %} </P>
-                                            <P>Cantidad: {% if pago[11] == 1 %} VALIDADO {% else %} INCONFORME {% endif %} </P>
+                                                {% if pago[8] %} 
+                                                    <img class="w-60 active:w-[60vw] object-cover mb-4" src="{{ url_for('static', filename= pago[8]) }}" alt="EVIDENCIA ENTREGA">
+                                                {% endif %}
+                                                {% if pago[9] %} 
+                                                    <img class="w-60 active:w-[60vw] object-cover mb-4" src="{{ url_for('static', filename= pago[9]) }}" alt="INE">
+                                                {% endif %}
+                                            {% if pago[10] != None %}   
+                                                <P>Calidad: {% if pago[10] == 1 %} VALIDADO {% else %} INCONFORME {% endif %} </P>
+                                                <P>Cantidad: {% if pago[11] == 1 %} VALIDADO {% else %} INCONFORME {% endif %} </P>
+                                            {% endif %}        
                                         {% endif %}
                                     {% endfor %}
                                 {% else %}
