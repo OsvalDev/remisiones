@@ -67,6 +67,22 @@ def updateAutorization (mysql, data):
     finally:
         cur.close()
 
+def registerFinalizado (mysql, data):
+    cur = mysql.connection.cursor()
+
+    try:
+        cur.execute('''UPDATE REMISION SET estatus = 7 WHERE numRemision = %s and numCompra = %s
+                    ''', (data['numRemision'], data['numCompra']))
+        mysql.connection.commit()
+
+        return True
+    except Exception as e:
+        print(e)
+        return False
+
+    finally:
+        cur.close()
+
 def registerDevolution (mysql, data):
     cur = mysql.connection.cursor()
 

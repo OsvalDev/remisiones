@@ -147,7 +147,7 @@
                         <div class="flex flex-wrap items-center mb-4">
                         
                         <p class="font-bold text-xl px-4 py-2 inline-block">Devoluciones</p>                                            
-                        {% if devolutionDate[0] %}
+                        {% if devolutionDate[0] and data['solicitud'] == None %}
                             <div class="sm:w-fit w-screen ">
                                 <button data-modal-target="devolution-modal" data-modal-toggle="devolution-modal" class="px-4 py-2 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600" type="button">
                                     Notificar
@@ -183,7 +183,7 @@
                             </div>
                         {% endif %}  
                         </div>                                                                          
-                        <p>Fecha limite para pedir una devolucion <strong> {{ devolutionDate[2] }} </strong> </p>
+                        <p>Fecha limite para pedir una devolucion <br> <strong> {{ devolutionDate[2] }} </strong> </p>
 
                         {% if data['solicitud'] %}
                             <div class="w-full">
@@ -194,8 +194,7 @@
 
                         {% if data['devoluciones'] %}     
                             {% for devolucion in data['devoluciones'] %}
-                                <p class="font-bold text-xl sm:px-4 py-2">Fecha: {{ devolucion[2] }} </p>                                                                
-                                <p>Motivo: {{ devolucion[0] }} </p>                                
+                                <p class="font-bold text-xl sm:px-4 py-2">Fecha de respuesta: {{ devolucion[2] }} </p>                                                                                                
                                 <p>Monto bonificado: ${{ devolucion[1] }} </p>
                                 <p>Acuerdo final: {{ devolucion[3] }} </p>
                             {% endfor %} 

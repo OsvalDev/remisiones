@@ -18,6 +18,12 @@ if (document.getElementById('btn-confirmDeliver'))
 if (document.getElementById('close-confirmDeliver'))
     document.getElementById('close-confirmDeliver').onclick = () => switchVisible('popover-confirmDeliver');
 
+    if (document.getElementById('btn-end'))
+    document.getElementById('btn-end').onclick = () => switchVisible('popover-end');
+
+if (document.getElementById('close-end'))
+    document.getElementById('close-end').onclick = () => switchVisible('popover-end');
+
 //Logistic
 if (document.getElementById('btn-endConfirmLog'))
     document.getElementById('btn-endConfirmLog').onclick = () => switchVisible('popover-endConfirmLog');
