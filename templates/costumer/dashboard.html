@@ -13,13 +13,13 @@
                 <div class="flex items-center mb-4">
                     {% if active == 'active' %}
                     <div class="absolute left-8 ">
-                        <a href="/cliente/inicio/active" class="rounded-l-lg bg-pink-600 px-4 py-2 hover:bg-pink-200 m-0 text-white font-bold   ">Actuales</a>
-                        <a href="/cliente/inicio/historial" class="rounded-r-lg bg-pink-300 px-4 py-2 hover:bg-pink-200 m-0 text-white font-bold">Historial</a>
+                        <a href="/registro/cliente/inicio/active" class="rounded-l-lg bg-pink-600 px-4 py-2 hover:bg-pink-200 m-0 text-white font-bold   ">Actuales</a>
+                        <a href="/registro/cliente/inicio/historial" class="rounded-r-lg bg-pink-300 px-4 py-2 hover:bg-pink-200 m-0 text-white font-bold">Historial</a>
                     </div>
                     {% else %}
                     <div class="absolute left-8 ">
-                        <a href="/cliente/inicio/active" class="rounded-l-lg bg-pink-300 px-4 py-2 hover:bg-pink-200 m-0 text-white font-bold">Actuales</a>
-                        <a href="/cliente/inicio/historial" class="rounded-r-lg bg-pink-600 px-4 py-2 hover:bg-pink-200 m-0 text-white font-bold   ">Historial</a>
+                        <a href="/registro/cliente/inicio/active" class="rounded-l-lg bg-pink-300 px-4 py-2 hover:bg-pink-200 m-0 text-white font-bold">Actuales</a>
+                        <a href="/registro/cliente/inicio/historial" class="rounded-r-lg bg-pink-600 px-4 py-2 hover:bg-pink-200 m-0 text-white font-bold   ">Historial</a>
                     </div>
                     {% endif %}
                     <p class="font-bold text-xl mx-8">Lista de remisiones {% if active == 'active' %}Activas {% else %}Pasadas {% endif %} </p>

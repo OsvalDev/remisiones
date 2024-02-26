@@ -8,7 +8,14 @@
         {% include 'partials/header.html' %}
         
         <div class="flex flex-wrap justify-center h-[90vh] pt-8 pb-4">
-                        
+            <div class="sm:absolute sm:top-24 sm:left-8 flex items-center">
+                <a href="/registro/cliente/inicio/active" class="rounded-l-lg bg-pink-600 p-4 inline-block w-fit h-fit hover:bg-pink-200 m-0 text-white ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4" viewBox="0 0 448 512" >
+                        <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+                    </svg>
+                </a>
+                <a href="#devolucionesGo" class="rounded-r-lg bg-pink-600 px-2 py-3 hover:bg-pink-200 m-0 text-white font-bold">Devolucion</a>
+            </div>            
             <div class="sm:w-[90vw] w-screen px-4 flex flex-col items-center">
                 <!-- Detail base -->
                 <div class="w-full sm:w-3/4 flex flex-wrap justify-between mb-8">
@@ -41,7 +48,9 @@
                             <p>Saldo bonificado : ${{ data['baseData'][6] }}</p>
                             <p>Fecha de registro : {{ data['baseData'][7] }}</p>                            
                         </div>
-
+                        {% if data['baseData'][10] == 7 %}
+                            <p class="font-bold text-3xl">REMISION FINALIZADA</p>
+                        {% endif %}
                     </div>
                 </div>
                 
@@ -146,7 +155,7 @@
                     <div class="sm:ml-12 sm:px-8 mb-4 ">                                                
                         <div class="flex flex-wrap items-center mb-4">
                         
-                        <p class="font-bold text-xl px-4 py-2 inline-block">Devoluciones</p>                                            
+                        <p class="font-bold text-xl px-4 py-2 inline-block" id="devolucionesGo">Devoluciones</p>                                            
                         {% if devolutionDate[0] and data['solicitud'] == None %}
                             <div class="sm:w-fit w-screen ">
                                 <button data-modal-target="devolution-modal" data-modal-toggle="devolution-modal" class="px-4 py-2 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600" type="button">
