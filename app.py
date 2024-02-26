@@ -627,7 +627,7 @@ def changuePSW():
         }
         result = changuePSWF(mysql, data)
         
-        return redirect('/cliente/inicio/active')
+        return redirect('/registro/cliente/inicio/active')
     else:
         return redirect(url_for('getMainCostumer'))
 @app.route('/cliente/inicio/<status>')
