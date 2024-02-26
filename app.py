@@ -624,5 +624,34 @@ def dashboardCostumer(status):
     else:
         return redirect(url_for('getMainCostumer'))
 
+@app.route('/cliente/inicio/remission/<idRemission>/<idCompra>')
+def remissionDetailCostumer(idRemission, idCompra):
+    user = verifyCostumer()
+    if user[0]:
+        result = getRemissionDetail(mysql, idRemission, idCompra)
+        devolutionDate = verifyYetDevolution(mysql, idRemission, idCompra)         
+        
+        return render_template('costumer/remissionDetail.html', user = user[1], data = result, devolutionDate = devolutionDate)
+    else:
+        return redirect(url_for('getMainCostumer'))
+    
+@app.route('/cliente/addDevolution/<idRemission>/<idCompra>', methods = ['POST'] )
+def addDevolutionCostumer(idRemission, idCompra):
+
+    user = verifyUser()
+
+    if user[0]:
+        data = {            
+            'numRemision' : idRemission,
+            'numCompra' : idCompra,
+            'descripcion' : request.form['detail'],            
+        }        
+
+        registerDevolutioncostumer(mysql, data)
+        urlDetail = '/registro/cliente/inicio/remission/' + str(idRemission) + '/' + str(idCompra)
+        return redirect(urlDetail)
+    else:
+        return redirect(url_for('login'))
+
 if __name__ == '__main__':
     app.run()

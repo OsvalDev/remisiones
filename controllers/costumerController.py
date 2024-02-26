@@ -37,3 +37,19 @@ def changuePSWF (mysql, data):
 
     finally:
         cur.close()
+    
+def registerDevolutioncostumer (mysql, data):
+    cur = mysql.connection.cursor()
+
+    try:
+        cur.execute('''INSERT INTO SOLICITUD (numRemision, numCompra, detalle) VALUES(%s, %s, %s)
+                    ''', (data['numRemision'], data['numCompra'], data['descripcion']))
+        mysql.connection.commit()        
+
+        return True
+    except Exception as e:
+        print(e)
+        return False
+
+    finally:
+        cur.close()

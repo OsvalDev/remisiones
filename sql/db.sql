@@ -177,6 +177,14 @@ CREATE TABLE CAJA(
     FOREIGN KEY(numCompra, numRemision) REFERENCES REMISION(numCompra, numRemision)
 );
 
+CREATE TABLE SOLICITUD(
+    numRemision VARCHAR(100) NOT NULL,
+    numCompra VARCHAR(100) NOT NULL,
+    detalle VARCHAR(500) NOT NULL,
+    PRIMARY KEY (numCompra, numRemision),
+    FOREIGN KEY(numCompra, numRemision) REFERENCES REMISION(numCompra, numRemision)
+);
+
 INSERT INTO AREA(id, nombre) VALUES 
 (1, 'ventas'),
 (2, 'logistica'),

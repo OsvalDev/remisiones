@@ -1,6 +1,7 @@
 import pandas as pd
 import secrets
 import string
+from datetime import date, datetime, timedelta
 
 def getRemissions(mysql):
     cur = mysql.connection.cursor()
@@ -34,7 +35,7 @@ def getRemissionsCostumer(mysql, active, clave):
                 FROM REMISION AS r
                 JOIN CLIENTE AS c ON r.cliente = c.id
                 JOIN ESTATUS AS e ON e.id = r.estatus
-                WHERE c.clave = %s
+                WHERE c.clave = %s AND r.estatus <> 7
                 ORDER BY r.fecha DESC
             ''', (clave, ))
         else:
@@ -295,6 +296,26 @@ def getCostumersActiveData(mysql):
     finally:
         cur.close()
 
+def verifyYetDevolution(mysql, numRemision, numCompra):
+    cur = mysql.connection.cursor()
+    try:            
+        cur.execute('SELECT fechaConcluido FROM PROCESO WHERE accion = "Entrega" and numRemision = %s and numCompra = %s', (numRemision, numCompra))
+        fecha_mysql = cur.fetchone()[0]
+        fecha_mysql = datetime.strptime(str(fecha_mysql), "%Y-%m-%d").date()
+        
+        fecha_actual = date.today()    
+        fecha_limite = fecha_actual + timedelta(days=2)
+        
+        if fecha_mysql <= fecha_actual <= fecha_limite:
+            return [True, fecha_mysql, fecha_limite]
+        else:
+            return [False, fecha_mysql, fecha_limite]
+    except Exception as e:
+        print(e)
+        return False
+
+    finally:
+        cur.close()
 def addRemission(mysql, data):    
     cur = mysql.connection.cursor()
     try:                
@@ -391,7 +412,8 @@ def getRemissionDetail(mysql, numRemision, numCompra):
         'logisticaComment' : None,
         'registroComment' : None,        
         'notasPagos' : None,       
-        'boxes' : None 
+        'boxes' : None,
+        'solicitud' : None
     }
     
     cur = mysql.connection.cursor()
@@ -548,6 +570,11 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                         (numRemision, numCompra))
             data['boxes'] = cur.fetchall()
 
+            #solicitud devolucion
+            cur.execute('SELECT detalle FROM SOLICITUD WHERE numRemision = %s and numCompra = %s',
+                        (numRemision, numCompra))
+            data['solicitud'] = cur.fetchone()
+            
             return data
         
         else:
@@ -666,3 +693,4 @@ def processExcel(mysql, file):
     except Exception as e:
         print(f"Error processing Excel file: {e}")
         return False
+    

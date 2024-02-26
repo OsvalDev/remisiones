@@ -1,0 +1,212 @@
+{% extends 'partials/base.html' %}
+
+{% block body %}
+    
+    <body class="w-screen flex justify-center items-center flex-col overflow-x-hidden">
+        {% set userHeader = user %}
+        {% set showAPK = False %}
+        {% include 'partials/header.html' %}
+        
+        <div class="flex flex-wrap justify-center h-[90vh] pt-8 pb-4">
+                        
+            <div class="sm:w-[90vw] w-screen px-4 flex flex-col items-center">
+                <!-- Detail base -->
+                <div class="w-full sm:w-3/4 flex flex-wrap justify-between mb-8">
+                    <div>
+                        <p class="text-2xl py-2 font-semibold"># remision : <strong> {{ data['baseData'][0] }}</strong></p>
+                        <p class="text-xl font-semibold"># compra : <strong>{{ data['baseData'][1] }} </strong> </p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-semibold py-2 sm:px-4">Cliente : <br class="block sm:hidden"> {{ data['baseData'][2] }}</p>
+                    </div>
+                                        
+                </div>
+
+                <!-- Detail  -->
+                <div class="w-full sm:w-3/4">
+                    <div class="flex flex-wrap items-center mb-4">
+                        <div class="w-12 h-12 flex justify-center items-center bg-pink-600 rounded-full text-white">
+                            <p>1</p>
+                        </div>
+                        
+                        <p class="font-bold text-xl px-4 py-2">Detalle de entrega</p>                        
+                        
+                    </div>
+                    <div class="border-l-gray-600 {% if data['baseData'][10] != 1 %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4 flex flex-wrap">
+                        <div class="w-full sm:w-1/2">
+                            <p># factura : {{ data['baseData'][9] }}</p>
+                            <p>Piezas : {{ data['baseData'][3] }}</p>
+                            <p>Importe facturado : ${{ data['baseData'][4] }}</p>
+                            <p>Importe remisionado : ${{ data['baseData'][5] }}</p>
+                            <p>Saldo bonificado : ${{ data['baseData'][6] }}</p>
+                            <p>Fecha de registro : {{ data['baseData'][7] }}</p>                            
+                        </div>
+
+                    </div>
+                </div>
+                
+                <!-- Detail  -->
+                <div class="w-full sm:w-3/4">
+                    <div class="flex flex-wrap items-center mb-4">
+                        <div class="w-12 h-12 flex justify-center items-center {% if data['logistica'][0] %} bg-pink-600 {% else %} bg-gray-600 {% endif %} rounded-full text-white">
+                            <p>2</p>
+                        </div>
+                        
+                        <p class="font-bold text-xl px-4 py-2">Detalle de logistica</p>
+                        
+                    </div>
+
+                    <div class="border-l-gray-600 {% if data['logistica'][1] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">
+                        <div class="flex flex-wrap">
+                            <div class="w-full sm:w-1/2">
+                                <p>Fecha de entrega <strong> {{ devolutionDate[1] }} </strong> </p>
+                                {% if data['logistica'] %}                                         
+                                    {% if data['parcelDelivery'] %}
+                                        <p> <strong>Entregado</strong> por paqueteria {{ data['parcelDelivery'][1] }} </p>
+                                        <p>Entrega: {{ data['parcelDelivery'][2] }} </p>
+                                        <p>Registrado por: {{ data['parcelDelivery'][0] }} </p>
+                                    {% else %}
+                                        <p>Chofer: {{ data['chofer'][0] }} </p>
+                                    {% endif %}
+                                {% else %}
+                                    <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
+                                {% endif %}
+
+                                {% if data['boxes'] %}
+                                    {% if data['boxes'][0] %}
+                                        <p class="w-2/3 mt-4">Costo del flete: ${{ data['baseData'][12] }} </p>
+                                        <p class="font-semibold">Tipos de cajas y cantidad</p>
+                                        {% for caja in data['boxes'] %}
+                                            <p> {{ caja[0] }} : {{ caja[1] }} </p>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            {% if data['logisticaComment'] %}
+                                <div class="md:pl-20 sm:w-1/2">
+                                    <p class="font-bold text-xl px-4 py-2">Notas adicionales</p>
+                                    {% for nota in data['logisticaComment'] %}
+                                        <p>{{ nota[0] }} / {{ nota[1] }} </p>
+                                        <p>{{ nota[2] }}</p>            
+                                    {% endfor %}
+                                </div>
+                            {% endif %}   
+                        </div>                        
+                    </div>
+                </div>
+                
+                <!-- Detail  -->
+                <div class="w-full sm:w-3/4">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 flex justify-center items-center {% if data['pagos'][0] %} bg-pink-600 {% else %} bg-gray-600 {% endif %} rounded-full text-white">
+                            <p>3</p>
+                        </div>
+                        
+                        <p class="font-bold text-xl px-4 py-2">Registro de pagos</p>                        
+                                                
+                    </div>
+                    <div class="border-l-gray-600 {% if data['pagos'][0] %} border-l-pink-600 {% endif %} border-l-4 ml-6 px-8 mb-4">                        
+                        <div class="flex flex-wrap">
+                            <div class="w-full sm:w-1/2">
+                            
+                                {% if data['pagos'] %}
+                                    {% for pago in data['pagos'] %}
+                                        <div class="flex">
+                                            <p class="font-bold text-xl px-4 py-2">Id de pago: {{ pago[0] }} </p>                                            
+                                        </div>
+                                        {% if pago[2] %}
+                                            <p>Quien paga: {{ pago[2] }} </p>
+                                        {% endif %}
+                                        <p>Fecha: {{ pago[3] }} </p>
+                                        <p>Responsable: {{ pago[4] }} </p>
+                                        <p>Monto: <strong>${{ pago[1] }}</strong> </p>                                                                
+                                            
+                                        {% if pago[5] %}                                            
+                                                <img class="w-60 active:w-[60vw] object-cover mb-4" src="{{ url_for('static', filename= pago[5]) }}" alt="FIRMA">
+                                                <img class="w-60 active:w-[60vw] object-cover mb-4" src="{{ url_for('static', filename= pago[8]) }}" alt="EVIDENCIA ENTREGA">
+                                                <img class="w-60 active:w-[60vw] object-cover mb-4" src="{{ url_for('static', filename= pago[9]) }}" alt="INE">
+                                            <P>Calidad: {% if pago[10] == 1 %} VALIDADO {% else %} INCONFORME {% endif %} </P>
+                                            <P>Cantidad: {% if pago[11] == 1 %} VALIDADO {% else %} INCONFORME {% endif %} </P>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="font-bold text-xl px-4 py-2">Sin datos registrados</p>
+                                {% endif %}   
+                            </div>                                                                        
+                        </div>                        
+                    </div>
+                </div>
+                
+                <div class="w-full sm:w-3/4">
+                    <div class="flex items-center mb-4">                                            
+                        <p class="font-bold text-xl px-4 py-2">Adicionales</p>
+                        <br>
+                        
+                    </div>
+                    <div class="sm:ml-12 sm:px-8 mb-4 ">                                                
+                        <div class="flex flex-wrap items-center mb-4">
+                        
+                        <p class="font-bold text-xl px-4 py-2 inline-block">Devoluciones</p>                                            
+                        {% if devolutionDate[0] %}
+                            <div class="sm:w-fit w-screen ">
+                                <button data-modal-target="devolution-modal" data-modal-toggle="devolution-modal" class="px-4 py-2 shadow-lg bg-pink-400 rounded-full text-white hover:bg-pink-600" type="button">
+                                    Notificar
+                                </button>
+                                                        
+                                <div id="devolution-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div class="relative p-4 w-full max-w-2xl max-h-full">                                
+                                        <div class="relative bg-white rounded-lg shadow">                                    
+                                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                                <h3 class="text-xl font-semibold text-gray-900">
+                                                    Agregar devolucion
+                                                </h3>
+                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="devolution-modal">
+                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                            </div>
+                                            
+                                            <div class="p-4 md:p-5 space-y-4">
+                                                <form action="/registro/cliente/addDevolution/{{ data['baseData'][0] }}/{{ data['baseData'][1] }}" method="post" >
+                                                    <label for="detail" class="block mb-2 text-sm font-medium text-gray-900 ">Detalle de devolucion</label>
+                                                    <textarea id="detail" name="detail" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-pink-500 focus:border-pink-500" placeholder="Detalla el problema..."></textarea>
+
+                                                    <button data-modal-hide="devolution-modal" type="submit" class="text-white bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4">Aceptar</button>
+                                                </form>      
+                                            </div>
+                                                                                    
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>
+                        {% endif %}  
+                        </div>                                                                          
+                        <p>Fecha limite para pedir una devolucion <strong> {{ devolutionDate[2] }} </strong> </p>
+
+                        {% if data['solicitud'] %}
+                            <div class="w-full">
+                                <p class="font-bold">Solucitud de devolucion: </p>
+                                <p> {{ data['solicitud'][0] }} </p>
+                            </div>
+                        {% endif %}
+
+                        {% if data['devoluciones'] %}     
+                            {% for devolucion in data['devoluciones'] %}
+                                <p class="font-bold text-xl sm:px-4 py-2">Fecha: {{ devolucion[2] }} </p>                                                                
+                                <p>Motivo: {{ devolucion[0] }} </p>                                
+                                <p>Monto bonificado: ${{ devolucion[1] }} </p>
+                                <p>Acuerdo final: {{ devolucion[3] }} </p>
+                            {% endfor %} 
+                        {% else %}
+                            <p class="font-bold sm:text-xl text-sm sm:px-4 py-2">No hay devoluciones para esta remision</p>
+                        {% endif %}
+                    </div>
+                </div>                
+
+            </div>
+        </div>
+                      
+        <script src="{{ url_for('static', filename='js/addRemission.js') }}" type="module"></script>
+{% endblock %}

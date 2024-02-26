@@ -1009,7 +1009,12 @@
                             </div>
                         {% endif %}  
                         </div>                                                                          
-                        
+                        {% if data['solicitud'] %}
+                            <div class="w-full">
+                                <p class="font-bold">Solucitud de devolucion: </p>
+                                <p> {{ data['solicitud'][0] }} </p>
+                            </div>
+                        {% endif %}
                         {% if data['devoluciones'] %}     
                             {% for devolucion in data['devoluciones'] %}
                                 <p class="font-bold text-xl sm:px-4 py-2">Fecha: {{ devolucion[2] }} </p>                                                                
