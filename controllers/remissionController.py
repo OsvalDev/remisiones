@@ -304,7 +304,7 @@ def verifyYetDevolution(mysql, numRemision, numCompra):
         fecha_mysql = datetime.strptime(str(fecha_mysql), "%Y-%m-%d").date()
         
         fecha_actual = date.today()    
-        fecha_limite = fecha_actual + timedelta(days=2)
+        fecha_limite = fecha_mysql + timedelta(days=2)
         
         if fecha_mysql <= fecha_actual <= fecha_limite:
             return [True, fecha_mysql, fecha_limite]
