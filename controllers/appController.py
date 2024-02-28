@@ -166,3 +166,17 @@ def registerNote(mysql, data):
 
     finally:
         cur.close()
+
+def getNotesPrivate(mysql, data):
+    cur = mysql.connection.cursor()
+    try:                
+        cur.execute('''SELECT contenido FROM NOTAPRIVADA WHERE numRemision = %s and numCompra = %s''', (data['numRemission'], data['numCompra']) )
+        notas = cur.fetchall()
+
+        return {'result' : 'success', 'msg' : notas}
+    except Exception as e:
+        print(e)
+        return {'result' : 'failed', 'msg' : []}
+
+    finally:
+        cur.close()

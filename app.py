@@ -575,6 +575,13 @@ def postNote():
     
     return jsonify( result )
 
+@app.route('/notePrivate', methods= ['POST'])
+def postNotePrivate():
+    data = request.get_json()    
+    result = getNotesPrivate(mysql, data)
+    
+    return jsonify( result )
+
 #-------------------------------------------------------------
 #routes for costumer site
 @app.route('/cliente')

@@ -89,6 +89,17 @@ CREATE TABLE NOTAENTREGA(
     FOREIGN KEY(usuario) REFERENCES USUARIO(id)
 );
 
+CREATE TABLE NOTAPRIVADA(
+    numRemision VARCHAR(100) NOT NULL,
+    numCompra VARCHAR(100) NOT NULL,
+    fecha TIMESTAMP NOT NULL DEFAULT current_timestamp(),
+    contenido VARCHAR(500) NOT NULL,
+    usuario INT NOT NULL
+    PRIMARY KEY(numCompra, numRemision, fecha),
+    FOREIGN KEY(numCompra, numRemision) REFERENCES REMISION(numCompra, numRemision),
+    FOREIGN KEY(usuario) REFERENCES USUARIO(id)
+);
+
 CREATE TABLE DEVOLUCION(
     id INT AUTO_INCREMENT,
     descripcion VARCHAR(500) NOT NULL,
