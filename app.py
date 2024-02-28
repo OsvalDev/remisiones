@@ -41,8 +41,7 @@ def dashboard():
     if user[0]:
         remissionList = getRemissions(mysql)
         costumerList = getActiveCostumerList(mysql)['data']
-        estatusList = getEstatusList(mysql)['data']
-        print(remissionList)
+        estatusList = getEstatusList(mysql)['data']        
         return render_template('dashboard.html', user = user[1], canDo = user[2], remissionList = remissionList, costumers = costumerList, estatusList = estatusList)
     else:
         return redirect(url_for('login'))
@@ -81,8 +80,7 @@ def supply():
         data = getRemissionsToSupply(mysql)
         costumerList = getActiveCostumerList(mysql)['data']
         estatusList = getEstatusList(mysql)['data']
-        admin = verifyAdmin(mysql, user[0])
-        print(data)
+        admin = verifyAdmin(mysql, user[0])        
         return render_template('supply.html', user = user[1], admin = admin , canDo = user[2], data = data[0], existDate = data[1], costumers = costumerList, estatusList = estatusList)
     else:
         return redirect(url_for('login'))
@@ -95,7 +93,6 @@ def logistics():
         costumerList = getActiveCostumerList(mysql)['data']
         estatusList = getEstatusList(mysql)['data']
         admin = verifyAdmin(mysql, user[0])
-        print(data)
         return render_template('logistics.html', user = user[1], admin = admin , canDo = user[2],  data = data[0], existDate = data[1], costumers = costumerList, estatusList = estatusList)
     else:
         return redirect(url_for('login'))
@@ -135,7 +132,6 @@ def remissionList(idRemission, idCompra):
     if user[0]:
         admin = verifyAdmin(mysql, user[0])
         choferes = getChoferes(mysql)
-        print(result)        
         return render_template('remissionDetail.html', user = user[1], admin = admin , canDo = user[2], data = result, choferes = choferes)
     else:
         return redirect(url_for('login'))
@@ -664,7 +660,6 @@ def dashboardCostumer(status):
         if changuedPSW:
             return render_template('costumer/changuePSW.html')
         remissionList = getRemissionsCostumer(mysql,status, user[0] )
-        print(remissionList)
         return render_template('costumer/dashboard.html', user = user[1], remissionList = remissionList, active = status, changuedPSW = changuedPSW)
     else:
         return redirect(url_for('getMainCostumer'))
