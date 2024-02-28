@@ -232,6 +232,20 @@ def addNoteWeb(mysql, data):
     finally:
         cur.close()
 
+def addNoteChofer(mysql, data):
+    cur = mysql.connection.cursor()                    
+    try:
+        cur.execute('INSERT INTO NOTAPRIVADA VALUES (%s, %s, CURRENT_TIMESTAMP, %s, %s)', (data['numRemision'], data['numCompra'], data['content'], data['id']))
+        mysql.connection.commit()
+
+        return True
+    except Exception as e:
+        print(e)
+        return False
+
+    finally:
+        cur.close()
+
 def addDetailBox(mysql, data):
     cur = mysql.connection.cursor()
     print( data )

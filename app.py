@@ -469,6 +469,24 @@ def addNote():
     else:
         return redirect(url_for('login'))
 
+@app.route('/noteChofer', methods= ['POST'])
+def noteChofer():
+    user = verifyUser()
+
+    if user[0]:
+        data = {
+            'id' : user[0],
+            'content' : request.form['detail'],
+            'numRemision' : request.form['numRemision'],
+            'numCompra' : request.form['numCompra'],                        
+        }
+        addNoteChofer(mysql, data)
+
+        urlDetail = '/registro/remission/' + str(data['numRemision']) + '/' + str(data['numCompra'])
+        return redirect(urlDetail)
+    else:
+        return redirect(url_for('login'))
+
 @app.route('/boxes', methods= ['POST'])
 def detailBoxes():
     user = verifyUser()
