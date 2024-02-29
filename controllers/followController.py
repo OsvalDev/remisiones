@@ -51,6 +51,22 @@ def registerEnd (mysql, data):
     finally:
         cur.close()
 
+def registerAuditoriaVal (mysql, data):
+    cur = mysql.connection.cursor()
+
+    try:
+        # cur.execute('''UPDATE PROCESO SET fechaConcluido = current_timestamp() WHERE accion = %s and numRemision = %s and numCompra = %s
+        #             ''', (data['accion'], data['numRemision'], data['numCompra']))
+        # mysql.connection.commit()
+
+        return True
+    except Exception as e:
+        print(e)
+        return {'failed'}
+
+    finally:
+        cur.close()
+
 def updateAutorization (mysql, data):
     cur = mysql.connection.cursor()
 

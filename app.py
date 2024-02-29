@@ -351,6 +351,25 @@ def endommit(idRemission, idCompra):
     else:
         return redirect(url_for('login'))
 
+@app.route('/auditoriaVal/<idRemission>/<idCompra>', methods = ['POST'] )
+def auditoriaVal(idRemission, idCompra):
+
+    user = verifyUser()
+
+    if user[0]:
+        data = {
+            'numRemision' : idRemission,
+            'numCompra' : idCompra
+        }        
+
+        registerAuditoriaVal(mysql, data)
+        if request.form['origin'] == 'many':
+            print('many auditoria')
+        else:
+            urlDetail = '/registro/remission/' + str(idRemission) + '/' + str(idCompra)
+        return redirect(urlDetail)
+    else:
+        return redirect(url_for('login'))
 @app.route('/finalizar/<idRemission>/<idCompra>', methods = ['POST'] )
 def finalizar(idRemission, idCompra):
 
