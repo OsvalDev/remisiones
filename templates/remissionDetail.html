@@ -807,6 +807,10 @@
                             <div class="w-full sm:w-1/2">
                                 {% if data['auditoria'] %}     
                                     <p class="font-bold ">Autorizado</p>
+                                    {% for aud in data['auditoria'] %}
+                                        <p> {{aud[0]}} - {{aud[2]}} </p>
+                                        <p> {{aud[1]}} </p>
+                                    {% endfor %}
                                 {% endif %}
 
                                 {% if data['boxes'] %}

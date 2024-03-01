@@ -413,7 +413,8 @@ def getRemissionDetail(mysql, numRemision, numCompra):
         'registroComment' : None,        
         'notasPagos' : None,       
         'boxes' : None,
-        'solicitud' : None
+        'solicitud' : None,
+        'auditoria' : None
     }
     
     cur = mysql.connection.cursor()
@@ -575,6 +576,9 @@ def getRemissionDetail(mysql, numRemision, numCompra):
                         (numRemision, numCompra))
             data['solicitud'] = cur.fetchone()
             
+            #informacion de la auditoria
+            cur.execute('SELECT usuario, comentario, fecha FROM AUDITORIA WHERE numRemision = %s and numCompra = %s', (numRemision, numCompra))
+            data['auditoria'] = cur.fetchall()
             return data
         
         else:
