@@ -196,6 +196,17 @@ CREATE TABLE SOLICITUD(
     FOREIGN KEY(numCompra, numRemision) REFERENCES REMISION(numCompra, numRemision)
 );
 
+CREATE TABLE AUDITORIA(
+    numRemision VARCHAR(100) NOT NULL,
+    numCompra VARCHAR(100) NOT NULL,
+    fecha TIMESTAMP NOT NULL DEFAULT current_timestamp(),
+    usuario INT NOT NULL,
+    comentario VARCHAR(500) NULL,
+    PRIMARY KEY(numCompra, numRemision),
+    FOREIGN KEY(numCompra, numRemision) REFERENCES REMISION(numCompra, numRemision),
+    FOREIGN KEY(usuario) REFERENCES USUARIO(id)
+);
+
 INSERT INTO AREA(id, nombre) VALUES 
 (1, 'ventas'),
 (2, 'logistica'),

@@ -359,7 +359,9 @@ def auditoriaVal(idRemission, idCompra):
     if user[0]:
         data = {
             'numRemision' : idRemission,
-            'numCompra' : idCompra
+            'numCompra' : idCompra,
+            'comentario' : request.form['detail'],
+            'user' : user[0]
         }        
 
         registerAuditoriaVal(mysql, data)

@@ -55,14 +55,14 @@ def registerAuditoriaVal (mysql, data):
     cur = mysql.connection.cursor()
 
     try:
-        # cur.execute('''UPDATE PROCESO SET fechaConcluido = current_timestamp() WHERE accion = %s and numRemision = %s and numCompra = %s
-        #             ''', (data['accion'], data['numRemision'], data['numCompra']))
-        # mysql.connection.commit()
+        cur.execute('''INSERT INTO AUDITORIA(numRemision, numCompra, usuario, comentario) VALUES(%s, %s, %s, %s)
+                    ''', (data['numRemision'], data['numCompra'], data['user'], data['comentario']))
+        mysql.connection.commit()
 
         return True
     except Exception as e:
         print(e)
-        return {'failed'}
+        return False
 
     finally:
         cur.close()
