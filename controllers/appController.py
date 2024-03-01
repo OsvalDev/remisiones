@@ -96,12 +96,10 @@ def choferRemissionDetail(mysql, data):
 
 def registerPayment(mysql, data):
 
-    image_data = base64.b64decode(data['img'])
-    image_dataEntrega = base64.b64decode(data['imgEntrega'])
+    image_data = base64.b64decode(data['img'])    
     image_dataIne = base64.b64decode(data['imgIne'])
     
-    filename = 'payment' + datetime.now().strftime('%Y%m%d%H%M%S') + '.png'
-    filenameEntrega = 'entrega' + datetime.now().strftime('%Y%m%d%H%M%S') + '.png'
+    filename = 'payment' + datetime.now().strftime('%Y%m%d%H%M%S') + '.png'    
     filenameIne = 'ine' + datetime.now().strftime('%Y%m%d%H%M%S') + '.png'
         
     directory = 'static/comprobant/'
@@ -113,14 +111,6 @@ def registerPayment(mysql, data):
 
     with open(urlImg, 'wb') as f:
         f.write(image_data)
-        
-    urlImgEntrega = os.path.join(directory, filenameEntrega)
-    urlSqlEntrega = os.path.join("comprobant/", filenameEntrega)
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-
-    with open(urlImgEntrega, 'wb') as f:
-        f.write(image_dataEntrega)
 
     urlImgIne = os.path.join(directory, filenameIne)
     urlSqlIne = os.path.join("comprobant/", filenameIne)
@@ -134,7 +124,7 @@ def registerPayment(mysql, data):
     try:
         cur.execute('''INSERT INTO PAGO(cantidad, pagoPersona, comprobante, responsable, numRemision, numCompra, entregasrc, identificacionsrc, calidadval, cantidadval)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)''',
-                    (data['cantidad'], data['pagoPersona'], urlSql, data['responsable'], data['numRemission'], data['numCompra'], urlSqlEntrega, urlSqlIne, data['calidadVal'], data['cantidadVal'] ))
+                    (data['cantidad'], data['pagoPersona'], urlSql, data['responsable'], data['numRemission'], data['numCompra'], "", urlSqlIne, data['calidadVal'], data['cantidadVal'] ))
         mysql.connection.commit()        
         cur.execute('''UPDATE PROCESO SET fechaConcluido = current_timestamp() WHERE numRemision = %s and numCompra = %s and accion = %s and fechaConcluido IS NULL
             ''', (data['numRemission'], data['numCompra'], 'Entrega'))
