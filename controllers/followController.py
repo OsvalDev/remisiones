@@ -59,6 +59,10 @@ def registerAuditoriaVal (mysql, data):
                     ''', (data['numRemision'], data['numCompra'], data['user'], data['comentario']))
         mysql.connection.commit()
 
+        cur.execute('''UPDATE REMISION SET estatus = 9 WHERE numRemision = %s and numCompra = %s
+                    ''', (data['numRemision'], data['numCompra']))
+        mysql.connection.commit()
+
         return True
     except Exception as e:
         print(e)
