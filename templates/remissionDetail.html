@@ -811,6 +811,8 @@
                                         <p> {{aud[0]}} - {{aud[2]}} </p>
                                         <p> {{aud[1]}} </p>
                                     {% endfor %}
+                                {% else %}
+                                    <p>Sin auditoria realizada</p>
                                 {% endif %}
 
                                 {% if data['boxes'] %}
