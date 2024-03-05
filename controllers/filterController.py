@@ -64,12 +64,13 @@ def getRemissionByApi(mysql, data):
             params.append(dateEnd)
         
         if nRemision != '':
-            conditions.append('r.numRemision LIKE %s%')
-            params.append(nRemision)
+            conditions.append('r.numRemision LIKE %s')
+            params.append("%{}%".format(nRemision))
+
 
         if nCompra != '':
-            conditions.append('r.numCompra LIKE %s%')
-            params.append(nCompra)
+            conditions.append('r.numCompra LIKE %s')
+            params.append("%{}%".format(nCompra))
         
         whereClausure = ''
 
