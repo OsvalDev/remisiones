@@ -578,7 +578,7 @@ def getRemissionDetail(mysql, numRemision, numCompra):
             
             #informacion de la auditoria
             cur.execute('SELECT usuario, comentario, fecha FROM AUDITORIA WHERE numRemision = %s and numCompra = %s', (numRemision, numCompra))
-            data['auditoria'] = cur.fetchall()
+            data['auditoria'] = cur.fetchone()
             return data
         
         else:
