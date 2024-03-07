@@ -1101,7 +1101,9 @@
                                                     <img class="w-60 active:w-[60vw] object-cover mb-4" src="{{ url_for('static', filename= pago[8]) }}" alt="EVIDENCIA ENTREGA">
                                                 {% endif %}
                                                 {% if pago[9] %} 
-                                                    <img class="w-60 active:w-[60vw] object-cover mb-4" src="{{ url_for('static', filename= pago[9]) }}" alt="INE">
+                                                    {% if pago[9] != '' %} 
+                                                        <img class="w-60 active:w-[60vw] object-cover mb-4" src="{{ url_for('static', filename= pago[9]) }}" alt="INE">
+                                                    {% endif %}
                                                 {% endif %}
                                             {% if pago[10] != None %}   
                                                 <P>Calidad: {% if pago[10] == 1 %} VALIDADO {% else %} INCONFORME {% endif %} </P>
